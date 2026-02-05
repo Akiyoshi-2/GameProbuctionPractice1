@@ -1,6 +1,6 @@
 #include "OptionScene.h"
-//#include "../Input/Input.h"
-//#include "../SceneManager.h"
+#include "../../Input/Input.h"
+#include "../SceneManager.h"
 
 /*
 ここでやるべきこと
@@ -31,10 +31,10 @@ void StartOptionScene()
 void StepOptionScene()
 {
 	//ここに「C」を押したときにタイトルに戻るように書く
-	/*if (IsTriggerKey(KEY_C))
+	if (IsTriggerKey(KEY_C))
 	{
-		ChengeScene(SCENE_TITLE);
-	}*/
+		ChangeScene(SCENE_TITLE);
+	}
 }
 void UpdateOptionScene()
 {
