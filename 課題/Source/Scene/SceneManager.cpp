@@ -75,15 +75,15 @@ void InitScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-		
+		InitTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		InitOptionScene();
 		break;
 	}
 }
@@ -94,15 +94,15 @@ void LoadScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		LoadTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		LoadOptionScene();
 		break;
 	}
 }
@@ -113,15 +113,15 @@ void StartScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		StartTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		StartOptionScene();
 		break;
 	}
 }
@@ -132,15 +132,15 @@ void StepScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		StepTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		StepOptionScene();
 		break;
 	}
 }
@@ -151,15 +151,15 @@ void UpdateScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		UpdateTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		UpdateOptionScene();
 		break;
 	}
 }
@@ -170,15 +170,15 @@ void DrawScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		DrawTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		DrawOptionScene();
 		break;
 	}
 }
@@ -189,15 +189,15 @@ void FinScene()
 	switch (g_NowScene)
 	{
 	case SCENE_TITLE:	// タイトル
-
+		FinTitleScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
 
 		break;
 
-	case SCENE_OPTION:	// ゲームクリア
-
+	case SCENE_OPTION:	// オプション
+		FinOptionScene();
 		break;
 	}
 }
