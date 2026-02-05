@@ -19,7 +19,7 @@
     <Filter Include="Source\Scene\OptionScene">
       <UniqueIdentifier>{a0e1dc91-645d-440b-8931-94e1767e7fa1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Input">
+    <Filter Include="Source\Input">
       <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,7 +37,10 @@
       <Filter>Source\Scene\OptionScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Input\Input.cpp">
-      <Filter>Source\Scene\Input</Filter>
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneManager.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +57,10 @@
       <Filter>Source\Scene\OptionScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input\Input.h">
-      <Filter>Source\Scene\Input</Filter>
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneManager.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
