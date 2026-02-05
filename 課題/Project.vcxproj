@@ -139,7 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Scene\OptionScene\OptionScene.cpp" />
+    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp" />
+    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\GameSetting\GameSetting.h" />
+    <ClInclude Include="Source\Input\Input.h" />
+    <ClInclude Include="Source\Scene\OptionScene\OptionScene.h" />
+    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h" />
+    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

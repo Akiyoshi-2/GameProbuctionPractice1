@@ -4,10 +4,57 @@
     <Filter Include="Source">
       <UniqueIdentifier>{063f4ceb-d950-4ab4-aed1-cc4d5f660b8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GameSetting">
+      <UniqueIdentifier>{7a2de9ce-12fc-45f0-b429-38d63d4e698c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{631d885a-cd75-49a0-aab4-927cc7ec411b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\PlayScene">
+      <UniqueIdentifier>{b10b9ecc-59dc-449b-b92f-71536383b484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\TitleScene">
+      <UniqueIdentifier>{9b49adae-de14-40de-8b7f-e2d5eab99075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\OptionScene">
+      <UniqueIdentifier>{a0e1dc91-645d-440b-8931-94e1767e7fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Input">
+      <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp">
+      <Filter>Source\Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\OptionScene\OptionScene.cpp">
+      <Filter>Source\Scene\OptionScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Input.cpp">
+      <Filter>Source\Scene\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\GameSetting\GameSetting.h">
+      <Filter>Source\GameSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
+      <Filter>Source\Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\OptionScene\OptionScene.h">
+      <Filter>Source\Scene\OptionScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Source\Scene\Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
