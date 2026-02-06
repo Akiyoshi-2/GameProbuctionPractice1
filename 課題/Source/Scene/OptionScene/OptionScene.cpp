@@ -16,6 +16,12 @@ int g_GaugeHandle = -1;
 
 void InitOptionScene()
 {
+	//çƒèâä˙âª
+	g_OptionBGHandle = -1;
+	g_OptionUIHandle = -1;
+	g_BGMUIHandle = -1;
+	g_SEUIHndle = -1;
+	g_GaugeHandle = -1;
 }
 void LoadOptionScene()
 {
@@ -27,6 +33,7 @@ void LoadOptionScene()
 }
 void StartOptionScene()
 {
+
 }
 void StepOptionScene()
 {
@@ -38,11 +45,12 @@ void StepOptionScene()
 }
 void UpdateOptionScene()
 {
+
 }
 void DrawOptionScene()
 {
-//#define SCREEN_WIDTH (1600)		// âÊñ ÇÃâ°ïù
-//#define SCREEN_HEIGHT (900)		// âÊñ ÇÃçÇÇ≥
+	// SCREEN_WIDTH (1600)
+	// SCREEN_HEIGHT (900)
 	DrawGraph(0, 0, g_OptionBGHandle, TRUE);
 	DrawGraph(800, 150, g_OptionUIHandle, TRUE);
 	DrawGraph(500, 400, g_BGMUIHandle, TRUE);
