@@ -52,11 +52,11 @@ void DrawOptionScene()
 	// SCREEN_WIDTH (1600)
 	// SCREEN_HEIGHT (900)
 	DrawGraph(0, 0, g_OptionBGHandle, TRUE);
-	DrawGraph(800, 150, g_OptionUIHandle, TRUE);
-	DrawGraph(500, 400, g_BGMUIHandle, TRUE);
-	DrawGraph(500, 600, g_SEUIHndle, TRUE);
-	DrawGraph(200, 400, g_GaugeHandle, TRUE);
-	DrawGraph(200, 600, g_GaugeHandle, TRUE);
+	DrawGraph(100, 150, g_OptionUIHandle, TRUE);
+	DrawGraph(300, 400, g_BGMUIHandle, TRUE);
+	DrawGraph(300, 600, g_SEUIHndle, TRUE);
+	DrawGraph(500, 400, g_GaugeHandle, TRUE);
+	DrawGraph(500, 600, g_GaugeHandle, TRUE);
 }
 void FinOptionScene()
 {
