@@ -12,11 +12,8 @@ void InitTitleScene()
 
 void LoadTitleScene()
 {
-	int bgHandle = LoadGraph("Data/Title/BG.png");
-	int textHandle = LoadGraph("Data/Title/TitleText.png");
-
-	g_TitleBGHandle = bgHandle;
-	g_TitleTextHandle = textHandle;
+	g_TitleBGHandle = LoadGraph("Data/Title/BG.png");
+	g_TitleTextHandle = LoadGraph("Data/Title/TitleText.png");
 }
 
 void StartTitleScene()

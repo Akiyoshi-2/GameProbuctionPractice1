@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "GameSetting/GameSetting.h"
 #include "Input/Input.h"
+#include "Scene/SceneManager.h"
 
 
 // プログラムは WinMain から始まります
@@ -42,7 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		UpdateInput();
 
 		// シーン管理の更新
-
+		SceneManagerUpdate();
 
 		// 入力システムの描画
 		DrawInput();

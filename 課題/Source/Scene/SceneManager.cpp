@@ -79,7 +79,7 @@ void InitScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		InitPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -98,7 +98,7 @@ void LoadScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		LoadPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -117,7 +117,7 @@ void StartScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		StartPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -136,7 +136,7 @@ void StepScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		StepPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -155,7 +155,7 @@ void UpdateScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		UpdatePlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -174,7 +174,7 @@ void DrawScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		DrawPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
@@ -193,7 +193,7 @@ void FinScene()
 		break;
 
 	case SCENE_PLAY:	// プレイ
-
+		FinPlayScene();
 		break;
 
 	case SCENE_OPTION:	// オプション
