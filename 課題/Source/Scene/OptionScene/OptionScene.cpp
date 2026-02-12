@@ -26,7 +26,7 @@ void InitOptionScene()
 void LoadOptionScene()
 {
 	g_OptionBGHandle = LoadGraph("Data/Option/BG.png");
-	g_OptionBGHandle = LoadGraph("Data/Option/Option.png");
+	g_OptionUIHandle = LoadGraph("Data/Option/Option.png");
 	g_BGMUIHandle = LoadGraph("Data/Option/BGM.png");
 	g_SEUIHndle = LoadGraph("Data/Option/SE.png");
 	g_GaugeHandle = LoadGraph("Data/Option/Gauge.png");
@@ -52,11 +52,11 @@ void DrawOptionScene()
 	// SCREEN_WIDTH (1600)
 	// SCREEN_HEIGHT (900)
 	DrawGraph(0, 0, g_OptionBGHandle, TRUE);
-	DrawGraph(100, 150, g_OptionUIHandle, TRUE);
+	DrawGraph(550, 80, g_OptionUIHandle, TRUE);
 	DrawGraph(300, 400, g_BGMUIHandle, TRUE);
-	DrawGraph(300, 600, g_SEUIHndle, TRUE);
-	DrawGraph(500, 400, g_GaugeHandle, TRUE);
-	DrawGraph(500, 600, g_GaugeHandle, TRUE);
+	DrawGraph(330, 600, g_SEUIHndle, TRUE);
+	DrawGraph(500, 375, g_GaugeHandle, TRUE);
+	DrawGraph(500, 575, g_GaugeHandle, TRUE);
 }
 void FinOptionScene()
 {
