@@ -4,6 +4,7 @@
 enum Scene
 {
 	SCENE_TITLE,
+	SCENE_SELECT,
 	SCENE_PLAY,
 	SCENE_OPTION,
 };

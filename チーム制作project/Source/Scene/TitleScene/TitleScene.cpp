@@ -2,8 +2,9 @@
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
 
-int g_TitleBGHandle = -1;
-int g_TitleTextHandle = -1;
+int g_TestHandle = -1;
+
+//シーン切り替えをAnyKeyで行えるようにする
 
 void InitTitleScene()
 {
@@ -12,7 +13,7 @@ void InitTitleScene()
 
 void LoadTitleScene()
 {
-	
+	g_TestHandle = LoadGraph("Data/Title/タイトルだぞ.webp");
 }
 
 void StartTitleScene()
@@ -22,7 +23,12 @@ void StartTitleScene()
 
 void StepTitleScene()
 {
-	
+
+
+	if (IsTriggerKey(この中))
+	{
+		ChangeScene(SCENE_SELECT);
+	}
 }
 
 void UpdateTitleScene()

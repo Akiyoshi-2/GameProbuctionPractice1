@@ -143,6 +143,7 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\Scene\SceneManager.cpp" />
+    <ClCompile Include="Source\Scene\TitleScene\Select\Select.cpp" />
     <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Scene\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Scene\SceneManager.h" />
+    <ClInclude Include="Source\Scene\TitleScene\Select\Select.h" />
     <ClInclude Include="Source\Scene\TitleScene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

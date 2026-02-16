@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "TitleScene/TitleScene.h"
 #include "PlayScene/PlayScene.h"
+#include "../Scene/TitleScene/Select/Select.h"
 
 // 現在のシーン
 // 初期値は最初に開かれるシーン
@@ -80,8 +81,9 @@ void InitScene()
 	case SCENE_PLAY:	// プレイ
 		InitPlayScene();
 		break;
-
-	
+	case SCENE_SELECT:
+			InitSelectScene();
+			break;
 	}
 }
 
@@ -98,6 +100,9 @@ void LoadScene()
 		LoadPlayScene();
 		break;
 
+	case SCENE_SELECT:
+		LoadSelectScene();
+		break;
 	
 	}
 }
@@ -114,7 +119,9 @@ void StartScene()
 	case SCENE_PLAY:	// プレイ
 		StartPlayScene();
 		break;
-
+	case SCENE_SELECT:
+		StartSelectScene();
+		break;
 	
 	}
 }
@@ -132,7 +139,9 @@ void StepScene()
 		StepPlayScene();
 		break;
 
-	
+	case SCENE_SELECT:
+		StepSelectScene();
+		break;
 	}
 }
 
@@ -149,7 +158,9 @@ void UpdateScene()
 		UpdatePlayScene();
 		break;
 
-	
+	case SCENE_SELECT:
+		UpdateSelectScene();
+		break;
 	}
 }
 
@@ -166,7 +177,9 @@ void DrawScene()
 		DrawPlayScene();
 		break;
 
-	
+	case SCENE_SELECT:
+		DrawSelectScene();
+		break;
 	}
 }
 
@@ -183,7 +196,9 @@ void FinScene()
 		FinPlayScene();
 		break;
 
-	
+	case SCENE_SELECT:
+		FinSelectScene();
+		break;
 	}
 }
 
