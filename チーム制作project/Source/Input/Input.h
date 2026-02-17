@@ -20,3 +20,6 @@ void FinInput();
 
 bool IsInputKey(InputKey key);		// キー入力判定
 bool IsTriggerKey(InputKey key);	// キー押した瞬間判定
+
+bool Input_IsAnyKeyPush();	//Anyキーを1回だけ検出
+void Input_Reset();

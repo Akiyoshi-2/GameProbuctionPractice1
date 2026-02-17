@@ -13,7 +13,7 @@ void InitTitleScene()
 
 void LoadTitleScene()
 {
-	g_TestHandle = LoadGraph("Data/Title/タイトルだぞ.webp");
+	g_TestHandle = LoadGraph("Data/Title/タイトルだぞ.png");
 }
 
 void StartTitleScene()
@@ -23,11 +23,10 @@ void StartTitleScene()
 
 void StepTitleScene()
 {
-
-
-	if (IsTriggerKey(この中))
+	if (Input_IsAnyKeyPush())
 	{
 		ChangeScene(SCENE_SELECT);
+		Input_Reset();	//押しっぱなし防止
 	}
 }
 
@@ -38,10 +37,10 @@ void UpdateTitleScene()
 
 void DrawTitleScene()
 {
-	
+	DrawGraph(0, 0, g_TestHandle, TRUE);
 }
 
 void FinTitleScene()
 {
-	
+	DeleteGraph(g_TestHandle);
 }
