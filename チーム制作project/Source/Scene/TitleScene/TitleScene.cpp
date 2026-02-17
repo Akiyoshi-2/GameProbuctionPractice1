@@ -2,9 +2,10 @@
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
 
-int g_TestHandle = -1;
+int g_TItleHandle = -1;
+int g_KeyUIHandle = -1;
 
-//シーン切り替えをAnyKeyで行えるようにする
+//画像切替から
 
 void InitTitleScene()
 {
@@ -13,7 +14,7 @@ void InitTitleScene()
 
 void LoadTitleScene()
 {
-	g_TestHandle = LoadGraph("Data/Title/タイトルだぞ.png");
+	g_TItleHandle = LoadGraph("Data/Title/タイトルだぞ.png");
 }
 
 void StartTitleScene()
