@@ -11,7 +11,7 @@ void InitSelectScene()
 
 void LoadSelectScene()
 {
-	g_SelectHandle = LoadGraph("Data/Title/てすとせれくと.png");
+	g_SelectHandle = LoadGraph("Data/Title/Select/StageSelect.png");
 }
 
 // スタートは始まる時に起こる処理
