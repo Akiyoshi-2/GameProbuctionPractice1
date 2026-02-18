@@ -67,7 +67,7 @@ void StartTitleScene()
 	g_TitleUIData[TITLE_KEYUI].pos = VGet(0.0f, 0.0f, 0.0f);
 	g_TitleUIData[MENU_SELECT].pos = VGet(600.0f, MENU_SELECT_Y, 0.0f);
 	g_TitleUIData[MENU_TUTORIAL].pos = VGet(600.0f, MENU_TUTORIAL_Y, 0.0f);
-	g_TitleUIData[MENU_ARROW].pos = VGet(420.0f, MENU_SELECT_Y - 12.0f, 0.0f);
+	g_TitleUIData[MENU_ARROW].pos = VGet(420.0f, 458.0f, 0.0f);
 }
 void StepTitleScene()
 {
@@ -116,6 +116,43 @@ void StepTitleScene()
 			g_IsShowMenu = true;
 
 			g_IsSceneChangeWait = false;
+		}
+	}
+	//========================================
+	// メニュー操作
+	//========================================
+	if (g_IsShowMenu)
+	{
+		// ↓キー
+		if (IsTriggerKey(KEY_UP))
+		{
+			g_MenuCursor = MENU_TUTORIAL;
+		}
+
+		// ↑キー
+		if (IsTriggerKey(KEY_DOWN))
+		{
+			g_MenuCursor = MENU_SELECT;
+		}
+
+		// カーソルに応じて矢印位置更新
+		if (g_MenuCursor == MENU_SELECT)
+		{
+			g_TitleUIData[MENU_ARROW].pos.y = MENU_SELECT_Y;
+		}
+		else if (g_MenuCursor == MENU_TUTORIAL)
+		{
+			g_TitleUIData[MENU_ARROW].pos.y = MENU_TUTORIAL_Y;
+		}
+
+		// Fキー決定
+		if (IsTriggerKey(KEY_F))
+		{
+			if (g_MenuCursor == MENU_TUTORIAL)
+			{
+				//ChangeScene(SCENE_TUTORIAL);
+			}
+			// SELECT もここに追加
 		}
 	}
 }
