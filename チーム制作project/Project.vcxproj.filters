@@ -19,12 +19,6 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\TitleScene\Select">
-      <UniqueIdentifier>{14499e5a-6005-4ff3-b972-4be4606f07ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\TitleScene\Menu">
-      <UniqueIdentifier>{d32e70f8-8a8f-479e-807e-391ff7d688ba}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -42,12 +36,6 @@
     <ClCompile Include="Source\Scene\SceneManager.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene\TitleScene\Select\Select.cpp">
-      <Filter>Source\Scene\TitleScene\Select</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TitleScene\Menu\Menu.cpp">
-      <Filter>Source\Scene\TitleScene\Menu</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
@@ -64,12 +52,6 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\SceneManager.h">
       <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TitleScene\Select\Select.h">
-      <Filter>Source\Scene\TitleScene\Select</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TitleScene\Menu\Menu.h">
-      <Filter>Source\Scene\TitleScene\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
