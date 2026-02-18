@@ -19,6 +19,9 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene\TutorialScene">
+      <UniqueIdentifier>{1e818f46-0812-4445-997a-4efdc310ee1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -36,6 +39,9 @@
     <ClCompile Include="Source\Scene\SceneManager.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
+      <Filter>Source\Scene\TutorialScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\SceneManager.h">
       <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
+      <Filter>Source\Scene\TutorialScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
