@@ -83,13 +83,6 @@ void InitScene()
 		InitPlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		InitMenuScene();
-		break;
-
-	case SCENE_SELECT://セレクト
-			InitSelectScene();
-			break;
 	}
 }
 
@@ -106,14 +99,6 @@ void LoadScene()
 		LoadPlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		LoadMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		LoadSelectScene();
-		break;
-	
 	}
 }
 
@@ -128,14 +113,6 @@ void StartScene()
 
 	case SCENE_PLAY:	// プレイ
 		StartPlayScene();
-		break;
-
-	case SCENE_MENU:	//メニュー
-		StartMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		StartSelectScene();
 		break;
 	
 	}
@@ -154,13 +131,6 @@ void StepScene()
 		StepPlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		StepMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		StepSelectScene();
-		break;
 	}
 }
 
@@ -177,13 +147,6 @@ void UpdateScene()
 		UpdatePlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		UpdateMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		UpdateSelectScene();
-		break;
 	}
 }
 
@@ -200,13 +163,6 @@ void DrawScene()
 		DrawPlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		DrawMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		DrawSelectScene();
-		break;
 	}
 }
 
@@ -223,13 +179,6 @@ void FinScene()
 		FinPlayScene();
 		break;
 
-	case SCENE_MENU:	//メニュー
-		FinMenuScene();
-		break;
-
-	case SCENE_SELECT:	//セレクト
-		FinSelectScene();
-		break;
 	}
 }
 
