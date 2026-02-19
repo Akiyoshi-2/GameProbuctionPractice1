@@ -6,7 +6,7 @@ enum Title
     TITLE_KEYUI,    //AnyKey Push
     MENU_SELECT,    //StageSelect
     MENU_TUTORIAL,  //Tutorial
-    MENU_ARROW,     //?
+    MENU_ARROW,
     SELECT_STAGE1,  
     SELECT_STAGE2,
     SELECT_STAGE3,

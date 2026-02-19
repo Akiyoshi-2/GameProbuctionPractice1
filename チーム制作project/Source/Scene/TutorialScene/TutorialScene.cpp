@@ -1,39 +1,41 @@
 #include "TutorialScene.h"
 #include "../../Input/Input.h"
 #include "../SceneManager.h"
-#include "../../Player/Player.h"
+#include "../../Map/Block.h"
+#include "../../Map/Tutorial/TutorialMap.h"
 
 void InitTutorialScene()
 {
-	InitPlayer();
+	InitBlock();
 }
 
 void LoadTutorialScene()
 {
-	LoadPlayer();
+	LoadBlock();
+	LoadTutorialMap();
 }
 
 void StartTutorialScene()
 {
-	StartPlayer();
+	StartTutorialMap();
 }
 
 void StepTutorialScene()
 {
-	StepPlayer();
+	
 }
 
 void UpdateTutorialScene()
 {
-	UpdatePlayer();
+
 }
 
 void DrawTutorialScene()
 {
-	DrawPlayer();
+	DrawBlock();
 }
 
 void FinTutorialScene()
 {
-	FinPlayer();
+
 }
