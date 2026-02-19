@@ -4,7 +4,8 @@
 #include "../Scene/PlayScene/PlayScene.h"
 #include "../Scene/SceneManager.h"
 #include "../Camera/Camera.h"
-
+#include "../Animation/Animation.h"
+#include "../Collision/Collision.h"
 
 int g_PlayerHandle = -1;
 

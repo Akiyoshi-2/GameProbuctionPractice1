@@ -15,6 +15,8 @@ struct PlayerData
 	float posY;
 	float moveX;
 	float moveY;
+	float width;
+	float height;
 
 };
 
