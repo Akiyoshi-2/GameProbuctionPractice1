@@ -3,6 +3,7 @@
 #include "../Input/Input.h"
 #include "../Scene/PlayScene/PlayScene.h"
 #include "../Scene/SceneManager.h"
+#include "../Camera/Camera.h"
 
 int g_PlayerHandle = -1;
 
@@ -63,6 +64,13 @@ void StepPlayer()
 void DrawPlayer()
 {
 	DrawGraph(0, 0, g_PlayerHandle, TRUE);
+	//if (!g_PlayerData.active) return;
+
+	CameraData camera = GetCamera();
+
+	//PlayerAnimationType = g_PlayerData.playAnime;
+	//AnimationData* animData = &g_PlayerData.animation[animType];
+	//DrawAnimation(animData, g_PlayerData.posX - camera.posX, g_PlayerData.posY - camera.posY, g_PlayerData.isTurn);
 }
 
 void FinPlayer()
