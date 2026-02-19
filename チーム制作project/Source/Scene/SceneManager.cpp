@@ -3,6 +3,7 @@
 #include "PlayScene/PlayScene.h"
 #include "../Scene/TitleScene/Select/Select.h"
 #include "../Scene/TitleScene/Menu/Menu.h"
+#include "TutorialScene/TutorialScene.h"
 
 // 現在のシーン
 // 初期値は最初に開かれるシーン
@@ -79,6 +80,10 @@ void InitScene()
 		InitTitleScene();
 		break;
 
+	case SCENE_TUTORIAL:	// チュートリアル
+		InitTutorialScene();
+		break;
+
 	case SCENE_PLAY:	// プレイ
 		InitPlayScene();
 		break;
@@ -93,6 +98,10 @@ void LoadScene()
 	{
 	case SCENE_TITLE:	// タイトル
 		LoadTitleScene();
+		break;
+
+	case SCENE_TUTORIAL:	// チュートリアル
+		LoadTutorialScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
@@ -111,6 +120,10 @@ void StartScene()
 		StartTitleScene();
 		break;
 
+	case SCENE_TUTORIAL:	// チュートリアル
+		StartTutorialScene();
+		break;
+
 	case SCENE_PLAY:	// プレイ
 		StartPlayScene();
 		break;
@@ -125,6 +138,10 @@ void StepScene()
 	{
 	case SCENE_TITLE:	// タイトル
 		StepTitleScene();
+		break;
+
+	case SCENE_TUTORIAL:	// チュートリアル
+		StepTutorialScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
@@ -143,6 +160,10 @@ void UpdateScene()
 		UpdateTitleScene();
 		break;
 
+	case SCENE_TUTORIAL:	// チュートリアル
+		UpdateTutorialScene();
+		break;
+
 	case SCENE_PLAY:	// プレイ
 		UpdatePlayScene();
 		break;
@@ -159,6 +180,10 @@ void DrawScene()
 		DrawTitleScene();
 		break;
 
+	case SCENE_TUTORIAL:	// チュートリアル
+		DrawTutorialScene();
+		break;
+
 	case SCENE_PLAY:	// プレイ
 		DrawPlayScene();
 		break;
@@ -173,6 +198,10 @@ void FinScene()
 	{
 	case SCENE_TITLE:	// タイトル
 		FinTitleScene();
+		break;
+
+	case SCENE_TUTORIAL:	// チュートリアル
+		FinTutorialScene();
 		break;
 
 	case SCENE_PLAY:	// プレイ
