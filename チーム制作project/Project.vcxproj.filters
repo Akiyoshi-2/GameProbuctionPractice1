@@ -25,6 +25,9 @@
     <Filter Include="Source\Player">
       <UniqueIdentifier>{642abd61-8f5c-46ac-a27e-e64415c82b06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{c4c0cbc3-2a24-48d5-b5e2-dcd292926885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="Source\Player\Player.cpp">
       <Filter>Source\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera\Camera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Source\Player\Player.h">
       <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\Camera.h">
+      <Filter>Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
