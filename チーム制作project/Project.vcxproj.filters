@@ -19,8 +19,11 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene\TutorialScene">
+      <UniqueIdentifier>{1e818f46-0812-4445-997a-4efdc310ee1c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source\Player">
-      <UniqueIdentifier>{5d0ddf52-41fd-4f41-b54f-9bc94d340c2a}</UniqueIdentifier>
+      <UniqueIdentifier>{642abd61-8f5c-46ac-a27e-e64415c82b06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scene\SceneManager.cpp">
       <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
+      <Filter>Source\Scene\TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Player\Player.cpp">
       <Filter>Source\Player</Filter>
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\SceneManager.h">
       <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
+      <Filter>Source\Scene\TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player\Player.h">
       <Filter>Source\Player</Filter>

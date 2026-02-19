@@ -40,15 +40,15 @@ void UpdateInput()
 	{
 		g_InputState |= KEY_RIGHT;
 	}
-	if (CheckHitKey(KEY_INPUT_Z))
+	if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		g_InputState |= KEY_SPACE;
 	}
-	if (CheckHitKey(KEY_INPUT_X))
+	if (CheckHitKey(KEY_INPUT_F))
 	{
 		g_InputState |= KEY_F;
 	}
-	if (CheckHitKey(KEY_INPUT_C))
+	if (CheckHitKey(KEY_INPUT_Q))
 	{
 		g_InputState |= KEY_Q;
 	}
