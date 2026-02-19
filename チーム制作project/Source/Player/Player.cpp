@@ -5,6 +5,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Camera/Camera.h"
 
+
 int g_PlayerHandle = -1;
 
 PlayerData g_PlayerData = { 0 };
@@ -19,7 +20,7 @@ void InitPlayer()
 
 void LoadPlayer()
 {
-	g_PlayerHandle = LoadGraph("Data/Player/Âplayer_jump1.png");
+	g_PlayerHandle = LoadGraph("Data/animation/Âplayer_jump1.png");
 }
 
 void StartPlayer()

@@ -28,20 +28,11 @@
     <Filter Include="Source\Camera">
       <UniqueIdentifier>{c4c0cbc3-2a24-48d5-b5e2-dcd292926885}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Map">
-      <UniqueIdentifier>{e6f52156-9322-4626-898b-d509805619c2}</UniqueIdentifier>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{883cfde5-d6b2-4890-942c-c33be0ba8593}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Map\Stage1">
-      <UniqueIdentifier>{4e98a1d6-1dd4-4d4e-9e2f-967bd992712c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Stage2">
-      <UniqueIdentifier>{3f5e24ed-b8e0-4bc9-bc73-1aa5bbf61d5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Stage3">
-      <UniqueIdentifier>{17365879-d762-462e-bb2e-701d47a73c5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Tutorial">
-      <UniqueIdentifier>{5294112c-a2e8-4100-b07e-7bcbbd5d8ff9}</UniqueIdentifier>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{b78b8af4-8250-4a19-a0c9-93bc05b7d380}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,14 +60,11 @@
     <ClCompile Include="Source\Camera\Camera.cpp">
       <Filter>Source\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map\MapManager.cpp">
-      <Filter>Source\Map</Filter>
+    <ClCompile Include="Source\Animation\Animation.cpp">
+      <Filter>Source\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map\Block.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
-      <Filter>Source\Map\Tutorial</Filter>
+    <ClCompile Include="Source\Collision\Collision.cpp">
+      <Filter>Source\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,17 +92,11 @@
     <ClInclude Include="Source\Camera\Camera.h">
       <Filter>Source\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Map\MapManager.h">
-      <Filter>Source\Map</Filter>
+    <ClInclude Include="Source\Animation\Animation.h">
+      <Filter>Source\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Map\MapParameter.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\Block.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
-      <Filter>Source\Map\Tutorial</Filter>
+    <ClInclude Include="Source\Collision\Collision.h">
+      <Filter>Source\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
