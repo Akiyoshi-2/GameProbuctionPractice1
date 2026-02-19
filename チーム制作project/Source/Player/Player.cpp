@@ -19,7 +19,7 @@ void InitPlayer()
 
 void LoadPlayer()
 {
-	g_PlayerHandle = LoadGraph("Data/Player/");
+	g_PlayerHandle = LoadGraph("Data/Player/ê¬player_jump1.png");
 }
 
 void StartPlayer()
@@ -66,7 +66,7 @@ void DrawPlayer()
 	DrawGraph(0, 0, g_PlayerHandle, TRUE);
 	//if (!g_PlayerData.active) return;
 
-	CameraData camera = GetCamera();
+	//CameraData camera = GetCamera();
 
 	//PlayerAnimationType = g_PlayerData.playAnime;
 	//AnimationData* animData = &g_PlayerData.animation[animType];

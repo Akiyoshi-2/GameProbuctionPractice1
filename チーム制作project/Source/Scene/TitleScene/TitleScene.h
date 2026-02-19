@@ -3,11 +3,11 @@
 
 enum Title
 {
-    TITLE_KEYUI,
-    MENU_SELECT,
-    MENU_TUTORIAL,
-    MENU_ARROW,
-    SELECT_STAGE1,
+    TITLE_KEYUI,    //AnyKey Push
+    MENU_SELECT,    //StageSelect
+    MENU_TUTORIAL,  //Tutorial
+    MENU_ARROW,     //?
+    SELECT_STAGE1,  
     SELECT_STAGE2,
     SELECT_STAGE3,
     SELECT_ARROW,
