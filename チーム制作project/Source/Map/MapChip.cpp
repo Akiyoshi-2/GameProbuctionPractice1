@@ -12,7 +12,7 @@ TitleUIData g_TitleData;
 void LoadMapChipData()
 {
 	FILE* fp;
-	if (fopen_s(&fp, "Data/MapData/Stage1Map.bin", "rb") != 0) return;
+	if (fopen_s(&fp, "Data/Akiyosi/Map.bin", "rb") != 0) return;
 
 	for (int i = 0; i < MAP_CHIP_Y_NUM; i++)
 	{

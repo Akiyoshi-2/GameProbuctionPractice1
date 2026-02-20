@@ -2,41 +2,54 @@
 #include "../../Input/Input.h"
 #include "../SceneManager.h"
 #include "../../Player/Player.h"
+#include "../../Map/MapManager.h"
 
 
 
 void InitPlayScene()
 {
-	//InitPlayer();
+	InitPlayer();
+	
+	InitMap();
 }
 
 void LoadPlayScene()
 {
-	//LoadPlayer();
+	LoadPlayer();
+
+	LoadMap();
 }
 
 // スタートは始まる時に起こる処理
 void StartPlayScene()
 {
-	//StartPlayer();
+	StartPlayer();
+
+	StartMap();
 }
 
 void StepPlayScene()
 {
-	//StepPlayer();
+	StepPlayer();
+
+
 }
 
 void UpdatePlayScene()
 {
-	//UpdatePlayer();
+	UpdatePlayer();
 }
 
 void DrawPlayScene()
 {
-	//DrawPlayer();
+	DrawMap();
+
+	DrawPlayer();
 }
 
 void FinPlayScene()
 {
-	//FinPlayer();
+	FinMap();
+
+	FinPlayer();
 }

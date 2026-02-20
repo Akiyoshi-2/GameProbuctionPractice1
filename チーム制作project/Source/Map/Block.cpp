@@ -17,7 +17,7 @@ void InitBlock()
 
 void LoadBlock()
 {
-	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/MapData/Block.png");
+	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/Akiyosi/NormalBlock.png");
 	g_BlockHandle[THORN_BLOCK] = LoadGraph("Data/MapData/ThornBlock.png");
 }
 
@@ -27,6 +27,11 @@ void StartBlock()
 
 void StepBlock()
 {
+}
+
+void UpdateBlock()
+{
+
 }
 
 void DrawBlock()
@@ -41,6 +46,14 @@ void DrawBlock()
 			// ŒãXTHORN_BLOCK’Ç‰Á
 			// block->handle = g_BlockHandle[THORN_BLOCK];
 		}
+	}
+}
+
+void FinBlock()
+{
+	for (int i = 0; i < BLOCK_TYPE_MAX; i++)
+	{
+		DeleteGraph(g_BlockHandle[i]);
 	}
 }
 
