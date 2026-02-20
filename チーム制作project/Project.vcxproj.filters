@@ -43,6 +43,9 @@
     <Filter Include="Source\Map\Tutorial">
       <UniqueIdentifier>{69523f97-bfd1-4c5d-8725-e6ae6a2e05f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Scene\TestScene">
+      <UniqueIdentifier>{78c3000c-a97d-45b9-a2e8-d0bb500ca3f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
       <Filter>Source\Map\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp">
+      <Filter>Source\Scene\TestScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
       <Filter>Source\Map\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
+      <Filter>Source\Scene\TestScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

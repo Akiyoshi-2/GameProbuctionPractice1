@@ -52,6 +52,10 @@ void UpdateInput()
 	{
 		g_InputState |= KEY_Q;
 	}
+	if (CheckHitKey(KEY_INPUT_P))
+	{
+		g_InputState |= KEY_P;
+	}
 }
 
 void DrawInput()

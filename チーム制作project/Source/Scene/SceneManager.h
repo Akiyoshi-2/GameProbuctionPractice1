@@ -9,6 +9,7 @@ enum Scene
 	SCENE_TUTORIAL,
 	SCENE_PLAY,
 	SCENE_OPTION,
+	TEST_SCENE_A
 };
 
 // ƒV[ƒ“‚Ìó‘Ô
