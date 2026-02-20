@@ -8,6 +8,7 @@
 #include "../Collision/Collision.h"
 
 int g_PlayerHandle = -1;
+//‚í
 
 PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
