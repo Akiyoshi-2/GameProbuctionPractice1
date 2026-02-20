@@ -16,12 +16,20 @@ PlayerData g_PlayerData = { 0 };
 
 void InitPlayer()
 {
-
+	g_PlayerData.posX = 200.0f;
+	g_PlayerData.posY = 200.0f;
+	g_PlayerData.moveX = 0.0f;
+	g_PlayerData.moveY = 0.0f;
 }
 
 void LoadPlayer()
 {
-	g_PlayerHandle = LoadGraph("Data/animation/ê¬player_jump1.png");
+	g_PlayerHandle = LoadGraph("Data/animation/BluePlayer/ê¬player_jump1.png");
+
+	if (g_PlayerHandle == -1)
+	{
+		printfDx("Player LoadGraph FAILED\n");
+	}
 }
 
 void StartPlayer()
@@ -31,19 +39,8 @@ void StartPlayer()
 
 void UpdatePlayer()
 {
-	if (IsInputKey(KEY_LEFT))
-	{
-		g_PlayerData.posX -= g_PlayerData.moveX;
-	}
-	if (IsInputKey(KEY_RIGHT))
-	{
-		g_PlayerData.moveX += g_PlayerData.moveX;
-	}
-
-	if (IsTriggerKey(KEY_SPACE))
-	{
-		g_PlayerData.moveY -= PLAYER_MOVE_JUMP;
-	}
+	g_PlayerData.posX += g_PlayerData.moveX;
+	g_PlayerData.posY += g_PlayerData.moveY;
 }
 
 void StepPlayer()
@@ -60,19 +57,24 @@ void StepPlayer()
 	{
 		g_PlayerData.moveX = PLAYER_MOVE_SPEED;
 	}
+
+	if (IsTriggerKey(KEY_SPACE))
+	{
+		g_PlayerData.moveY = -PLAYER_MOVE_JUMP;
+	}
 }
 
 
 void DrawPlayer()
 {
-	DrawGraph(0, 0, g_PlayerHandle, TRUE);
-	//if (!g_PlayerData.active) return;
+	if (g_PlayerHandle == -1) return;
 
-	//CameraData camera = GetCamera();
-
-	//PlayerAnimationType = g_PlayerData.playAnime;
-	//AnimationData* animData = &g_PlayerData.animation[animType];
-	//DrawAnimation(animData, g_PlayerData.posX - camera.posX, g_PlayerData.posY - camera.posY, g_PlayerData.isTurn);
+	DrawGraph(
+		(int)g_PlayerData.posX,
+		(int)g_PlayerData.posY,
+		g_PlayerHandle,
+		TRUE
+	);
 }
 
 void FinPlayer()

@@ -66,10 +66,10 @@ void InitTitleScene()
 void LoadTitleScene()
 {
 	// 背景
-	g_TitleHandle = LoadGraph("Data/Title/Title.png");
+	g_TitleHandle = LoadGraph("Data/Title/画像/Title.png");
 
 	// UI
-	g_TitleUIData[TITLE_KEYUI].handle = LoadGraph("Data/Title/AnyKey Push.png");
+	g_TitleUIData[TITLE_KEYUI].handle = LoadGraph("Data/Title/画像/AnyKey Push.png");
 	g_TitleUIData[MENU_SELECT].handle = LoadGraph("Data/Title/Menu/StageSelect.png");
 	g_TitleUIData[MENU_TUTORIAL].handle = LoadGraph("Data/Title/Menu/Tutorial.png");
 	g_TitleUIData[MENU_ARROW].handle = LoadGraph("Data/Title/Menu/矢印.png");
@@ -80,8 +80,8 @@ void LoadTitleScene()
 	g_TitleUIData[SELECT_BACK].handle = LoadGraph("Data/Title/Select/Buck.png");
 
 	// SE
-	g_SEHandle = LoadSoundMem("Data/title/決定(案1).ogg");
-	g_MoveSEHandle = LoadSoundMem("Data/title/カーソル移動案(1).ogg");
+	g_SEHandle = LoadSoundMem("Data/title/Sound/SE/決定(案1).ogg");
+	g_MoveSEHandle = LoadSoundMem("Data/title/Sound/SE/カーソル移動案(1).ogg");
 }
 
 void StartTitleScene()

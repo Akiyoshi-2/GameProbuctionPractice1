@@ -1,5 +1,12 @@
 #pragma once
 
+enum PlayerType
+{
+	TYPE_RED,
+	TYPE_BLUE,
+	TYPE_YELLOW
+};
+
 void InitPlayer();
 void LoadPlayer();
 void StartPlayer();
