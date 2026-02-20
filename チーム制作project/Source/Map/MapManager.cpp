@@ -16,17 +16,18 @@ void LoadMap()
 	LoadMapChipData();
 	LoadBlock();
 }
+
 void StartMap()
 {
-
+	CreateMap();
 }
 
 void DrawMap()
 {
-
+	DrawBlock();
 }
 
 void FinMap()
 {
-
+	FinBlock();
 }
