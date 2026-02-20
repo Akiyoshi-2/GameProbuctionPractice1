@@ -17,7 +17,7 @@ void InitBlock()
 
 void LoadBlock()
 {
-	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/Akiyosi/NormalBlock.png");
+	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/MapData/Block.png");
 	g_BlockHandle[THORN_BLOCK] = LoadGraph("Data/MapData/ThornBlock.png");
 }
 
@@ -41,7 +41,7 @@ void DrawBlock()
 	{
 		if (block->active)
 		{
-			block->handle = g_BlockHandle[NORMAL_BLOCK];
+			DrawGraph((int)block->pos.x, (int)block->pos.y, block->handle, TRUE);
 
 			// ŒãXTHORN_BLOCK’Ç‰Á
 			// block->handle = g_BlockHandle[THORN_BLOCK];
@@ -62,7 +62,7 @@ BlockData* CreateBlock(MapChipType type, VECTOR pos)
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)
 	{
-		if (block->active)
+		if (!block->active)
 		{
 			block->active = true;
 			block->handle = g_BlockHandle[type];
