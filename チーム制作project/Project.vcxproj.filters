@@ -1,153 +1,139 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{063f4ceb-d950-4ab4-aed1-cc4d5f660b8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\GameSetting">
-      <UniqueIdentifier>{7a2de9ce-12fc-45f0-b429-38d63d4e698c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene">
-      <UniqueIdentifier>{631d885a-cd75-49a0-aab4-927cc7ec411b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\PlayScene">
-      <UniqueIdentifier>{b10b9ecc-59dc-449b-b92f-71536383b484}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\TitleScene">
-      <UniqueIdentifier>{9b49adae-de14-40de-8b7f-e2d5eab99075}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Input">
-      <UniqueIdentifier>{c6e9da07-a30e-4344-89ea-dfb6df55125e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scene\TutorialScene">
-      <UniqueIdentifier>{1e818f46-0812-4445-997a-4efdc310ee1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Player">
-      <UniqueIdentifier>{642abd61-8f5c-46ac-a27e-e64415c82b06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Camera">
-      <UniqueIdentifier>{c4c0cbc3-2a24-48d5-b5e2-dcd292926885}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Animation">
-      <UniqueIdentifier>{883cfde5-d6b2-4890-942c-c33be0ba8593}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Collision">
-      <UniqueIdentifier>{b78b8af4-8250-4a19-a0c9-93bc05b7d380}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map">
-      <UniqueIdentifier>{278b527c-0666-498e-bb9e-76790bf5b240}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Tutorial">
-      <UniqueIdentifier>{69523f97-bfd1-4c5d-8725-e6ae6a2e05f0}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
-    <Filter Include="Source\Map\Map">
-      <UniqueIdentifier>{f86df1a6-bde8-4224-908a-82c146835ba1}</UniqueIdentifier>
-=======
-    <Filter Include="Source\Scene\TestScene">
-      <UniqueIdentifier>{78c3000c-a97d-45b9-a2e8-d0bb500ca3f9}</UniqueIdentifier>
->>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp">
-      <Filter>Source\Scene\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp">
-      <Filter>Source\Scene\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Input\Input.cpp">
-      <Filter>Source\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\SceneManager.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
-      <Filter>Source\Scene\TutorialScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player\Player.cpp">
-      <Filter>Source\Player</Filter>
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Animation\Animation.cpp">
+      <Filter>Source\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera\Camera.cpp">
       <Filter>Source\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Animation\Animation.cpp">
-      <Filter>Source\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Source\Collision\Collision.cpp">
       <Filter>Source\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map\Block.cpp">
-      <Filter>Source\Map\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
-      <Filter>Source\Map\Tutorial</Filter>
-    </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Source\Map\MapChip.cpp">
-      <Filter>Source\Map\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map\MapManager.cpp">
-      <Filter>Source\Map\Map</Filter>
-=======
+      <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\Player.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneManager.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
+      <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp">
+      <Filter>Source\Scene\Play</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp">
-      <Filter>Source\Scene\TestScene</Filter>
->>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
+      <Filter>Source\Scene\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp">
+      <Filter>Source\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
+      <Filter>Source\Scene\Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\GameSetting\GameSetting.h">
-      <Filter>Source\GameSetting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
-      <Filter>Source\Scene\PlayScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h">
-      <Filter>Source\Scene\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\Input.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\SceneManager.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
-      <Filter>Source\Scene\TutorialScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player\Player.h">
-      <Filter>Source\Player</Filter>
+    <ClInclude Include="Source\Animation\Animation.h">
+      <Filter>Source\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera\Camera.h">
       <Filter>Source\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Animation\Animation.h">
-      <Filter>Source\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Source\Collision\Collision.h">
       <Filter>Source\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Source\Map\Block.h">
-      <Filter>Source\Map\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
-      <Filter>Source\Map\Tutorial</Filter>
-    </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Source\Map\MapChip.h">
-      <Filter>Source\Map\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Source\Map\MapManager.h">
-      <Filter>Source\Map\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Source\Map\MapParameter.h">
-      <Filter>Source\Map\Map</Filter>
-=======
-    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
-      <Filter>Source\Scene\TestScene</Filter>
->>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
+      <Filter>Source\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameSetting\GameSetting.h">
+      <Filter>Source\GameSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Player.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneManager.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
+      <Filter>Source\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
+      <Filter>Source\Scene\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
+      <Filter>Source\Scene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h">
+      <Filter>Source\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
+      <Filter>Source\Scene\Tutorial</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{40feb21b-d791-4d31-859d-643b9bdbe504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{68ed1466-ccab-4683-9a3f-f472512902cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{265b3674-4237-4408-9871-21604da2c51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{1734a2b7-c204-424f-b8c7-4b7cddf821a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Map">
+      <UniqueIdentifier>{55823a02-39d9-4ad8-9543-1f99f3ff9332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameSetting">
+      <UniqueIdentifier>{aaa7b594-4b3c-410f-ba0c-8f31b4b1b77b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{d6f5e6ac-16bf-4ce0-bb92-427bcd6b196d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player">
+      <UniqueIdentifier>{8cbd4b34-a8ee-45d8-a07f-7e98ad2ae8c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{1a0ec841-b30a-4ddc-8565-7f71bc50f00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Play">
+      <UniqueIdentifier>{8f2fc46c-f80c-4386-b471-ebc7c4359977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Test">
+      <UniqueIdentifier>{ae6cdc05-d9a6-42fd-ab7b-bb476316ea52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Title">
+      <UniqueIdentifier>{62d6754a-ff07-40cd-89c7-939227a0cdf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Tutorial">
+      <UniqueIdentifier>{cefa7f22-2e28-4ed7-b20b-52b1f482def4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
