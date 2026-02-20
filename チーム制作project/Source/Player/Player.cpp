@@ -108,6 +108,11 @@ void DrawPlayer()
 	);
 }
 
+PlayerData GetPlayer()
+{
+	return g_PlayerData;
+}
+
 void FinPlayer()
 {
 	DeleteGraph(g_PlayerHandle);
