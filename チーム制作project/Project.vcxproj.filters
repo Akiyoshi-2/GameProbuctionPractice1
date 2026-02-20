@@ -44,6 +44,9 @@
     <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
       <Filter>Source\Scene\Tutorial</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Akiyosi\Akiyosi.cpp">
+      <Filter>Source\Akiyosi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -94,6 +97,9 @@
     <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
       <Filter>Source\Scene\Tutorial</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Akiyosi\Akiyosi.h">
+      <Filter>Source\Akiyosi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -134,6 +140,9 @@
     </Filter>
     <Filter Include="Source\Scene\Tutorial">
       <UniqueIdentifier>{cefa7f22-2e28-4ed7-b20b-52b1f482def4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Akiyosi">
+      <UniqueIdentifier>{f446cb5e-3a15-4604-9b9d-285870972e24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
