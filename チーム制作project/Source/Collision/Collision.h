@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #pragma once
 
 void CheckCollision();
@@ -22,3 +23,17 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 
 
 
+=======
+//#pragma once
+//
+//void CheckCollision();
+//
+//struct BoxCollision
+//{
+//	float posX;
+//	float posY;
+//	float width;
+//	float height;
+//};
+//
+>>>>>>> 4830d80920fd6fce726dd671cfdfe3393ada1543

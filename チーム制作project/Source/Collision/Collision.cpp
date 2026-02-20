@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "DxLib.h"
 #include "Collision.h"
 #include "../Player/Player.h"
@@ -92,3 +93,20 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 
 
 
+=======
+//#include "DxLib.h"
+//#include "Collision.h"
+//#include "../Player/Player.h"
+//
+//void CheckCollision()
+//{
+//	BoxCollision playerBox;
+//
+//	PlayerData player = GetPlayer();
+//
+//	playerBox.posX = player.posX;
+//	playerBox.posY = player.posY;
+//	playerBox.width = player.width;
+//	playerBox.height = player.height;
+//}
+>>>>>>> 4830d80920fd6fce726dd671cfdfe3393ada1543
