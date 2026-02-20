@@ -1,4 +1,12 @@
 #pragma once
+#include "../Collision/Collision.h"
+#include "../Map/MapParameter.h"
+#include "../Animation/Animation.h"
+
+#define PLAYER_WIDTH	(72.0f)
+#define PLAYER_HEIGHT	(72.0f)
+#define PLAYER_RADIUS	(36.0f)
+
 
 enum PlayerType
 {
@@ -25,6 +33,10 @@ struct PlayerData
 	float width;
 	float height;
 	float hitFlag;
+	bool active;
+	bool isTurn;
+	bool isAir;
+	BoxCollision boxCollision;
 
 };
 
@@ -35,3 +47,6 @@ void PlayerHitHelmet_Enemy();
 void PlayerHitNormal_Enemy();
 void PlayerHitShield_Enemy();
 void PlayerHitYellow_Enemy();
+
+void PlayerHitNormalBlockX(MapChipData mapChipData);
+void PlayerHitNormalBlockY(MapChipData mapChipData);

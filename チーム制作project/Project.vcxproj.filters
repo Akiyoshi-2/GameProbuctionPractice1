@@ -47,6 +47,15 @@
     <ClCompile Include="Source\Akiyosi\Akiyosi.cpp">
       <Filter>Source\Akiyosi</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy\HelmetEnemy\HelmetEnemy.cpp">
+      <Filter>Source\Enemy\HelmetEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\YellowEnemy\YellowEnemy.cpp">
+      <Filter>Source\Enemy\YellowEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp">
+      <Filter>Source\Enemy\ShieldEnemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -100,6 +109,15 @@
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
       <Filter>Source\Akiyosi</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enemy\HelmetEnemy\HelmetEnemy.h">
+      <Filter>Source\Enemy\HelmetEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\YellowEnemy\YellowEnemy.h">
+      <Filter>Source\Enemy\YellowEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h">
+      <Filter>Source\Enemy\ShieldEnemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -143,6 +161,18 @@
     </Filter>
     <Filter Include="Source\Akiyosi">
       <UniqueIdentifier>{f446cb5e-3a15-4604-9b9d-285870972e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy">
+      <UniqueIdentifier>{fd86b461-e951-4dd5-99d4-c7991e14a884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\HelmetEnemy">
+      <UniqueIdentifier>{dd36b73b-3232-4adf-bf66-7389fe2b6e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\ShieldEnemy">
+      <UniqueIdentifier>{3700de21-9550-4f76-9047-faf92a1e3d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\YellowEnemy">
+      <UniqueIdentifier>{f0865de9-2ac7-48d5-a35e-0bd2f998841e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
