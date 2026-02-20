@@ -2,6 +2,7 @@
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
 #include "../../Player/Player.h"
+#include "../../Map/MapManager.h"
 
 
 int g_TestHandle = -1;
@@ -11,6 +12,7 @@ void InitTestSceneA()
     g_TestHandle = -1;
 
     InitPlayer();
+    InitMap();
 }
 
 void LoadTestSceneA()
@@ -19,11 +21,13 @@ void LoadTestSceneA()
     g_TestHandle = LoadGraph("Data/Title/Select/StageSelect.png");
 
     LoadPlayer();
+    LoadMap();
 }
 
 void StartTestSceneA()
 {
     StartPlayer();
+    StartMap();
 }
 
 void StepTestSceneA()
@@ -51,6 +55,7 @@ void DrawTestSceneA()
     }
 
     DrawPlayer();
+    DrawMap();
 }
 
 void FinTestSceneA()
@@ -62,4 +67,5 @@ void FinTestSceneA()
     }
 
     FinPlayer();
+    FinMap();
 }

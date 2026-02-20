@@ -58,6 +58,8 @@ void InitTitleScene()
 	g_IsSceneChangeWait = false;
 	g_SceneChangeTimer = 0;
 
+	g_TitleUIData->stage = 0;
+
 	g_MenuCursor = MENU_SELECT;
 
 	g_SelectCursor = SELECT_STAGE1;
@@ -196,6 +198,8 @@ void StepTitleScene()
 			if (g_MenuCursor == MENU_TUTORIAL)
 			{
 				ChangeScene(TEST_SCENE_A);
+
+				g_TitleUIData->stage = 1;
 			}
 			// MENU_SELECT Šm’è
 			else if (g_MenuCursor == MENU_SELECT)
