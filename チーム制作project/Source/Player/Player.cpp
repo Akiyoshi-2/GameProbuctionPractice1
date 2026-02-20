@@ -161,6 +161,7 @@ void PlayerHitNormalBlockX(MapChipData mapChipData)
 	player.posY = g_PrevPlayerData.posY;
 
 	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
 	
 	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
@@ -188,6 +189,7 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 
 	player.isTurn = g_PrevPlayerData.isTurn;
 	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
 
 	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZOFFSET, h - SIZOFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
