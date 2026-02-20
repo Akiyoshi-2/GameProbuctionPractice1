@@ -20,9 +20,6 @@ bool CheckCirclePoint(float circlePosX, float circlePosY, float circleRadius, fl
 
 bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Radius, float circleB_PosX, float circleB_PosY, float circleB_Radius);
 
-
-
-=======
 //#pragma once
 //
 //void CheckCollision();
@@ -34,5 +31,4 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 //	float width;
 //	float height;
 //};
-//
->>>>>>> 4830d80920fd6fce726dd671cfdfe3393ada1543
+

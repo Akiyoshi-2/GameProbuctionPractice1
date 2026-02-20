@@ -90,9 +90,6 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 	return false;
 }
 
-
-
-=======
 //#include "DxLib.h"
 //#include "Collision.h"
 //#include "../Player/Player.h"
@@ -108,4 +105,4 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 //	playerBox.width = player.width;
 //	playerBox.height = player.height;
 //}
->>>>>>> 4830d80920fd6fce726dd671cfdfe3393ada1543
+
