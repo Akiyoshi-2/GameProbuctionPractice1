@@ -62,6 +62,35 @@ void StepPlayer()
 	}
 }
 
+void PlayerHitFullarmor_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+}
+
+void PlayerHitHelmet_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitNormal_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitShield_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitYellow_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
 
 void DrawPlayer()
 {
