@@ -37,11 +37,11 @@
     <Filter Include="Source\Map">
       <UniqueIdentifier>{278b527c-0666-498e-bb9e-76790bf5b240}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Map\Block">
-      <UniqueIdentifier>{f86df1a6-bde8-4224-908a-82c146835ba1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Map\Tutorial">
       <UniqueIdentifier>{69523f97-bfd1-4c5d-8725-e6ae6a2e05f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Map\Map">
+      <UniqueIdentifier>{f86df1a6-bde8-4224-908a-82c146835ba1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,14 +75,17 @@
     <ClCompile Include="Source\Collision\Collision.cpp">
       <Filter>Source\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map\MapManager.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Map\Block.cpp">
-      <Filter>Source\Map\Block</Filter>
+      <Filter>Source\Map\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
       <Filter>Source\Map\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\MapChip.cpp">
+      <Filter>Source\Map\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\MapManager.cpp">
+      <Filter>Source\Map\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,17 +119,20 @@
     <ClInclude Include="Source\Collision\Collision.h">
       <Filter>Source\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Map\MapManager.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\MapParameter.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Map\Block.h">
-      <Filter>Source\Map\Block</Filter>
+      <Filter>Source\Map\Map</Filter>
     </ClInclude>
     <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
       <Filter>Source\Map\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapChip.h">
+      <Filter>Source\Map\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapManager.h">
+      <Filter>Source\Map\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapParameter.h">
+      <Filter>Source\Map\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
