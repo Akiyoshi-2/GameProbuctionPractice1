@@ -195,7 +195,7 @@ void StepTitleScene()
 			// チュートリアルは即シーン遷移
 			if (g_MenuCursor == MENU_TUTORIAL)
 			{
-				ChangeScene(SCENE_TUTORIAL);
+				ChangeScene(TEST_SCENE_A);
 			}
 			// MENU_SELECT 確定
 			else if (g_MenuCursor == MENU_SELECT)
@@ -330,14 +330,20 @@ void StepTitleScene()
 			if (g_SelectCursor == SELECT_STAGE1)
 			{
 				//ChangeScene(SCENE_STAGE1);
+
+				g_TitleUIData->stage = 1;
 			}
 			else if (g_SelectCursor == SELECT_STAGE2)
 			{
 				//ChangeScene(SCENE_STAGE2);
+
+				g_TitleUIData->stage = 2;
 			}
 			else if (g_SelectCursor == SELECT_STAGE3)
 			{
 				//ChangeScene(SCENE_STAGE3);
+
+				g_TitleUIData->stage = 3;
 			}
 			else if (g_SelectCursor == SELECT_BACK)
 			{

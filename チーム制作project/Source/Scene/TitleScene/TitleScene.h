@@ -19,6 +19,8 @@ struct TitleUIData
 {
     int handle;
     VECTOR pos;
+
+    int stage;
 };
 
 // 関数のプロトタイプ宣言

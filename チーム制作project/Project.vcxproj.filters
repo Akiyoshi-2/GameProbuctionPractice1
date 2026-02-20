@@ -40,8 +40,13 @@
     <Filter Include="Source\Map\Tutorial">
       <UniqueIdentifier>{69523f97-bfd1-4c5d-8725-e6ae6a2e05f0}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Source\Map\Map">
       <UniqueIdentifier>{f86df1a6-bde8-4224-908a-82c146835ba1}</UniqueIdentifier>
+=======
+    <Filter Include="Source\Scene\TestScene">
+      <UniqueIdentifier>{78c3000c-a97d-45b9-a2e8-d0bb500ca3f9}</UniqueIdentifier>
+>>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,11 +86,16 @@
     <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
       <Filter>Source\Map\Tutorial</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\Map\MapChip.cpp">
       <Filter>Source\Map\Map</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map\MapManager.cpp">
       <Filter>Source\Map\Map</Filter>
+=======
+    <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp">
+      <Filter>Source\Scene\TestScene</Filter>
+>>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +135,7 @@
     <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
       <Filter>Source\Map\Tutorial</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\Map\MapChip.h">
       <Filter>Source\Map\Map</Filter>
     </ClInclude>
@@ -133,6 +144,10 @@
     </ClInclude>
     <ClInclude Include="Source\Map\MapParameter.h">
       <Filter>Source\Map\Map</Filter>
+=======
+    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
+      <Filter>Source\Scene\TestScene</Filter>
+>>>>>>> dfaf5447833e63fcbe8d7779ab7f003f7d608ef3
     </ClInclude>
   </ItemGroup>
 </Project>

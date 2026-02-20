@@ -7,36 +7,36 @@
 
 void InitPlayScene()
 {
-	InitPlayer();
+	//InitPlayer();
 }
 
 void LoadPlayScene()
 {
-	LoadPlayer();
+	//LoadPlayer();
 }
 
 // スタートは始まる時に起こる処理
 void StartPlayScene()
 {
-	StartPlayer();
+	//StartPlayer();
 }
 
 void StepPlayScene()
 {
-	StepPlayer();
+	//StepPlayer();
 }
 
 void UpdatePlayScene()
 {
-	UpdatePlayer();
+	//UpdatePlayer();
 }
 
 void DrawPlayScene()
 {
-	DrawPlayer();
+	//DrawPlayer();
 }
 
 void FinPlayScene()
 {
-	FinPlayer();
+	//FinPlayer();
 }
