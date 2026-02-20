@@ -24,7 +24,14 @@ struct PlayerData
 	float moveY;
 	float width;
 	float height;
+	float hitFlag;
 
 };
 
 PlayerData GetPlayer();
+
+void PlayerHitFullarmor_Enemy();
+void PlayerHitHelmet_Enemy();
+void PlayerHitNormal_Enemy();
+void PlayerHitShield_Enemy();
+void PlayerHitYellow_Enemy();

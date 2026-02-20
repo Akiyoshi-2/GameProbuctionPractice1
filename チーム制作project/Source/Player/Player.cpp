@@ -14,6 +14,8 @@ PlayerData g_PlayerData = { 0 };
 #define PLAYER_MOVE_SPEED (4.0f)
 #define PLAYER_MOVE_JUMP (12.0f)
 
+//#define PLAYER_GRAVITY (0.4f)
+
 void InitPlayer()
 {
 	g_PlayerData.posX = 200.0f;
@@ -62,6 +64,35 @@ void StepPlayer()
 	{
 		g_PlayerData.moveY = -PLAYER_MOVE_JUMP;
 	}
+}
+
+void PlayerHitFullarmor_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+}
+
+void PlayerHitHelmet_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitNormal_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitShield_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
+}
+
+void PlayerHitYellow_Enemy()
+{
+	g_PlayerData.hitFlag = true;
+
 }
 
 
