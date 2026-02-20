@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "DxLib.h"
 #include "Collision.h"
 #include "../Player/Player.h"
