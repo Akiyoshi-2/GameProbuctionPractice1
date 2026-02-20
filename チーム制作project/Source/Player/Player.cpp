@@ -14,6 +14,8 @@ PlayerData g_PlayerData = { 0 };
 #define PLAYER_MOVE_SPEED (4.0f)
 #define PLAYER_MOVE_JUMP (12.0f)
 
+//#define PLAYER_GRAVITY (0.4f)
+
 void InitPlayer()
 {
 
