@@ -197,9 +197,9 @@ void StepTitleScene()
 			// チュートリアルは即シーン遷移
 			if (g_MenuCursor == MENU_TUTORIAL)
 			{
-				ChangeScene(TEST_SCENE_A);
-
 				g_TitleUIData->stage = 1;
+
+				ChangeScene(TEST_SCENE_A);
 			}
 			// MENU_SELECT 確定
 			else if (g_MenuCursor == MENU_SELECT)

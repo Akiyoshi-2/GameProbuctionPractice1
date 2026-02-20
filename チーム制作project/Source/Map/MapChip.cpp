@@ -11,7 +11,19 @@ TitleUIData g_TitleData;
 
 void LoadMapChipData()
 {
-	if (g_TitleData.stage == 1)
+	FILE* fp;
+	if (fopen_s(&fp, "Data/Akiyosi/Map.bin", "rb") != 0) return;
+
+	for (int i = 0; i < MAP_CHIP_Y_NUM; i++)
+	{
+		for (int j = 0; j < MAP_CHIP_X_NUM; j++)
+		{
+			int map = fgetc(fp);
+			g_MapChip[i][j].mapChip = map;
+		}
+	}
+
+	/*if (g_TitleData.stage == 1)
 	{
 		FILE* fp;
 		if (fopen_s(&fp, "Data/MapData/Stage1Map.bin", "rb") != 0) return;
@@ -52,7 +64,7 @@ void LoadMapChipData()
 				g_MapChip[i][j].mapChip = map;
 			}
 		}
-	}
+	}*/
 }
 
 void CreateMap()

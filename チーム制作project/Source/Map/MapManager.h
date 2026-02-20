@@ -6,4 +6,4 @@ void StartMap();
 void DrawMap();
 void FinMap();
 
-void CheckMapPlayerCpllision();
+//void CheckMapPlayerCpllision();
