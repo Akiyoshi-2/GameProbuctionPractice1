@@ -147,11 +147,6 @@ void FinPlayer()
 	DeleteGraph(g_PlayerHandle);
 }
 
-PlayerData GetPlayer()
-{
-	return g_PlayerData;
-}
-
 void PlayerHitNormalBlockX(MapChipData mapChipData)
 {
 	PlayerData player = g_PlayerData;
