@@ -34,8 +34,7 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 	8, 1, 50, 50,
 };
 
-PlayerData g_PlayerData[PLAYER_ANIM_MAX] = {};
-
+PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
 
 #define PLAYER_MOVE_SPEED (4.0f)
@@ -52,17 +51,19 @@ PlayerData g_PrevPlayerData = { 0 };
 // このCPPでのみ使用する関数の宣言
 void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
 void UpdatePlayerAnimation();							// アニメーション更新
-void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
 //void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
 void InitPlayer()
 {
 
-	g_PlayerData->posX = 0.0f;
-	g_PlayerData->posY = 0.0f;
-	g_PlayerData->moveX = 0.0f;
-	g_PlayerData->moveY = 0.0f;
+	g_PlayerData.posX = 0.0f;
+	g_PlayerData.posY = 0.0f;
+	g_PlayerData.moveX = 0.0f;
+	g_PlayerData.moveY = 0.0f;
+	g_PlayerData.playerAnim = PLAYER_ANIM_NONE;
+
+	//g_PlayerData.type = TYPE_BLUE;
 
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
@@ -74,7 +75,7 @@ void InitPlayer()
 void LoadPlayer()
 {
 	//赤
-	g_PrevPlayerData.animation[RRED_PLAYER_ANIM_ATTACK].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Attack.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_ATTACK].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Attack.png");
 	g_PrevPlayerData.animation[RED_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Idle.png");
 	g_PrevPlayerData.animation[RED_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Run.png");
 	g_PrevPlayerData.animation[RED_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/赤player_jump1.png");
@@ -82,68 +83,130 @@ void LoadPlayer()
 	g_PrevPlayerData.animation[RED_PLAYER_ANIM_DIE].handle = LoadGraph("Data/animation/RedPlayer/赤player_die.png");
 
 	//青
-	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/BluePlayer_Idle.png");
-	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/BluePlayer_Run.png");
-	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_jump1.png");
-	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_fall1.png");
-	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_DIE].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_die.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/BluePlayer/BluePlayer_Idle.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/BluePlayer/BluePlayer_Run.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/BluePlayer/青player_jump1.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/BluePlayer/青player_fall1.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_DIE].handle = LoadGraph("Data/animation/BluePlayer/青player_die.png");
 	
 	//黄
-	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/");
-	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/");
-	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/");
-	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/RedPlayer/");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/YellowPlayer/YellowPlayer_Idle.png");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/YellowPlayer/YellowPlayer_Run.png");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/YellowPlayer/黄player_fall1.png");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/YellowPlayer/黄player_jump1.png");
 	
 }
 
 void StartPlayer()
 {
-	
+	StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
 }
 
 void UpdatePlayer()
 {
+	g_PlayerData.posX += g_PlayerData.moveX;
+	g_PlayerData.posY += g_PlayerData.moveY;
 
+	UpdatePlayerAnimation();
 }
 
 void StepPlayer()
 {
-	g_PlayerData->moveX = 0.0f;
+	g_PlayerData.moveX = 0.0f;
 
-	g_PlayerData->posY += PLAYER_GRAVITY;
+	//g_PlayerData.posY += PLAYER_GRAVITY;
 
 	//左
 	if (IsInputKey(KEY_LEFT))
 	{
-		g_PlayerData->moveX = -PLAYER_MOVE_SPEED;
+		g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
 	}
 	//右
 	else if (IsInputKey(KEY_RIGHT))
 	{
-		g_PlayerData->moveX = PLAYER_MOVE_SPEED;
+		g_PlayerData.moveX = PLAYER_MOVE_SPEED;
 	}
 	//ジャンプ
 	else if (IsInputKey(KEY_SPACE))
 	{
-		g_PlayerData->moveY = -PLAYER_MOVE_JUMP;
+		g_PlayerData.moveY = -PLAYER_MOVE_JUMP;
 	}
 }
 
 void DrawPlayer()
 {
 	CameraData camera = GetCamera();
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "プレイヤーの座標＝[%f, %f]", g_PlayerData.posX, g_PlayerData.posY);
+
+	PlayerAnimationType animType = g_PlayerData.playerAnim;
+	AnimationData* animData = &g_PlayerData.animation[animType];
+	DrawAnimation(animData, g_PlayerData.posX - camera.posX, g_PlayerData.posY - camera.posY, g_PlayerData.isTurn);
 }
 
 PlayerData* GetPlayer()
 {
-	return g_PlayerData;
+	return &g_PlayerData;
+
+}
+void StartPlayerAnimation(PlayerAnimationType anim)
+{
+	// 再生中のアニメーションであれば何もしない
+	if (anim == g_PlayerData.playerAnim) return;
+
+	// 再生中アニメーション設定
+	g_PlayerData.playerAnim = anim;
+
+	// 再生に必要なデータを取得
+	AnimationData* animData = &g_PlayerData.animation[anim];
+	PlayerAnimationParam animParam = PLAYER_ANIM_PARAM[anim];
+
+	// アニメーション再生
+	StartAnimation(animData, g_PlayerData.posX, g_PlayerData.posY, animParam.interval, animParam.framNum, animParam.width, animParam.height, true);
+}
+
+void UpdatePlayerAnimation()
+{
+	// 地上にいるか
+	if (!g_PlayerData.isAir)
+	{
+		// 横に移動していれば走ってくる
+		if (g_PlayerData.moveX < 0.0f || g_PlayerData.moveX > 0.0f)
+		{
+			// 走るアニメーション
+			StartPlayerAnimation(BLUE_PLAYER_ANIM_RUN);
+		}
+		else
+		{
+			// 移動してなければ待機
+			StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
+		}
+	}
+	// 空中にいる
+	else
+	{
+		// 上昇していればジャンプアニメーション
+		if (g_PlayerData.moveY < 0.0f)
+		{
+			StartPlayerAnimation(BLUE_PLAYER_ANIM_JUMP);
+		}
+		// 下降していれば落下アニメーション
+		else if (g_PlayerData.moveY > 0.0f)
+		{
+			StartPlayerAnimation(BLUE_PLAYER_ANIM_FALL);
+		}
+	}
+
+	// アニメーション更新
+	PlayerAnimationType animType = g_PlayerData.playerAnim;
+	AnimationData* animData = &g_PlayerData.animation[animType];
+	UpdateAnimation(animData);
 }
 
 void FinPlayer()
 {
-	for (int i = 0; i < TYPE_MAX; i++)
+	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
-		DeleteGraph(g_PlayerData[i].handle);
+		DeleteGraph(g_PlayerData.animation[i].handle);
 	}
 }
 

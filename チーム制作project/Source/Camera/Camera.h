@@ -1,6 +1,7 @@
 #pragma once
 
 void UpdateCamera();
+void DrawCamera();
 
 struct CameraData
 {

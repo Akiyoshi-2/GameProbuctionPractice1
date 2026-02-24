@@ -1,15 +1,14 @@
 #pragma once
-#include "../Collision/Collision.h"
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 
-#define PLAYER_WIDTH	(72.0f)
-#define PLAYER_HEIGHT	(72.0f)
+#define PLAYER_WIDTH	(50.0f)
+#define PLAYER_HEIGHT	(50.0f)
 #define PLAYER_RADIUS	(36.0f)
 
 enum PlayerAnimationType
 {
-	RRED_PLAYER_ANIM_ATTACK,
+	RED_PLAYER_ANIM_ATTACK,
 	RED_PLAYER_ANIM_IDLE,
 	RED_PLAYER_ANIM_RUN,
 	RED_PLAYER_ANIM_JUMP,
@@ -26,6 +25,13 @@ enum PlayerAnimationType
 	YELLOW_PLAYER_ANIM_FALL,
 	PLAYER_ANIM_MAX,
 	PLAYER_ANIM_NONE = -1
+};
+
+enum PlayerType
+{
+	TYPE_RED,
+	TYPE_BLUE,
+	TYPE_YELLOW
 };
 
 void InitPlayer();
@@ -47,9 +53,9 @@ struct PlayerData
 	bool active;
 	bool isTurn;
 	bool isAir;
-	BoxCollision boxCollision;
-	AnimationData animation[PLAYER_ANIM_MAX];
-	PlayerAnimationType playerAnim;
+	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
+	PlayerAnimationType playerAnim;				// 再生中のアニメーション
+
 };
 
 PlayerData* GetPlayer();
