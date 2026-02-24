@@ -7,12 +7,25 @@
 #define PLAYER_HEIGHT	(72.0f)
 #define PLAYER_RADIUS	(36.0f)
 
-
-enum PlayerType
+enum PlayerAnimationType
 {
-	TYPE_RED,
-	TYPE_BLUE,
-	TYPE_YELLOW
+	RRED_PLAYER_ANIM_ATTACK,
+	RED_PLAYER_ANIM_IDLE,
+	RED_PLAYER_ANIM_RUN,
+	RED_PLAYER_ANIM_JUMP,
+	RED_PLAYER_ANIM_FALL,
+	RED_PLAYER_ANIM_DIE,
+	BLUE_PLAYER_ANIM_IDLE,
+	BLUE_PLAYER_ANIM_RUN,
+	BLUE_PLAYER_ANIM_JUMP,
+	BLUE_PLAYER_ANIM_FALL,
+	BLUE_PLAYER_ANIM_DIE,
+	YELLOW_PLAYER_ANIM_IDLE,
+	YELLOW_PLAYER_ANIM_RUN,
+	YELLOW_PLAYER_ANIM_JUMP,
+	YELLOW_PLAYER_ANIM_FALL,
+	PLAYER_ANIM_MAX,
+	PLAYER_ANIM_NONE = -1
 };
 
 void InitPlayer();
@@ -25,28 +38,27 @@ void FinPlayer();
 
 struct PlayerData
 {
-	int g_PlayerHandle;
+	int handle;
 	float posX;
 	float posY;
 	float moveX;
 	float moveY;
-	float width;
-	float height;
 	float hitFlag;
 	bool active;
 	bool isTurn;
 	bool isAir;
 	BoxCollision boxCollision;
-
+	AnimationData animation[PLAYER_ANIM_MAX];
+	PlayerAnimationType playerAnim;
 };
 
-PlayerData GetPlayer();
+PlayerData* GetPlayer();
 
-void PlayerHitFullarmor_Enemy();
-void PlayerHitHelmet_Enemy();
-void PlayerHitNormal_Enemy();
-void PlayerHitShield_Enemy();
-void PlayerHitYellow_Enemy();
-
-void PlayerHitNormalBlockX(MapChipData mapChipData);
-void PlayerHitNormalBlockY(MapChipData mapChipData);
+//void PlayerHitFullarmor_Enemy();
+//void PlayerHitHelmet_Enemy();
+//void PlayerHitNormal_Enemy();
+//void PlayerHitShield_Enemy();
+//void PlayerHitYellow_Enemy();
+//
+//void PlayerHitNormalBlockX(MapChipData mapChipData);
+//void PlayerHitNormalBlockY(MapChipData mapChipData);
