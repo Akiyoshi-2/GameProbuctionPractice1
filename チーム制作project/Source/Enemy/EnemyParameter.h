@@ -12,36 +12,55 @@ enum EnemyType
 	FULLARMOR_ENEMY,
 };
 
-struct EnemyParamer
+struct EnemyParameter
 {
 	float EnemyDiePosX;
 };
 
-const EnemyParamer ENEMY_PARAMETER[] =
+const EnemyParameter ENEMY_PARAMETER[] =
 {
 	4300.0f,
 };
 
 // Normal_Enemy関連
-enum NomalEnemyAnimationType
+#define NORMAL_ENEMY_MAX	(255)
+#define NORMAL_ENEMY_WIDTH	(38.0f)
+#define NORMAL_ENEMY_HEIGHT	(38.0f)
+#define NORMAL_ENEMY_RADIUD	(19.0f)
+
+enum NormalEnemyAnimationType
 {
-	NOMAL_ENEMY_RUN,
-	NOMAL_ENEMY_CRYSH,
-	NOMAL_ENEMY_STRIKE,
-	NOMAL_ENEMY_MAX,
-	NOMAL_ENEMY_NONE = -1
+	NORMAL_ENEMY_RUN,
+	NORMAL_ENEMY_CRUSH,
+	NORMAL_ENEMY_STRIKE,
+	NORMAL_ENEMY_ANIM_MAX,
+	NORMAL_ENEMY_ANIM_NONE = -1
 };
 
-struct NomalEnemyData
+struct NormalEnemyData
 {
 	bool isTurn;
 	bool isAir;
 	bool active;
+	bool crush;
+	bool strike;
 	VECTOR pos;
 	VECTOR move;
-	// AnimationData animation[NOMAL_ENEMY_MAX];
-	NomalEnemyAnimationType playAnim;
+	AnimationData animation[NORMAL_ENEMY_MAX];
+	NormalEnemyAnimationType playAnim;
 	BoxCollision boxCollision;
-	const EnemyParamer* param;
-	NomalEnemyData* data;
+	const EnemyParameter* param;
+	NormalEnemyData* data;
+};
+
+
+
+// スポーンデータ
+struct EnemySpawnData
+{
+	EnemyType type;
+	int spawnTime;
+	float posX;
+	float posY;
+	const EnemyParameter* param;
 };
