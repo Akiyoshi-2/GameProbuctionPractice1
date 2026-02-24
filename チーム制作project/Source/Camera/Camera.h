@@ -1,16 +1,11 @@
-//#pragma once
-//
-//struct CameraData
-//{
-//	float posX;
-//	float posY;
-//};
-//
-//void InitCamera();
-//void StepCamera();
-//void DrawCamera();
-//
-//CameraData GetCamera();
-//
-//
-//
+#pragma once
+
+void UpdateCamera();
+
+struct CameraData
+{
+	float posX;
+	float posY;
+};
+
+CameraData GetCamera();

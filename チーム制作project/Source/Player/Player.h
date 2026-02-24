@@ -12,7 +12,8 @@ enum PlayerType
 {
 	TYPE_RED,
 	TYPE_BLUE,
-	TYPE_YELLOW
+	TYPE_YELLOW,
+	TYPE_MAX
 };
 
 void InitPlayer();
@@ -25,7 +26,7 @@ void FinPlayer();
 
 struct PlayerData
 {
-	int g_PlayerHandle;
+	int handle;
 	float posX;
 	float posY;
 	float moveX;
@@ -40,7 +41,7 @@ struct PlayerData
 
 };
 
-PlayerData GetPlayer();
+PlayerData* GetPlayer();
 
 void PlayerHitFullarmor_Enemy();
 void PlayerHitHelmet_Enemy();

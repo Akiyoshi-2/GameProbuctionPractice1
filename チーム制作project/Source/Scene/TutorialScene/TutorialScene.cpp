@@ -6,18 +6,17 @@
 
 void InitTutorialScene()
 {
-	//InitBlock();
+
 }
 
 void LoadTutorialScene()
 {
-	//LoadBlock();
-	//LoadTutorialMap();
+
 }
 
 void StartTutorialScene()
 {
-	//StartTutorialMap();
+
 }
 
 void StepTutorialScene()
@@ -32,7 +31,7 @@ void UpdateTutorialScene()
 
 void DrawTutorialScene()
 {
-	//DrawBlock();
+
 }
 
 void FinTutorialScene()
