@@ -56,6 +56,12 @@
     <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp">
       <Filter>Source\Enemy\ShieldEnemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy\NormalEnemy\NormalEnemy.cpp">
+      <Filter>Source\Enemy\NormalEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\EnemyManader.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -118,6 +124,15 @@
     <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h">
       <Filter>Source\Enemy\ShieldEnemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enemy\NormalEnemy\NormalEnemy.h">
+      <Filter>Source\Enemy\NormalEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyParameter.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyManager.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -173,6 +188,9 @@
     </Filter>
     <Filter Include="Source\Enemy\YellowEnemy">
       <UniqueIdentifier>{f0865de9-2ac7-48d5-a35e-0bd2f998841e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\NormalEnemy">
+      <UniqueIdentifier>{7259b339-f453-4d5b-be76-5cdeca9374d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
