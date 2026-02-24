@@ -9,18 +9,9 @@ void UpdateCamera()
 {
     PlayerData* player = GetPlayer();
 
-    // プレイヤーを画面中央に来るようにする
     g_CameraData.posX = player->posX - SCREEN_WIDTH * 0.5f;
     g_CameraData.posY = player->posY - SCREEN_HEIGHT * 0.5f;
-
-    // カメラがマイナスにならないよう制限
-    if (g_CameraData.posX < 0.0f)
-        g_CameraData.posX = 0.0f;
-
-    if (g_CameraData.posY < 0.0f)
-        g_CameraData.posY = 0.0f;
 }
-
 void DrawCamera()
 {
     DrawFormatString(

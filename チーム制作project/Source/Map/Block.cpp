@@ -39,19 +39,20 @@ void DrawBlock()
 {
 	CameraData cam = GetCamera();
 
-	for (int i = 0; i < BLOCK_MAX; i++)
+	BlockData* block = g_Blocks;
+	for (int i = 0; i < BLOCK_MAX; i++, block++)
 	{
-		if (!g_Blocks[i].active) continue;
-
-		DrawGraph(
-			(int)(g_Blocks[i].pos.x - cam.posX),
-			(int)(g_Blocks[i].pos.y - cam.posY),
-			g_Blocks[i].handle,
-			TRUE
-		);
+		if (block->active)
+		{
+			DrawGraph(
+				(int)(block->pos.x - cam.posX),
+				(int)(block->pos.y - cam.posY),
+				block->handle,
+				TRUE
+			);
+		}
 	}
 }
-
 
 void FinBlock()
 {
