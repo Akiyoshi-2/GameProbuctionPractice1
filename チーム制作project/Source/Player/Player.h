@@ -53,6 +53,9 @@ struct PlayerData
 	bool active;
 	bool isTurn;
 	bool isAir;
+
+	PlayerType type;
+
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playerAnim;				// 再生中のアニメーション
 
