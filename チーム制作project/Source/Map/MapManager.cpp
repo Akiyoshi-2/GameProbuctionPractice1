@@ -2,6 +2,7 @@
 #include "MapParameter.h"
 #include "MapChip.h"
 #include "Block.h"
+//ここにマップの当たり判定書くってよ
 
 // キャラの周囲何マスまでチェックするか
 #define CHECK_ROUND_NUM (2)
