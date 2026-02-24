@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "../Camera/Camera.h"
 
 BlockData g_Blocks[BLOCK_MAX] = { 0 };
 int g_BlockHandle[BLOCK_TYPE_MAX] = { 0 };
@@ -36,15 +37,19 @@ void UpdateBlock()
 
 void DrawBlock()
 {
+	CameraData cam = GetCamera();
+
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)
 	{
 		if (block->active)
 		{
-			DrawGraph((int)block->pos.x, (int)block->pos.y, block->handle, TRUE);
-
-			// ŒãXTHORN_BLOCK’Ç‰Á
-			// block->handle = g_BlockHandle[THORN_BLOCK];
+			DrawGraph(
+				(int)(block->pos.x - cam.posX),
+				(int)(block->pos.y - cam.posY),
+				block->handle,
+				TRUE
+			);
 		}
 	}
 }

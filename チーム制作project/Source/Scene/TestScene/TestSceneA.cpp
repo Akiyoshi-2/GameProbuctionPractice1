@@ -3,7 +3,8 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Player/Player.h"
 #include "../../Map/MapManager.h"
-
+#include "../../Camera/Camera.h"
+#include "../../Animation/Animation.h"
 
 int g_TestHandle = -1;
 
@@ -44,20 +45,27 @@ void StepTestSceneA()
 void UpdateTestSceneA()
 {
     UpdatePlayer();
+    UpdateCamera();
 }
 
 void DrawTestSceneA()
 {
+    CameraData cam = GetCamera();   //追加
 
     if (g_TestHandle != -1)
     {
-        DrawGraph(0, 0, g_TestHandle, TRUE);
+        DrawGraph(
+            (int)-cam.posX,         // カメラを引く
+            (int)-cam.posY,
+            g_TestHandle,
+            TRUE
+        );
     }
 
-    DrawPlayer();
-    DrawMap();
+    DrawMap();      // 背景（ブロック）
+    DrawPlayer();   // プレイヤー
+    DrawCamera();   // デバッグ
 }
-
 void FinTestSceneA()
 {
     if (g_TestHandle != -1)
