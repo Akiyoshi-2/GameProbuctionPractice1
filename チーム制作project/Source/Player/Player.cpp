@@ -7,7 +7,34 @@
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
 
-PlayerData g_PlayerData[TYPE_MAX] = {};
+// アニメーション用パラメータ
+struct PlayerAnimationParam
+{
+	int interval;
+	int framNum;
+	int width;
+	int height;
+};
+const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
+{
+	8, 3, 50, 50,
+	8, 2, 50, 50,
+	5, 2, 50, 50,
+	8, 1, 50, 50,
+	8, 1, 50, 50,
+	8, 1, 50, 50,
+	8, 2, 50, 50,
+	5, 2, 50, 50,
+	8, 1, 50, 50,
+	8, 1, 50, 50,
+	8, 1, 50, 50,
+	8, 2, 50, 50,
+	5, 2, 50, 50,
+	8, 1, 50, 50,
+	8, 1, 50, 50,
+};
+
+PlayerData g_PlayerData[PLAYER_ANIM_MAX] = {};
 
 PlayerData g_PrevPlayerData = { 0 };
 
@@ -22,6 +49,11 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_BOX_COLLISION_WIDTH (20)
 #define PLAYER_BOX_COLLISiON_HEIGHT (44)
 
+// このCPPでのみ使用する関数の宣言
+void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
+void UpdatePlayerAnimation();							// アニメーション更新
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
+
 //void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
 void InitPlayer()
@@ -32,13 +64,36 @@ void InitPlayer()
 	g_PlayerData->moveX = 0.0f;
 	g_PlayerData->moveY = 0.0f;
 
+	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
+	{
+		InitAnimation(&g_PrevPlayerData.animation[i]);
+	}
+
 }
 
 void LoadPlayer()
 {
-	g_PlayerData[TYPE_RED].handle = LoadGraph("Data/animation/BluePlayer/青player_jump1.png");
-	g_PlayerData[TYPE_BLUE].handle = LoadGraph("Data/animation/RedPlayer/赤player_jump1.png");
-	g_PlayerData[TYPE_YELLOW].handle = LoadGraph("Data/animation/YellowPlayer/黄player_jump1.png");
+	//赤
+	g_PrevPlayerData.animation[RRED_PLAYER_ANIM_ATTACK].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Attack.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Idle.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/RedPlayer_Run.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/赤player_jump1.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/RedPlayer/赤player_fall1.png");
+	g_PrevPlayerData.animation[RED_PLAYER_ANIM_DIE].handle = LoadGraph("Data/animation/RedPlayer/赤player_die.png");
+
+	//青
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/BluePlayer_Idle.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/BluePlayer_Run.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_jump1.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_fall1.png");
+	g_PrevPlayerData.animation[BLUE_PLAYER_ANIM_DIE].handle = LoadGraph("Data/animation/RedPlayer/BluePlayer/青player_die.png");
+	
+	//黄
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/RedPlayer/");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/RedPlayer/");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/RedPlayer/");
+	g_PrevPlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/RedPlayer/");
+	
 }
 
 void StartPlayer()
