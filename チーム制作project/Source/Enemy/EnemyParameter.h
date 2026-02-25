@@ -1,5 +1,4 @@
 #pragma once
-<<<<<<< HEAD
 #include "DxLib.h"
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
@@ -98,18 +97,4 @@ struct EnemySpawnData
 	float posY;
 	const EnemyParameter* param;
 };
-=======
-// #include "DxLib.h"
-// #include "../Animation/Animation.h"
-// #include "../Collision/Collision.h"
 
-// enum EnemyType
-//  {
-//	ENEMY_TYPE_,
-//	ENEMY_TYPE_,
-//	ENEMY_TYPE_,
-//	ENEMY_TYPE_,
-//	ENEMY_TYPE_,
-//
-// };
->>>>>>> 1c0b66960193272eb82ab6a9f5f0822b067cdfc7
