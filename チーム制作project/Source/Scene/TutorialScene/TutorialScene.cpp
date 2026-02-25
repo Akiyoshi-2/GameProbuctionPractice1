@@ -6,6 +6,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Animation/Animation.h"
 #include "../TitleScene/TitleScene.h"
+#include "../../Collision/Collision.h"
 
 int g_TestHandle = -1;
 

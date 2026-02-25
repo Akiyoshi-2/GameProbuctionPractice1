@@ -12,8 +12,31 @@
 // キャラの周囲何マスまでチェックするか
 #define CHECK_ROUND_NUM (2)
 
-// ↓Enemyの所(俺、なんも知らんから)変えるなら変えて大丈夫よ　
+void InitMap()
+{
+	InitBlock();
+}
 
+void LoadMap()
+{
+	LoadMapChipData();
+	LoadBlock();
+}
+
+void StartMap()
+{
+	CreateMap();
+}
+
+void DrawMap()
+{
+	DrawBlock();
+}
+
+void FinMap()
+{
+	FinBlock();
+}
 //ここにマップの当たり判定書くってよ
 void CheckMapPlayerCpllision()
 {
@@ -307,29 +330,3 @@ void CheckMapPlayerCpllision()
 //	}
 //}
 
-
-void InitMap()
-{
-	InitBlock();
-}
-
-void LoadMap()
-{
-	LoadMapChipData();
-	LoadBlock();
-}
-
-void StartMap()
-{
-	CreateMap();
-}
-
-void DrawMap()
-{
-	DrawBlock();
-}
-
-void FinMap()
-{
-	FinBlock();
-}

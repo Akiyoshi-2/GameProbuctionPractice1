@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Collision.h"
 #include "../Player/Player.h"
+#include "../Map/MapManager.h"
 #include <math.h>
 
 
@@ -84,5 +85,5 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 // Še“–‚½‚è”»’è‚ðŒÄ‚Ô
 void CheckCollision()
 {
-	
+	CheckMapPlayerCpllision();
 }

@@ -50,6 +50,7 @@ struct PlayerData
 	float moveX;
 	float moveY;
 	float hitFlag;
+	
 	bool active;
 	bool isTurn;
 	bool isAir;
@@ -69,5 +70,5 @@ PlayerData* GetPlayer();
 //void PlayerHitShield_Enemy();
 //void PlayerHitYellow_Enemy();
 //
-//void PlayerHitNormalBlockX(MapChipData mapChipData);
-//void PlayerHitNormalBlockY(MapChipData mapChipData);
+void PlayerHitNormalBlockX(MapChipData mapChipData);
+void PlayerHitNormalBlockY(MapChipData mapChipData);
