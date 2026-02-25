@@ -13,7 +13,7 @@ struct NormalEnemyAnimationParam
 	int height;
 };
 
-const NormalEnemyAnimationParam NORMAL_ENEMY_PARAM[NORMAL_ENEMY_ANIM_MAX] =
+const NormalEnemyAnimationParam NORMAL_ENEMY_ANIM_PARAM[NORMAL_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
 	8, 10, 50, 10,	// CRUSH
@@ -96,13 +96,11 @@ void StepNormalEnemy()
 		if (!normalEnemy->isTurn)
 		{
 			normalEnemy->move.x = NORMAL_ENEMY_MOVE_SPEED;
-			normalEnemy->isTurn = false;
 		}
 		// 左に移動
 		else if (normalEnemy->isTurn)
 		{
 			normalEnemy->move.x = -NORMAL_ENEMY_MOVE_SPEED;
-			normalEnemy->isTurn = true;
 		}
 	}
 }
@@ -140,5 +138,151 @@ void DrawNormalEnemy()
 
 void FinNormalEnemy()
 {
+	for (int i = 0; i < NORMAL_ENEMY_ANIM_MAX; i++)
+	{
+		DeleteGraph(g_NormalEnemyData->animation[i].handle);
+	}
+}
 
+NormalEnemyData* GetNormalEnemy()
+{
+	return g_NormalEnemyData;
+}
+
+void PlayerKillNormalEnemy(int index)
+{
+	NormalEnemyData* NormalEnemy = &g_NormalEnemyData[index];
+
+	NormalEnemy->active = false;
+
+	// スコア
+	// int score = GetScore() + NORMAL_ENEMY_SCORE;
+	// SetScore(score)
+
+}
+
+void CreateNomalEnemy(float posX, float posY, const EnemyParameter* param)
+{
+	NormalEnemyData* normalEnemy = g_NormalEnemyData;
+	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)
+	{
+		if (!normalEnemy->active)
+		{
+			// アクティブ
+			normalEnemy->active = true;
+
+			// アニメーション
+			normalEnemy->animation->handle = g_NormalEnemyData->animation->handle;
+
+			// 座標
+			normalEnemy->pos.x = posX;
+			normalEnemy->pos.y = posY;
+
+			// 移動量
+			normalEnemy->move.x = NORMAL_ENEMY_MOVE_SPEED;
+			normalEnemy->move.y = 0.0f;
+
+			// パラメータ設定
+			normalEnemy->param = param;
+
+			break;
+		}
+	}
+}
+
+void NormalEnemyHitBlockX(MapChipData mapChipData, int index)
+{
+	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
+	BlockData* block = mapChipData.data;
+	const float POS_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET;
+	const float SIZE_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET * 2;
+
+	normalEnemy->pos.x = g_NormalEnemyData[index].pos.x;
+	normalEnemy->pos.y = g_NormalEnemyData[index].pos.y;
+
+	if (CheckSquareSquare(normalEnemy->pos.x + POS_OFFSET, normalEnemy->pos.y - POS_OFFSET,
+		NORMAL_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, NORMAL_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		// 左から当たった
+		if (normalEnemy->move.x > 0.0f)
+		{
+			normalEnemy->isTurn = false;
+		}
+		// 右から当たった
+		else if (normalEnemy->move.x < 0.0f)
+		{
+			normalEnemy->isTurn = true;
+		}
+
+	}
+}
+
+void NormalEnemyHitBlockY(MapChipData mapChipData, int index)
+{
+	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
+	BlockData* block = mapChipData.data;
+	const float POS_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET;
+	const float SIZE_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET * 2;
+
+	normalEnemy->isTurn = g_PravNormalEnemyData->isTurn;
+
+	if (CheckSquareSquare(normalEnemy->pos.x + POS_OFFSET, normalEnemy->pos.y - POS_OFFSET,
+		NORMAL_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, NORMAL_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		// 上から当たった
+		if (normalEnemy->move.y > 0.0f)
+		{
+			// 上に押し出す
+			normalEnemy->pos.y -= (normalEnemy->pos.y * NORMAL_ENEMY_BOX_COLLISION_HEIGHT) - block->pos.y;
+			normalEnemy->isAir = false;
+		}
+		// 下から当たったか
+		else if (normalEnemy->move.y < 0.0f)
+		{
+			// 下に押し出す
+			normalEnemy->pos.y += (block->pos.y + MAP_CHIP_WIDTH) - normalEnemy->pos.y;
+		}
+
+		// Yの移動量を0にする
+		normalEnemy->move.y = 0.0f;
+	}
+}
+
+void StartNormalEnemyAnimation(NormalEnemyAnimationType anim, int index)
+{
+	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
+
+	// アニメーション再生中なら何もしない
+	if (anim == normalEnemy->playAnim)return;
+
+	// 再生中アニメーション設定
+	normalEnemy->playAnim = anim;
+
+	// データを取得
+	AnimationData* animData = &normalEnemy->animation[anim];
+	NormalEnemyAnimationParam animParam = NORMAL_ENEMY_ANIM_PARAM[anim];
+
+	//再生
+	StartAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y,
+		animParam.interval, animParam.frameNum, animParam.width, animParam.height, true);
+}
+
+void UpdateNormalEnemyAnimation(int index)
+{
+	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
+
+	// 歩くアニメーション
+	StartNormalEnemyAnimation(NORMAL_ENEMY_RUN, index);
+	
+	// 増えれば追加する
+	// StartNormalEnemyAnimation(???, index);
+
+
+
+	// アニメーション更新
+	NormalEnemyAnimationType animType = normalEnemy->playAnim;
+	AnimationData* animData = &normalEnemy->animation[animType];
+	UpdateAnimation(animData);
 }

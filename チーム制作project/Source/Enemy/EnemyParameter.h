@@ -22,12 +22,13 @@ const EnemyParameter ENEMY_PARAMETER[] =
 	4300.0f,
 };
 
-// Normal_Enemy関連
+// NORMAL_ENEMY関連
 #define NORMAL_ENEMY_MAX	(255)
 #define NORMAL_ENEMY_WIDTH	(38.0f)
 #define NORMAL_ENEMY_HEIGHT	(38.0f)
 #define NORMAL_ENEMY_RADIUD	(19.0f)
 
+// アニメーションタイプ
 enum NormalEnemyAnimationType
 {
 	NORMAL_ENEMY_RUN,
@@ -37,6 +38,7 @@ enum NormalEnemyAnimationType
 	NORMAL_ENEMY_ANIM_NONE = -1
 };
 
+// EnemyDatat
 struct NormalEnemyData
 {
 	bool isTurn;
@@ -54,6 +56,37 @@ struct NormalEnemyData
 };
 
 
+// HELMET_ENEMY関連
+#define HELMET_ENEMY_MAX	(255)
+#define HELMET_ENEMY_WIDTH	(38.0f)
+#define HELMET_ENEMY_HEIGHT	(39.0f)
+#define HELMET_ENEMY_RADIUS	(19.5f)
+
+// アニメーションタイプ
+enum HelmetAnimationType
+{
+	HELMET_ENEMY_ANIM_RUN,
+	HELMET_ENEMY_ANIM_DIE,
+	HELMET_ENEMY_ANIM_MAX,
+	HELMET_ENEMY_ANIM_NONE = -1
+};
+
+// EnemyData
+struct HelmetEnemyData
+{
+	bool isTurn;
+	bool isAir;
+	bool active;
+	VECTOR pos;
+	VECTOR move;
+	AnimationData animation[HELMET_ENEMY_ANIM_MAX];
+	HelmetAnimationType playAnim;
+	BoxCollision boxCollision;
+	const EnemyParameter* param;
+	HelmetEnemyData* data;
+};
+
+//////////////////////////////////
 
 // スポーンデータ
 struct EnemySpawnData

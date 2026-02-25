@@ -18,4 +18,4 @@ void NormalEnemyHitBlockX(MapChipData mapChipData, int index);
 void NormalEnemyHitBlockY(MapChipData mapChipData, int index);
 
 // ‚â‚ç‚ê”»’è
-void PlayerKillNormalEnemy();
+void PlayerKillNormalEnemy(int index);
