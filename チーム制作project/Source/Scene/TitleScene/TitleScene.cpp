@@ -51,16 +51,28 @@ bool g_IsSceneChangeWait = false;
 int g_SceneChangeTimer = 0;
 const int SCENE_CHANGE_WAIT_TIME = 60;//フレーム
 
+//Scene帰宅
+bool g_ReturnFromGame = false;
+
 void InitTitleScene()
 {
-	g_BlinkTimer = 0;
+	Input_Reset();
 
+	// AnyKey用
+	g_BlinkTimer = 0;
 	g_DrawKeyUI = true;
 	g_IsBlinking = false;
 
-	g_IsDecided = false;
+	// Tutorial用
+	g_IsTutorialBlink = false;
+	g_DrawTutorialUI = true;
+	g_TutorialBlinkTimer = 0;
+	g_IsTutorialSceneWait = false;
+	g_TutorialSceneTimer = 0;
 
+	g_IsDecided = false;
 	g_IsShowMenu = false;
+	g_IsStageSelectMode = false;
 
 	g_IsSceneChangeWait = false;
 	g_SceneChangeTimer = 0;
@@ -68,8 +80,16 @@ void InitTitleScene()
 	g_TitleUIData->stage = 0;
 
 	g_MenuCursor = MENU_SELECT;
-
 	g_SelectCursor = SELECT_STAGE1;
+
+	// ゲームから戻ってきた時
+	if (g_ReturnFromGame)
+	{
+		g_IsDecided = true;
+		g_IsShowMenu = true;
+		g_DrawKeyUI = false;
+		g_ReturnFromGame = false;
+	}
 }
 
 void LoadTitleScene()
@@ -249,7 +269,7 @@ void StepTitleScene()
 
 		if (g_TutorialSceneTimer >= SCENE_CHANGE_WAIT_TIME)
 		{
-			ChangeScene(TEST_SCENE_A);
+			ChangeScene(SCENE_TUTORIAL);
 		}
 	}
 	

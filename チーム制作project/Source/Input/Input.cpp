@@ -82,17 +82,19 @@ bool IsTriggerKey(InputKey key)
 
 bool Input_IsAnyKeyPush()
 {
-	// 前フレーム保存
-	memcpy(oldkey, key, sizeof(key));
-	// 今フレーム取得
 	GetHitKeyStateAll(key);
+
 	for (int i = 0; i < 256; i++)
 	{
-		if (key[i] == 1 && oldkey[i] == 0)
+		if (key[i] && !oldkey[i])
 		{
+			memcpy(oldkey, key, sizeof(key));
 			return true;
 		}
 	}
+
+	memcpy(oldkey, key, sizeof(key));
+	return false;
 }
 void Input_Reset()
 {
