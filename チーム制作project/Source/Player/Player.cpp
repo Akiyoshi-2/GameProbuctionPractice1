@@ -235,73 +235,73 @@ void FinPlayer()
 	}
 }
 
-//void PlayerHitNormalBlockX(MapChipData mapChipData)
-//{
-//	/*PlayerData player = g_PlayerData;
-//	BlockData* block = mapChipData.data;
-//
-//	const float POS_OFFSET = PLAYER_MAP_COLLSION_OFFSET;
-//	const float SIZE_OFFSET = PLAYER_MAP_COLLSION_OFFSET * 2;
-//
-//	player.isTurn = g_PrevPlayerData.isTurn;
-//
-//	player.posX = g_PlayerData.posX;
-//	player.posY = g_PrevPlayerData.posY;
-//
-//	float x, y, w, h;
-//	CalcBoxCollision(player, x, y, w, h);
-//	
-//	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
-//		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
-//	{
-//		if (player.moveX > 0.0f)
-//		{
-//			g_PlayerData.posX -= (x + w) - block->pos.x;
-//		}
-//		else if (player.moveX < 0.0f)
-//		{
-//			g_PrevPlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
-//		}
-//	}
-//
-//	player.posX = g_PlayerData.posX;
-//	player.posY = g_PlayerData.posY;*/
-//}
-//
-//void PlayerHitNormalBlockY(MapChipData mapChipData)
-//{
-//	/*PlayerData player = g_PlayerData;
-//	BlockData* block = mapChipData.data;
-//	const float POS_OFFSET = PLAYER_MAP_COLLSION_OFFSET;
-//	const float SIZOFFSET = PLAYER_MAP_COLLSION_OFFSET * 2;
-//
-//	player.isTurn = g_PrevPlayerData.isTurn;
-//	float x, y, w, h;
-//	CalcBoxCollision(player, x, y, w, h);
-//
-//	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZOFFSET, h - SIZOFFSET,
-//		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
-//	{
-//		g_PrevPlayerData.moveY = 0.0f;
-//
-//		if (player.moveY > 0.0f)
-//		{
-//			g_PlayerData.posY -= (y + h) - block->pos.y;
-//			g_PlayerData.isAir = false;
-//		}
-//		else if (player.moveY < 0.0f)
-//		{
-//			g_PrevPlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
-//		}
-//	}*/
-//}
-//
-//void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
-//{
-//	/*x = player.isTurn ?
-//		player.posX + -player.boxCollision.posX - player.boxCollision.width :
-//		player.posX + player.boxCollision.posX;
-//	y = player.posY + player.boxCollision.posY;
-//	w = player.boxCollision.width;
-//	h = player.boxCollision.height;*/
-//}
+void PlayerHitNormalBlockX(MapChipData mapChipData)
+{
+	PlayerData player = g_PlayerData;
+	BlockData* block = mapChipData.data;
+
+	const float POS_OFFSET = PLAYER_MAP_COLLSION_OFFSET;
+	const float SIZE_OFFSET = PLAYER_MAP_COLLSION_OFFSET * 2;
+
+	player.isTurn = g_PrevPlayerData.isTurn;
+
+	player.posX = g_PlayerData.posX;
+	player.posY = g_PrevPlayerData.posY;
+
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
+	
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		if (player.moveX > 0.0f)
+		{
+			g_PlayerData.posX -= (x + w) - block->pos.x;
+		}
+		else if (player.moveX < 0.0f)
+		{
+			g_PrevPlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
+		}
+	}
+
+	player.posX = g_PlayerData.posX;
+	player.posY = g_PlayerData.posY;
+}
+
+void PlayerHitNormalBlockY(MapChipData mapChipData)
+{
+	PlayerData player = g_PlayerData;
+	BlockData* block = mapChipData.data;
+	const float POS_OFFSET = PLAYER_MAP_COLLSION_OFFSET;
+	const float SIZOFFSET = PLAYER_MAP_COLLSION_OFFSET * 2;
+
+	player.isTurn = g_PrevPlayerData.isTurn;
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
+
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZOFFSET, h - SIZOFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		g_PrevPlayerData.moveY = 0.0f;
+
+		if (player.moveY > 0.0f)
+		{
+			g_PlayerData.posY -= (y + h) - block->pos.y;
+			g_PlayerData.isAir = false;
+		}
+		else if (player.moveY < 0.0f)
+		{
+			g_PrevPlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
+		}
+	}
+}
+
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
+{
+	x = player.isTurn ?
+		player.posX + -player.boxCollision.posX - player.boxCollision.width :
+		player.posX + player.boxCollision.posX;
+	y = player.posY + player.boxCollision.posY;
+	w = player.boxCollision.width;
+	h = player.boxCollision.height;
+}
