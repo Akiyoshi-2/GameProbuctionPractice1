@@ -1,6 +1,7 @@
 #pragma once
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
+#include "../Collision/Collision.h"
 
 #define PLAYER_WIDTH	(50.0f)
 #define PLAYER_HEIGHT	(50.0f)
@@ -34,23 +35,13 @@ enum PlayerType
 	TYPE_YELLOW
 };
 
-void InitPlayer();
-void LoadPlayer();
-void StartPlayer();
-void StepPlayer();
-void UpdatePlayer();
-void DrawPlayer();
-void FinPlayer();
-
 struct PlayerData
 {
 	int handle;
-	float posX;
-	float posY;
-	float moveX;
-	float moveY;
+	VECTOR pos;
+	VECTOR move;
 	float hitFlag;
-	
+
 	bool active;
 	bool isTurn;
 	bool isAir;
@@ -60,15 +51,21 @@ struct PlayerData
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playerAnim;				// 再生中のアニメーション
 
+	BoxCollision boxCollision;					// 矩形当たり判定
+
 };
+
+void InitPlayer();
+void LoadPlayer();
+void StartPlayer();
+void StepPlayer();
+void UpdatePlayer();
+void DrawPlayer();
+void FinPlayer();
+
+
 
 PlayerData* GetPlayer();
 
-//void PlayerHitFullarmor_Enemy();
-//void PlayerHitHelmet_Enemy();
-//void PlayerHitNormal_Enemy();
-//void PlayerHitShield_Enemy();
-//void PlayerHitYellow_Enemy();
-//
 void PlayerHitNormalBlockX(MapChipData mapChipData);
 void PlayerHitNormalBlockY(MapChipData mapChipData);

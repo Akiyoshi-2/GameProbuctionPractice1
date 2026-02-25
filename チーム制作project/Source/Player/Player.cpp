@@ -6,6 +6,7 @@
 #include "../Camera/Camera.h"
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
+#include "../Map/Block.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -43,7 +44,7 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_MOVE_SPEED (4.0f)
 #define PLAYER_MOVE_JUMP (12.0f)
 
-#define PLAYER_GRAVITY (10.0f)
+#define PLAYER_GRAVITY (0.35f)
 #define PLAYER_MAP_COLLSION_OFFSET (0.05f)
 #define PLAYER_BOX_COLLISION_OFFSET_X (24)
 #define PLAYER_BOX_COLLISION_OFFSET_Y (20)
@@ -54,15 +55,16 @@ PlayerData g_PrevPlayerData = { 0 };
 // このCPPでのみ使用する関数の宣言
 void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
 void UpdatePlayerAnimation();							// アニメーション更新
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
 
 void InitPlayer()
 {
 
-	g_PlayerData.posX = 50.0f;
-	g_PlayerData.posY = 0.0f;
-	g_PlayerData.moveX = 0.0f;
-	g_PlayerData.moveY = 0.0f;
+	g_PlayerData.pos.x = 50.0f;
+	g_PlayerData.pos.y = 0.0f;
+	g_PlayerData.move.x = 0.0f;
+	g_PlayerData.move.y = 0.0f;
 	g_PlayerData.playerAnim = PLAYER_ANIM_NONE;
 
 	g_PlayerData.type = TYPE_BLUE;
@@ -72,6 +74,7 @@ void InitPlayer()
 		InitAnimation(&g_PlayerData.animation[i]);
 	}
 
+	memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
 }
 
 void LoadPlayer()
@@ -101,22 +104,25 @@ void LoadPlayer()
 
 void StartPlayer()
 {
+	// 生存フラグを立てる
+	g_PlayerData.active = true;
+
+	// 矩形判定設定
+	g_PlayerData.boxCollision.posX = PLAYER_BOX_COLLISION_OFFSET_X;
+	g_PlayerData.boxCollision.posY = PLAYER_BOX_COLLISION_OFFSET_Y;
+	g_PlayerData.boxCollision.width = PLAYER_BOX_COLLISION_WIDTH;
+	g_PlayerData.boxCollision.height = PLAYER_BOX_COLLISiON_HEIGHT;
+
 	StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
-}
-
-void UpdatePlayer()
-{
-	g_PlayerData.posX += g_PlayerData.moveX;
-	g_PlayerData.posY += g_PlayerData.moveY;
-
-	UpdatePlayerAnimation();
 }
 
 void StepPlayer()
 {
-	g_PlayerData.moveX = 0.0f;
+	g_PrevPlayerData = g_PlayerData;
 
-	g_PlayerData.posY += PLAYER_GRAVITY;
+	g_PlayerData.move.x = 0.0f;
+
+	g_PlayerData.move.y += PLAYER_GRAVITY;
 
 	if (IsTriggerKey(KEY_Q))
 	{
@@ -135,36 +141,65 @@ void StepPlayer()
 	//左
 	if (IsInputKey(KEY_LEFT))
 	{
-		g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+		g_PlayerData.move.x = -PLAYER_MOVE_SPEED;
 		g_PlayerData.isTurn = true;
 	}
 	//右
 	else if (IsInputKey(KEY_RIGHT))
 	{
-		g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+		g_PlayerData.move.x = PLAYER_MOVE_SPEED;
 		g_PlayerData.isTurn = false;
 	}
 	//ジャンプ
 	else if (IsInputKey(KEY_SPACE))
 	{
-		g_PlayerData.moveY = -PLAYER_MOVE_JUMP;
+		g_PlayerData.move.y = -PLAYER_MOVE_JUMP;
 	}
 }
+
+void UpdatePlayer()
+{
+	// 死んでいたら処理しない
+	if (!g_PlayerData.active) return;
+
+	// 上昇or落ちてる場合は空中フラグを立てる
+	if (g_PlayerData.move.y < 0.0f || g_PlayerData.move.y > PLAYER_GRAVITY)
+	{
+		g_PlayerData.isAir = true;
+	}
+
+	// 移動処理
+	g_PlayerData.pos.x += g_PlayerData.move.x;
+	g_PlayerData.pos.y += g_PlayerData.move.y;
+
+	UpdatePlayerAnimation();
+}
+
+
 
 void DrawPlayer()
 {
 	CameraData camera = GetCamera();
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "プレイヤーの座標＝[%f, %f]", g_PlayerData.posX, g_PlayerData.posY);
+	DrawFormatString(0, 100, GetColor(255, 255, 255), "プレイヤーの座標＝[%f, %f]", g_PlayerData.pos.x, g_PlayerData.pos.y);
 
 	PlayerAnimationType animType = g_PlayerData.playerAnim;
 	AnimationData* animData = &g_PlayerData.animation[animType];
-	DrawAnimation(animData, g_PlayerData.posX - camera.posX, g_PlayerData.posY - camera.posY, g_PlayerData.isTurn);
+	DrawAnimation(animData, g_PlayerData.pos.x - camera.posX, g_PlayerData.pos.y - camera.posY, g_PlayerData.isTurn);
+}
+
+void FinPlayer()
+{
+	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
+	{
+		DeleteGraph(g_PlayerData.animation[i].handle);
+	}
 }
 
 PlayerData* GetPlayer()
 {
 	return &g_PlayerData;
 }
+
 void StartPlayerAnimation(PlayerAnimationType anim)
 {
 	// 再生中のアニメーションであれば何もしない
@@ -178,7 +213,7 @@ void StartPlayerAnimation(PlayerAnimationType anim)
 	PlayerAnimationParam animParam = PLAYER_ANIM_PARAM[anim];
 
 	// アニメーション再生
-	StartAnimation(animData, g_PlayerData.posX, g_PlayerData.posY, animParam.interval, animParam.framNum, animParam.width, animParam.height, true);
+	StartAnimation(animData, g_PlayerData.pos.x, g_PlayerData.pos.y, animParam.interval, animParam.framNum, animParam.width, animParam.height, true);
 }
 
 void UpdatePlayerAnimation()
@@ -186,7 +221,7 @@ void UpdatePlayerAnimation()
 	// 地上にいるか
 	if (!g_PlayerData.isAir)
 	{
-		if (g_PlayerData.moveX != 0.0f)
+		if (g_PlayerData.move.x != 0.0f)
 		{
 			if (g_PlayerData.type == TYPE_BLUE)
 				StartPlayerAnimation(BLUE_PLAYER_ANIM_RUN);
@@ -204,7 +239,7 @@ void UpdatePlayerAnimation()
 	// 空中にいる
 	else
 	{
-		if (g_PlayerData.moveY < 0.0f)
+		if (g_PlayerData.move.y < 0.0f)
 		{
 			if (g_PlayerData.type == TYPE_BLUE)
 				StartPlayerAnimation(BLUE_PLAYER_ANIM_JUMP);
@@ -226,43 +261,37 @@ void UpdatePlayerAnimation()
 	UpdateAnimation(animData);
 }
 
-void FinPlayer()
-{
-	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
-	{
-		DeleteGraph(g_PlayerData.animation[i].handle);
-	}
-}
+
 
 void PlayerHitNormalBlockX(MapChipData mapChipData)
 {
 	PlayerData player = g_PlayerData;
 	BlockData* block = mapChipData.data;
-
 	const float POS_OFFSET = PLAYER_MAP_COLLSION_OFFSET;
 	const float SIZE_OFFSET = PLAYER_MAP_COLLSION_OFFSET * 2;
 
 	player.isTurn = g_PrevPlayerData.isTurn;
 
-	player.posX = g_PlayerData.posX;
-	player.posY = g_PrevPlayerData.posY;
+	player.pos.x = g_PlayerData.pos.x;
+	player.pos.y = g_PrevPlayerData.pos.y;
 
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
 	
-	if (CheckSquareSquare(player.posX + POS_OFFSET, player.posY + POS_OFFSET, PLAYER_BOX_COLLISION_WIDTH - SIZE_OFFSET, PLAYER_BOX_COLLISiON_HEIGHT - SIZE_OFFSET,
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		if (player.moveX > 0.0f)
+		if (player.move.x > 0.0f)
 		{
-			g_PlayerData.posX -= (player.posX + PLAYER_BOX_COLLISION_WIDTH) - block->pos.x;
+			g_PlayerData.pos.x -= (x + w) - block->pos.x;
+
 		}
-		else if (player.moveX < 0.0f)
+		else if (player.move.x < 0.0f)
 		{
-			g_PrevPlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - player.posX;
+			g_PrevPlayerData.pos.x += (block->pos.x + MAP_CHIP_WIDTH) - x;
+
 		}
 	}
-
-	player.posX = g_PlayerData.posX;
-	player.posY = g_PlayerData.posY;
 }
 
 void PlayerHitNormalBlockY(MapChipData mapChipData)
@@ -274,22 +303,32 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 
 	player.isTurn = g_PrevPlayerData.isTurn;
 	
-	
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
 
-	if (CheckSquareSquare(player.posX + POS_OFFSET, player.posY + POS_OFFSET, PLAYER_BOX_COLLISION_WIDTH - SIZE_OFFSET, PLAYER_BOX_COLLISiON_HEIGHT - SIZE_OFFSET,
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		g_PrevPlayerData.moveY = 0.0f;
+		g_PrevPlayerData.move.y = 0.0f;
 
-		if (player.moveY > 0.0f)
+		if (player.move.y > 0.0f)
 		{
-			g_PlayerData.posY -= (player.posY + PLAYER_BOX_COLLISiON_HEIGHT) - block->pos.y;
+			g_PlayerData.pos.y -= (y + h) - block->pos.y;
 			g_PlayerData.isAir = false;
 		}
-		else if (player.moveY < 0.0f)
+		else if (player.move.y < 0.0f)
 		{
-			g_PrevPlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - player.posY;
+			g_PrevPlayerData.pos.y += (block->pos.y + MAP_CHIP_WIDTH) - y;
 		}
 	}
 }
 
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
+{
+	x = player.isTurn ?
+		player.pos.x + PLAYER_WIDTH - player.boxCollision.posX - player.boxCollision.width :
+		player.pos.x + player.boxCollision.posX;
+	y = player.pos.y + player.boxCollision.posY;
+	w = player.boxCollision.width;
+	h = player.boxCollision.height;
+}

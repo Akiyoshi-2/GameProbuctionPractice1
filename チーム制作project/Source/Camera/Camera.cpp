@@ -9,8 +9,8 @@ void UpdateCamera()
 {
     PlayerData* player = GetPlayer();
 
-    g_CameraData.posX = player->posX - SCREEN_WIDTH * 0.5f;
-    g_CameraData.posY = player->posY - SCREEN_HEIGHT * 0.5f;
+    g_CameraData.posX = player->pos.x - SCREEN_WIDTH * 0.5f;
+    g_CameraData.posY = player->pos.y - SCREEN_HEIGHT * 0.5f;
 }
 void DrawCamera()
 {

@@ -2,6 +2,7 @@
 #include "Collision.h"
 #include "../Player/Player.h"
 #include "../Map/MapManager.h"
+#include "../Map/Block.h"
 #include <math.h>
 
 
@@ -85,5 +86,6 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 // 各当たり判定を呼ぶ
 void CheckCollision()
 {
+	// プレイヤーとマップの当たり判定
 	CheckMapPlayerCpllision();
 }

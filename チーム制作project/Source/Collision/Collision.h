@@ -1,7 +1,5 @@
 #pragma once
 
-void CheckCollision();
-
 struct BoxCollision
 {
 	float posX;
@@ -20,3 +18,4 @@ bool CheckCirclePoint(float circlePosX, float circlePosY, float circleRadius, fl
 
 bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Radius, float circleB_PosX, float circleB_PosY, float circleB_Radius);
 
+void CheckCollision();

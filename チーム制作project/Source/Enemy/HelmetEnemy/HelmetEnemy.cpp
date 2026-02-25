@@ -63,3 +63,14 @@ void InitHelmetEnemy()
 		}
 	}
 }
+
+void LoadHelmetEnemy()
+{
+	int runHandlde = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_run.png");
+	int dieHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_die.png");
+
+	for (int i = 0; i < HELMET_ENEMY_MAX; i++)
+	{
+		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_RUN].handle = runHandlde;
+	}
+}
