@@ -6,4 +6,9 @@ void StartMap();
 void DrawMap();
 void FinMap();
 
-//void CheckMapPlayerCpllision();
+void CheckMapPlayerCpllision();
+void CheckMapEnemyCollision();
+void CheckMapHelmetEnemyCollision();
+void CheckMapNormalEnemyCollision();
+void CheckMapShieldEnemyCollision();
+void CheckMapYellowEnemyCollision();
