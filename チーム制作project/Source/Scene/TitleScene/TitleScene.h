@@ -31,3 +31,6 @@ void StepTitleScene();
 void UpdateTitleScene();
 void DrawTitleScene();
 void FinTitleScene();
+
+//タイトルに戻る時用
+extern bool g_ReturnFromGame;
