@@ -31,9 +31,16 @@ int g_SEHandle = -1;
 int g_MoveSEHandle = -1;
 
 //点滅関係
+//AnyKey専用
 int  g_BlinkTimer = 0;
 bool g_DrawKeyUI = true;
 bool g_IsBlinking = true;   // 点滅しているか
+//Scene切替専用
+bool g_IsTutorialBlink = false;
+bool g_DrawTutorialUI = true;
+int  g_TutorialBlinkTimer = 0;
+bool g_IsTutorialSceneWait = false;
+int  g_TutorialSceneTimer = 0;
 
 bool g_IsDecided = false; // AnyKey押されたか
 bool g_IsShowMenu = false; // メニュー表示中か
@@ -123,12 +130,11 @@ void StepTitleScene()
     // 点滅処理（押した後だけ）
 	if (g_IsBlinking)
 	{
-		g_BlinkTimer++;
+		g_BlinkTimer++; 
 		if (g_BlinkTimer >= 5)
 		{
-			g_BlinkTimer = 0;
-			g_DrawKeyUI = !g_DrawKeyUI;
-		}
+			g_BlinkTimer = 0; g_DrawKeyUI = !g_DrawKeyUI; 
+		} 
 	}
     // 待ち時間 → メニュー表示
 	if (g_IsSceneChangeWait)
@@ -199,8 +205,20 @@ void StepTitleScene()
 			{
 				g_TitleUIData->stage = 1;
 
-				ChangeScene(TEST_SCENE_A);
+				g_IsBlinking = false;
+				g_DrawKeyUI = false;
+
+				g_IsTutorialBlink = true;
+				g_DrawTutorialUI = true;
+				g_TutorialBlinkTimer = 0;
+
+				g_IsTutorialSceneWait = true;
+				g_TutorialSceneTimer = 0;
+
+				PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
+				Input_Reset();
 			}
+
 			// MENU_SELECT 確定
 			else if (g_MenuCursor == MENU_SELECT)
 			{
@@ -214,6 +232,27 @@ void StepTitleScene()
 			}
 		}
 	}
+
+	if (g_IsTutorialBlink)
+	{
+		g_TutorialBlinkTimer++;
+		if (g_TutorialBlinkTimer >= 5)
+		{
+			g_TutorialBlinkTimer = 0;
+			g_DrawTutorialUI = !g_DrawTutorialUI;
+		}
+	}
+
+	if (g_IsTutorialSceneWait)
+	{
+		g_TutorialSceneTimer++;
+
+		if (g_TutorialSceneTimer >= SCENE_CHANGE_WAIT_TIME)
+		{
+			ChangeScene(TEST_SCENE_A);
+		}
+	}
+	
 	//========================================
 	// セレクト操作
 	//========================================
@@ -395,12 +434,15 @@ void DrawTitleScene()
 			TRUE
 		);
 
-		DrawGraph(
-			(int)g_TitleUIData[MENU_TUTORIAL].pos.x,
-			(int)g_TitleUIData[MENU_TUTORIAL].pos.y,
-			g_TitleUIData[MENU_TUTORIAL].handle,
-			TRUE
-		);
+		if (g_IsShowMenu && g_DrawTutorialUI)
+		{
+			DrawGraph(
+				(int)g_TitleUIData[MENU_TUTORIAL].pos.x,
+				(int)g_TitleUIData[MENU_TUTORIAL].pos.y,
+				g_TitleUIData[MENU_TUTORIAL].handle,
+				TRUE
+			);
+		}
 
 		DrawGraph(
 			(int)g_TitleUIData[MENU_ARROW].pos.x,
@@ -416,7 +458,7 @@ void DrawTitleScene()
 		DrawGraph(
 			(int)g_TitleUIData[SELECT_STAGE1].pos.x,
 			(int)g_TitleUIData[SELECT_STAGE1].pos.y,
-			g_TitleUIData[SELECT_STAGE1].handle,
+			g_TitleUIData[SELECT_STAGE1].handle, 
 			TRUE
 		);
 		DrawGraph(
@@ -443,6 +485,7 @@ void DrawTitleScene()
 			g_TitleUIData[SELECT_BACK].handle,
 			TRUE
 		);
+
 	}
 
 }

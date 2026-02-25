@@ -3,13 +3,11 @@
 // シーンの種類
 enum Scene
 {
-	SCENE_TITLE,
-	SCENE_MENU,
-	SCENE_SELECT,
-	SCENE_TUTORIAL,
-	SCENE_PLAY,
-	SCENE_OPTION,
-	TEST_SCENE_A
+	SCENE_TITLE,	//タイトル
+	SCENE_TUTORIAL, //チュートリアル
+	SCENE_PLAY,		//プレイ
+	TEST_SCENE_A,	//テスト
+	SCENE_STAGE_1	//ステージ1
 };
 
 // シーンの状態
