@@ -46,8 +46,11 @@ void StepTutorialScene()
 
 void UpdateTutorialScene()
 {
+
 	UpdatePlayer();
 	UpdateCamera();
+	CheckCollision();
+	UpdatePlayerAnimation();
 }
 
 void DrawTutorialScene()

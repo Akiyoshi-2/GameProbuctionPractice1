@@ -41,6 +41,7 @@ struct PlayerData
 	VECTOR pos;
 	VECTOR move;
 	float hitFlag;
+	int canJump;
 
 	bool active;
 	bool isTurn;
@@ -62,7 +63,7 @@ void StepPlayer();
 void UpdatePlayer();
 void DrawPlayer();
 void FinPlayer();
-
+void UpdatePlayerAnimation();
 
 
 PlayerData* GetPlayer();
