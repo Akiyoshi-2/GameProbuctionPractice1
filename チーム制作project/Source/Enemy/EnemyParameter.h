@@ -86,6 +86,38 @@ struct HelmetEnemyData
 	HelmetEnemyData* data;
 };
 
+// ShieldEnemy関連
+#define SHIELD_ENEMY_MAX	(255)
+#define SHIELD_ENEMY_WIDTH	(38.0f)
+#define SHIELD_ENEMY_HEIGHT	(38.0f)
+#define SHIELD_ENEMY_RADIUD	(19.0f)
+
+//アニメーションタイプ
+enum ShieldEnemyAnimationType
+{
+	SHIELD_ENEMY_RUN,
+	SHIELD_ENEMY_DIE,
+	SHIELD_ENEMY_ANIM_MAX,
+	SHIELD_ENEMY_ANIM_NONE = -1
+
+};
+
+
+// EnemyData
+struct ShieldEnemyData
+{
+	bool isTurn;
+	bool isAir;
+	bool active;
+	VECTOR pos;
+	VECTOR move;
+	AnimationData animation[SHIELD_ENEMY_ANIM_MAX];
+	ShieldEnemyAnimationType playAnim;
+	BoxCollision boxCollision;
+	const EnemyParameter* param;
+	ShieldEnemyData* data;
+};
+
 //////////////////////////////////
 
 // スポーンデータ
