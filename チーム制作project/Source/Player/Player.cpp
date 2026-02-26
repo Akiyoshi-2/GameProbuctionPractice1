@@ -153,13 +153,6 @@ void StepPlayer()
 		g_PlayerData.isTurn = false;
 	}
 
-	// ジャンプ(スペースキー長押しで連続ジャンプ可能)
-	//if (IsInputKey(KEY_SPACE) && !g_PlayerData.isAir)
-	//{
-	//	g_PlayerData.move.y = -PLAYER_MOVE_JUMP;
-	//	g_PlayerData.isAir = true; 
-	//}
-
 	if (IsTriggerKey(KEY_SPACE) &&
 		!g_PrevPlayerData.isAir &&
 		g_PlayerData.canJump)
