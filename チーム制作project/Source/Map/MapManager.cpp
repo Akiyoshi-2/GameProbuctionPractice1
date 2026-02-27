@@ -52,11 +52,11 @@ void CheckMapPlayerCpllision()
 
 	for (int y = top; y <= bottom; y++)
 	{
-		if (y < 0 || y >= MAP_CHIP_Y_NUM)continue;
+		if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 		for (int x = left; x <= right; x++)
 		{
-			if (x < 0 || x >= MAP_CHIP_X_NUM)continue;
+			if (x < 0 || x >= MAP_CHIP_X_NUM_MAX)continue;
 
 			MapChipData mapchipdata = GetMapChipData(x, y);
 			switch (mapchipdata.mapChip)
@@ -71,12 +71,12 @@ void CheckMapPlayerCpllision()
 	for (int y = top; y <= bottom; y++)
 	{
 		// マップチップからはみ出したら処理しなくていい
-		if (y < 0 || y >= MAP_CHIP_Y_NUM) continue;
+		if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX) continue;
 
 		for (int x = left; x <= right; x++)
 		{
 			// マップチップからはみ出したら処理しなくていい
-			if (x < 0 || x >= MAP_CHIP_X_NUM) continue;
+			if (x < 0 || x >= MAP_CHIP_X_NUM_MAX) continue;
 
 			// マップチップ番号を取得
 			MapChipData mapChipData = GetMapChipData(x, y);

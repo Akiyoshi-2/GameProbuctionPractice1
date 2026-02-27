@@ -13,7 +13,7 @@ TitleUIData g_TitleData;
 void LoadMapChipData(int stage)
 {
 	// チュートリアルシーン
-	if (stage == 1)
+	if (stage == 0)
 	{
 		FILE* fp;
 		if (fopen_s(&fp, "Data/MapData/Stage0.bin", "rb") != 0) return;
@@ -28,10 +28,10 @@ void LoadMapChipData(int stage)
 		}
 	}
 	// ステージ1
-	else if(stage == 0)
+	else if(stage == 1)
 	{
 			FILE* fp;
-		if (fopen_s(&fp, "Data/MapData/Stage1Map.bin", "rb") != 0) return;
+		if (fopen_s(&fp, "Data/MapData/Stage1.bin", "rb") != 0) return;
 
 		for (int i = 0; i < 30; i++)
 		{

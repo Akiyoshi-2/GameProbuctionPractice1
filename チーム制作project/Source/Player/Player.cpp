@@ -67,7 +67,7 @@ void InitPlayer()
 {
 
 	g_PlayerData.pos.x = 100.0f;
-	g_PlayerData.pos.y = 800.0f;
+	g_PlayerData.pos.y = 900.0f;
 	g_PlayerData.move.x = 0.0f;
 	g_PlayerData.move.y = 0.0f;
 	g_PlayerData.playerAnim = PLAYER_ANIM_NONE;
