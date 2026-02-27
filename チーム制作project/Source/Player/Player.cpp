@@ -130,13 +130,13 @@ void StartPlayer(int stage)
 		break;
 
 	case 2: // Stage2
-		g_PlayerData.pos.x = 300.0f;//仮
-		g_PlayerData.pos.y = 700.0f;//仮
+		g_PlayerData.pos.x = 50.0f;//仮
+		g_PlayerData.pos.y = 6555.0f;//仮
 		break;
 
 	case 3: // Stage3
-		g_PlayerData.pos.x = 50.0f;//仮
-		g_PlayerData.pos.y = 500.0f;//仮
+		g_PlayerData.pos.x = 150.0f;//仮
+		g_PlayerData.pos.y = 305.0f;//仮
 		break;
 
 	default: // 想定外

@@ -52,6 +52,9 @@ bool g_IsSceneChangeWait = false;		//シーン切り替え待ち中か
 int g_SceneChangeTimer = 0;				//待ち時間計測用タイマー
 const int SCENE_CHANGE_WAIT_TIME = 60;	//フレーム
 
+int g_SelectInputLockTimer = 0;
+const int SELECT_INPUT_LOCK_TIME = 15;
+
 //Scene帰宅
 bool g_ReturnFromGame = false;
 
@@ -243,12 +246,13 @@ void StepTitleScene()
 			// MENU_SELECT 確定
 			else if (g_MenuCursor == MENU_SELECT)
 			{
-				g_IsShowMenu = false;        // メニュー非表示
-				g_IsStageSelectMode = true; // ステージセレクト表示
+				g_IsShowMenu = false;
+				g_IsStageSelectMode = true;
 
 				g_SelectCursor = SELECT_STAGE1;
-				Input_Reset();
 
+				g_SelectInputLockTimer = SELECT_INPUT_LOCK_TIME;
+				Input_Reset();
 				PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
 			}
 		}
@@ -279,6 +283,11 @@ void StepTitleScene()
 	//========================================
 	if (g_IsStageSelectMode)
 	{
+		if (g_SelectInputLockTimer > 0)
+		{
+			g_SelectInputLockTimer--;
+			return; // このフレームは一切操作させない
+		}
 		// →キー
 		if (IsTriggerKey(KEY_RIGHT))
 		{
@@ -393,9 +402,10 @@ void StepTitleScene()
 		{
 			if (g_SelectCursor == SELECT_STAGE1)
 			{
-				ChangeScene(SCENE_STAGE_1);
-
 				g_TitleUIData->stage = 1;
+				g_SelectInputLockTimer = SELECT_INPUT_LOCK_TIME;
+				Input_Reset();
+				ChangeScene(SCENE_STAGE_1);
 			}
 			else if (g_SelectCursor == SELECT_STAGE2)
 			{
@@ -415,6 +425,7 @@ void StepTitleScene()
 				g_IsShowMenu = true;
 				g_MenuCursor = MENU_SELECT;
 
+				g_SelectInputLockTimer = SELECT_INPUT_LOCK_TIME;
 				Input_Reset();
 
 				PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
