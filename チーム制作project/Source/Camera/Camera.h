@@ -1,12 +1,11 @@
 #pragma once
 
-void UpdateCamera();
-void DrawCamera();
-
 struct CameraData
 {
 	float posX;
 	float posY;
 };
 
+void UpdateCamera();
+void DrawCamera();
 CameraData GetCamera();
