@@ -5,9 +5,14 @@
 
 #define MAP_CHIP_WIDTH (50.0f)
 #define MAP_CHIP_HEIGHT (50.0f)
+
+// マップチップ最大値
+#define MAP_CHIP_X_NUM_MAX (305)
+#define MAP_CHIP_Y_NUM_MAX (133)
+
 // チュートリアルシーン
-#define MAP_CHIP_X_NUM (20)
-#define MAP_CHIP_Y_NUM (111)
+#define MAP_CHIP_X_NUM (111)
+#define MAP_CHIP_Y_NUM (20)
 // ステージ1
 #define STAGE1_MAP_CHIP_X_NUM	(305)
 #define STAGE1_MAP_CHIP_Y_NUM	(30)

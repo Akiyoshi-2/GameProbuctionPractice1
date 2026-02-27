@@ -85,7 +85,15 @@ void InitScene()
 		InitTutorialScene();
 		break;
 
-	case SCENE_PLAY:	// プレイ
+	case SCENE_STAGE_1:	// ステージ1
+		InitPlayScene();
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		InitPlayScene();
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
 		InitPlayScene();
 		break;
 
@@ -106,11 +114,19 @@ void LoadScene()
 		break;
 
 	case SCENE_TUTORIAL:	// チュートリアル
-		LoadTutorialScene();
+		LoadTutorialScene(0);
 		break;
 
-	case SCENE_PLAY:	// プレイ
-		LoadPlayScene();
+	case SCENE_STAGE_1:	// ステージ1
+		LoadPlayScene(1);
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		LoadPlayScene(2);
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
+		LoadPlayScene(3);
 		break;
 
 	case TEST_SCENE_A:	// テスト
@@ -130,11 +146,19 @@ void StartScene()
 		break;
 
 	case SCENE_TUTORIAL:	// チュートリアル
-		StartTutorialScene();
+		StartTutorialScene(0);
 		break;
 
-	case SCENE_PLAY:	// プレイ
-		StartPlayScene();
+	case SCENE_STAGE_1:	// ステージ1
+		StartPlayScene(1);
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		StartPlayScene(2);
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
+		StartPlayScene(3);
 		break;
 
 	case TEST_SCENE_A:	// テスト
@@ -157,7 +181,15 @@ void StepScene()
 		StepTutorialScene();
 		break;
 
-	case SCENE_PLAY:	// プレイ
+	case SCENE_STAGE_1:	// ステージ1
+		StepPlayScene();
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		StepPlayScene();
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
 		StepPlayScene();
 		break;
 
@@ -181,7 +213,15 @@ void UpdateScene()
 		UpdateTutorialScene();
 		break;
 
-	case SCENE_PLAY:	// プレイ
+	case SCENE_STAGE_1:	// ステージ1
+		UpdatePlayScene();
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		UpdatePlayScene();
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
 		UpdatePlayScene();
 		break;
 
@@ -204,7 +244,15 @@ void DrawScene()
 		DrawTutorialScene();
 		break;
 
-	case SCENE_PLAY:	// プレイ
+	case SCENE_STAGE_1:	// ステージ1
+		DrawPlayScene();
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		DrawPlayScene();
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
 		DrawPlayScene();
 		break;
 
@@ -228,7 +276,15 @@ void FinScene()
 		FinTutorialScene();
 		break;
 
-	case SCENE_PLAY:	// プレイ
+	case SCENE_STAGE_1:	// ステージ1
+		FinPlayScene();
+		break;
+
+	case SCENE_STAGE_2:	// ステージ2
+		FinPlayScene();
+		break;
+
+	case SCENE_STAGE_3:	// ステージ3
 		FinPlayScene();
 		break;
 

@@ -2,8 +2,8 @@
 #include "DxLib.h"
 
 void InitTutorialScene();
-void LoadTutorialScene();
-void StartTutorialScene();
+void LoadTutorialScene(int stage);
+void StartTutorialScene(int stage);
 void StepTutorialScene();
 void UpdateTutorialScene();
 void DrawTutorialScene();

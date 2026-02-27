@@ -1,8 +1,8 @@
 #pragma once
 
 void InitMap();
-void LoadMap();
-void StartMap();
+void LoadMap(int stage);
+void StartMap(int stage);
 void DrawMap();
 void FinMap();
 

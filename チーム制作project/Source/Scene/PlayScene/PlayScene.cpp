@@ -13,19 +13,19 @@ void InitPlayScene()
 	InitMap();
 }
 
-void LoadPlayScene()
+void LoadPlayScene(int stage)
 {
 	LoadPlayer();
 
-	LoadMap();
+	LoadMap(stage);
 }
 
 // スタートは始まる時に起こる処理
-void StartPlayScene()
+void StartPlayScene(int stage)
 {
 	StartPlayer();
 
-	StartMap();
+	StartMap(stage);
 }
 
 void StepPlayScene()
