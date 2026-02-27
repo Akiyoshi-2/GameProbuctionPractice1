@@ -82,12 +82,25 @@ void LoadYellowEnemy()
 	{
 		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_RUN_1].handle = runHandle1;
 		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_RUN_2].handle = runHandle2;
+		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_CRUSH].handle = crushHandle;
+		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_STRIKE].handle = strikeHandlde;
+		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_STUN].handle = stunHandle;
 	}
 }
 
 void StepYellowEnemy()
 {
+	YellowEnemyData* yellow = g_YellowEnemyDate;
+	for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
+	{
+		if (!yellow->active)continue;
 
+		g_PravYellowEnemyDate[i] = g_YellowEnemyDate[i];
+
+		yellow->move.x = 0.0f;
+
+
+	}
 }
 
 void UpdateYellowEnemy()
