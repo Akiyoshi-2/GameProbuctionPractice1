@@ -38,7 +38,7 @@ const ShieldEnemyAnimationParam SHIELD_ENEMY_ANIM_PARAM[SHIELD_ENEMY_ANIM_MAX] =
 ShieldEnemyData g_ShieldEnemyData[SHIELD_ENEMY_MAX] = { 0 };
 ShieldEnemyData g_PravShieldEnemyData[SHIELD_ENEMY_MAX] = { 0 };
 
-void StartShieldEnemyAnimation(NormalEnemyAnimationType anim, int index);
+void StartShieldEnemyAnimation(ShieldEnemyAnimationType anim, int index);
 void UpdateShieldEnemyAnimation(int index);
 
 void InitShieldEnemy()
