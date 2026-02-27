@@ -41,13 +41,16 @@ struct PlayerData
 	VECTOR pos;
 	VECTOR move;
 	float hitFlag;
-	int canJump;
+	int canJump;			//連続ジャンプ防止用
+	int changeTypeCoolTime;	//切替クールタイム
+	int yellowRemainTime;     // 黄色の残り時間（フレーム
 
 	bool active;
 	bool isTurn;
 	bool isAir;
 
 	PlayerType type;
+	PlayerType prevType;      // 黄色に入る前のタイプ
 
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playerAnim;				// 再生中のアニメーション
