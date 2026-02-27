@@ -8,6 +8,8 @@
 #include "../Collision/Collision.h"
 #include "../Map/Block.h"
 
+//竹中　月曜日すること　赤の攻撃導入　黄色になる
+
 // アニメーション用パラメータ
 struct PlayerAnimationParam
 {
@@ -72,11 +74,10 @@ void InitPlayer()
 	g_PlayerData.move.y = 0.0f;
 	g_PlayerData.playerAnim = PLAYER_ANIM_NONE;
 
-	g_PlayerData.type = TYPE_BLUE;
+	g_PlayerData.type = TYPE_RED;
 	g_PlayerData.changeTypeCoolTime = 0;
 
-	g_PlayerData.type = TYPE_BLUE;
-	g_PlayerData.prevType = TYPE_BLUE;
+	g_PlayerData.prevType = TYPE_RED;
 	g_PlayerData.yellowRemainTime = 0;
 
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
@@ -158,8 +159,8 @@ void StartPlayer(int stage)
 	g_PlayerData.boxCollision.height = PLAYER_BOX_COLLISiON_HEIGHT;
 
 	// 状態初期化
-	g_PlayerData.type = TYPE_BLUE;
-	g_PlayerData.prevType = TYPE_BLUE;
+	g_PlayerData.type = TYPE_RED;
+	g_PlayerData.prevType = TYPE_RED;
 	g_PlayerData.changeTypeCoolTime = 0;
 	g_PlayerData.yellowRemainTime = 0;
 
