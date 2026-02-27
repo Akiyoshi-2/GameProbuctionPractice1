@@ -15,7 +15,8 @@ struct YellowEnemyAnimationParam
 
 const YellowEnemyAnimationParam YELLOW_ENEMY_ANIM_PARAM[YELLOW_ENEMY_ANIM_MAX] =
 {
-	10, 2, 50, 50,	// RUN
+	10, 2, 50, 50,	// RUN1
+	10, 2, 50, 50,	// RUN2
 	8, 6, 50, 50,	// STUN
 	8, 10, 50, 50,	// CRUSH
 	8, 10, 50, 50,	// STRIKE
@@ -71,7 +72,17 @@ void InitYellowEnemy()
 
 void LoadYellowEnemy()
 {
+	int runHandle1 = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy2_run.png");
+	int runHandle2 = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_run.png");
+	int crushHandle = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_die.png");
+	int strikeHandlde = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_die2.png");
+	int stunHandle = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_stun.png");
 
+	for (int i = 0; i < YELLOW_ENEMY_MAX; i++)
+	{
+		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_RUN_1].handle = runHandle1;
+		g_YellowEnemyDate[i].animation[YELLOW_ENEMY_RUN_2].handle = runHandle2;
+	}
 }
 
 void StepYellowEnemy()

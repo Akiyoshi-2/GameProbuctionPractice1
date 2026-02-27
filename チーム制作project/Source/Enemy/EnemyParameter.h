@@ -127,7 +127,8 @@ struct ShieldEnemyData
 // アニメーションタイプ
 enum YellowEnemyAnimationType
 {
-	YELLOW_ENEMY_RUN,
+	YELLOW_ENEMY_RUN_1,
+	YELLOW_ENEMY_RUN_2,
 	YELLOW_ENEMY_STUN,
 	YELLOW_ENEMY_CRUSH,
 	YELLOW_ENEMY_STRIKE,
