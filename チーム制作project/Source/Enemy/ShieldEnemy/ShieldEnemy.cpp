@@ -128,6 +128,10 @@ void DrawShieldEnemy()
 
 		if (!shieldEnemy->isTurn)
 		{
+			DrawAnimation(animData, shieldEnemy->pos.x, shieldEnemy->pos.y, TRUE, FALSE);
+		}
+		else if (shieldEnemy->isTurn)
+		{
 			DrawAnimation(animData, shieldEnemy->pos.x, shieldEnemy->pos.y, FALSE, FALSE);
 		}
 	}

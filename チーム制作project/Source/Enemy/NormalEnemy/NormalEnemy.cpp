@@ -131,6 +131,10 @@ void DrawNormalEnemy()
 
 		if (!normalEnemy->isTurn)
 		{
+			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, TRUE, FALSE);
+		}
+		else if (normalEnemy->isTurn)
+		{
 			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, FALSE, FALSE);
 		}
 	}
@@ -157,7 +161,7 @@ void PlayerKillNormalEnemy(int index)
 
 	// ÉXÉRÉA
 	// int score = GetScore() + NORMAL_ENEMY_SCORE;
-	// SetScore(score)
+	// SetScore(score);
 
 }
 

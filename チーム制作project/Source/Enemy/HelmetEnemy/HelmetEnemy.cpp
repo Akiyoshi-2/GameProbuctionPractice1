@@ -126,6 +126,10 @@ void DrawHelmetEnemy()
 
 		if (!helmet->isTurn)
 		{
+			DrawAnimation(animData, helmet->pos.x, helmet->pos.y, TRUE, FALSE);
+		}
+		else if (helmet->isTurn)
+		{
 			DrawAnimation(animData, helmet->pos.x, helmet->pos.y, FALSE, FALSE);
 		}
 	}
