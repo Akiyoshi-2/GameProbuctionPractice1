@@ -5,9 +5,10 @@ enum Scene
 {
 	SCENE_TITLE,	//タイトル
 	SCENE_TUTORIAL, //チュートリアル
-	SCENE_PLAY,		//プレイ
+	SCENE_STAGE_1,	//ステージ1
+	SCENE_STAGE_2,	//ステージ2
+	SCENE_STAGE_3,	//ステージ3
 	TEST_SCENE_A,	//テスト
-	SCENE_STAGE_1	//ステージ1
 };
 
 // シーンの状態

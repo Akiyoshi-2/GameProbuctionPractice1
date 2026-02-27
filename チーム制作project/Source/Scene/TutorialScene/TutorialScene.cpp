@@ -18,18 +18,18 @@ void InitTutorialScene()
 	InitMap();
 }
 
-void LoadTutorialScene()
+void LoadTutorialScene(int stage)
 {
 	g_TestHandle = LoadGraph("Data/Title/Select/StageSelect.png");
 
 	LoadPlayer();
-	LoadMap();
+	LoadMap(stage);
 }
 
-void StartTutorialScene()
+void StartTutorialScene(int stage)
 {
 	StartPlayer();
-	StartMap();
+	StartMap(stage);
 }
 
 void StepTutorialScene()

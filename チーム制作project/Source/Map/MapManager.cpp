@@ -17,15 +17,15 @@ void InitMap()
 	InitBlock();
 }
 
-void LoadMap()
+void LoadMap(int stage)
 {
-	LoadMapChipData();
+	LoadMapChipData(stage);
 	LoadBlock();
 }
 
-void StartMap()
+void StartMap(int stage)
 {
-	CreateMap();
+	CreateMap(stage);
 }
 
 void DrawMap()
