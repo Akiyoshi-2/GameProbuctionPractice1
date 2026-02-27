@@ -118,6 +118,42 @@ struct ShieldEnemyData
 	ShieldEnemyData* data;
 };
 
+// YELLOW_ENEMY関連
+#define YELLOW_ENEMY_MAX	(255)
+#define YELLOW_ENEMY_WIDTH	(38.0f)
+#define YELLOW_ENEMY_HEIGHT	(38.0f)
+#define YELLOW_ENEMY_RADIUS	(19.0f)
+
+// アニメーションタイプ
+enum YellowEnemyAnimationType
+{
+	YELLOW_ENEMY_RUN,
+	YELLOW_ENEMY_STUN,
+	YELLOW_ENEMY_CRUSH,
+	YELLOW_ENEMY_STRIKE,
+	YELLOW_ENEMY_ANIM_MAX,
+	YELLOW_ENEMY_ANIM_NONE = -1
+};
+
+// EnemyData
+struct YellowEnemyData
+{
+	bool isTurn;
+	bool isAir;
+	bool active;
+	bool stun;
+	bool crush;
+	bool strike;
+	VECTOR pos;
+	VECTOR move;
+	AnimationData animation[YELLOW_ENEMY_ANIM_MAX];
+	YellowEnemyAnimationType playAnim;
+	BoxCollision boxCollision;
+	const EnemyParameter* param;
+	YellowEnemyData* date;
+};
+
+
 //////////////////////////////////
 
 // スポーンデータ
