@@ -28,7 +28,8 @@ void LoadTutorialScene(int stage)
 
 void StartTutorialScene(int stage)
 {
-	StartPlayer();
+	SetCameraStage(stage);
+	StartPlayer(stage);
 	StartMap(stage);
 }
 

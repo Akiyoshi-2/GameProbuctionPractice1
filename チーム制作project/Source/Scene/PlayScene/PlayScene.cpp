@@ -3,28 +3,34 @@
 #include "../SceneManager.h"
 #include "../../Player/Player.h"
 #include "../../Map/MapManager.h"
+#include "../../Camera/Camera.h"
+#include "../TitleScene/TitleScene.h"
+#include "../../Collision/Collision.h"
 
-
+int g_Stage1Handle = -1;
 
 void InitPlayScene()
 {
-	InitPlayer();
-	
+	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
+
+	LoadPlayer();
 	InitMap();
 }
 
 void LoadPlayScene(int stage)
 {
-	LoadPlayer();
+	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
 
+	LoadPlayer();
 	LoadMap(stage);
 }
 
-// スタートは始まる時に起こる処理
 void StartPlayScene(int stage)
 {
-	StartPlayer();
+	ResetCamera();          // ← 超重要
+	SetCameraStage(stage); // ← 超重要
 
+	StartPlayer(stage);
 	StartMap(stage);
 }
 
@@ -32,20 +38,40 @@ void StepPlayScene()
 {
 	StepPlayer();
 
-
+	if (IsTriggerKey(KEY_P))
+	{
+		g_ReturnFromGame = true;
+		ChangeScene(SCENE_TITLE);
+	}
 }
 
 void UpdatePlayScene()
 {
 	UpdatePlayer();
+	UpdateCamera();
+	CheckCollision();
+	UpdatePlayerAnimation();
 }
 
 void DrawPlayScene()
 {
-	DrawMap();
+	CameraData cam = GetCamera();
 
+	if (g_Stage1Handle != -1)
+	{
+		DrawGraph(
+			(int)-cam.posX,
+			(int)-cam.posY,
+			g_Stage1Handle,
+			TRUE
+		);
+	}
+
+	DrawMap();
 	DrawPlayer();
+	DrawCamera(); // デバッグ
 }
+
 
 void FinPlayScene()
 {

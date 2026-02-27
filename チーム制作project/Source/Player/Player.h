@@ -61,7 +61,7 @@ struct PlayerData
 
 void InitPlayer();
 void LoadPlayer();
-void StartPlayer();
+void StartPlayer(int stage);
 void StepPlayer();
 void UpdatePlayer();
 void DrawPlayer();

@@ -112,16 +112,56 @@ void LoadPlayer()
 
 }
 
-void StartPlayer()
+void StartPlayer(int stage)
 {
-	// 生存フラグを立てる
 	g_PlayerData.active = true;
 
-	// 矩形判定設定
+	// ステージごとのスポーン位置
+	switch (stage)
+	{
+	case 0: // チュートリアル
+		g_PlayerData.pos.x = 100.0f;
+		g_PlayerData.pos.y = 900.0f;
+		break;
+
+	case 1: // Stage1
+		g_PlayerData.pos.x = 100.0f;
+		g_PlayerData.pos.y = 1255.0f;
+		break;
+
+	case 2: // Stage2
+		g_PlayerData.pos.x = 300.0f;//仮
+		g_PlayerData.pos.y = 700.0f;//仮
+		break;
+
+	case 3: // Stage3
+		g_PlayerData.pos.x = 50.0f;//仮
+		g_PlayerData.pos.y = 500.0f;//仮
+		break;
+
+	default: // 想定外
+		g_PlayerData.pos.x = 0.0f;//仮
+		g_PlayerData.pos.y = 0.0f;//仮
+		break;
+	}
+
+	// 移動量・状態リセット（超重要）
+	g_PlayerData.move.x = 0.0f;
+	g_PlayerData.move.y = 0.0f;
+	g_PlayerData.isAir = false;
+	g_PlayerData.canJump = true;
+
+	// 当たり判定
 	g_PlayerData.boxCollision.posX = PLAYER_BOX_COLLISION_OFFSET_X;
 	g_PlayerData.boxCollision.posY = PLAYER_BOX_COLLISION_OFFSET_Y;
 	g_PlayerData.boxCollision.width = PLAYER_BOX_COLLISION_WIDTH;
 	g_PlayerData.boxCollision.height = PLAYER_BOX_COLLISiON_HEIGHT;
+
+	// 状態初期化
+	g_PlayerData.type = TYPE_BLUE;
+	g_PlayerData.prevType = TYPE_BLUE;
+	g_PlayerData.changeTypeCoolTime = 0;
+	g_PlayerData.yellowRemainTime = 0;
 
 	StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
 }

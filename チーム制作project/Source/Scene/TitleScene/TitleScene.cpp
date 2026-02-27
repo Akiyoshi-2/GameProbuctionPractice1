@@ -32,24 +32,25 @@ int g_MoveSEHandle = -1;
 
 //点滅関係
 //AnyKey専用
-int  g_BlinkTimer = 0;
-bool g_DrawKeyUI = true;
+int  g_BlinkTimer = 0;		//点滅用タイマー
+bool g_DrawKeyUI = true;	//描画するかどうか
 bool g_IsBlinking = true;   // 点滅しているか
 //Scene切替専用
-bool g_IsTutorialBlink = false;
-bool g_DrawTutorialUI = true;
-int  g_TutorialBlinkTimer = 0;
-bool g_IsTutorialSceneWait = false;
-int  g_TutorialSceneTimer = 0;
+bool g_IsTutorialBlink = false;		//選択時の点滅中フラグ
+bool g_DrawTutorialUI = true;		//描画するか
+int  g_TutorialBlinkTimer = 0;		//点滅用タイマー
+bool g_IsTutorialSceneWait = false;	//シーン遷移待ち中か
+int  g_TutorialSceneTimer = 0;		//遷移待ち時間計測
 
+// タイトル画面の状態フラグ
 bool g_IsDecided = false; // AnyKey押されたか
 bool g_IsShowMenu = false; // メニュー表示中か
 bool g_IsStageSelectMode = false; //セレクト表示中か
 
 //シーン切り替えまでの時間作成
-bool g_IsSceneChangeWait = false;
-int g_SceneChangeTimer = 0;
-const int SCENE_CHANGE_WAIT_TIME = 60;//フレーム
+bool g_IsSceneChangeWait = false;		//シーン切り替え待ち中か
+int g_SceneChangeTimer = 0;				//待ち時間計測用タイマー
+const int SCENE_CHANGE_WAIT_TIME = 60;	//フレーム
 
 //Scene帰宅
 bool g_ReturnFromGame = false;
