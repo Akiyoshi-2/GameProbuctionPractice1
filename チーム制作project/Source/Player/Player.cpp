@@ -8,8 +8,6 @@
 #include "../Collision/Collision.h"
 #include "../Map/Block.h"
 
-//竹中　月曜日すること　赤の攻撃導入　黄色になる
-
 // アニメーション用パラメータ
 struct PlayerAnimationParam
 {
@@ -21,7 +19,7 @@ struct PlayerAnimationParam
 const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 {
 	//赤
-	8, 3, 50, 50,	//攻撃
+	10, 3, 50, 50,	//攻撃
 	30, 2, 50, 50,	//待機
 	10, 2, 50, 50 , //移動
 	8, 1, 50, 50,	//ジャンプ
@@ -57,7 +55,7 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_BOX_COLLISiON_HEIGHT (25)
 
 #define PLAYER_TYPE_CHANGE_COOLTIME (60) //キャラ切替クールタイム設定用
-#define PLAYER_YELLOW_TIME (180) // 黄状態の時間経過
+#define PLAYER_YELLOW_TIME (180) // 黄状態の時間経過 60=1秒
 
 // このCPPでのみ使用する関数の宣言
 void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
@@ -79,6 +77,7 @@ void InitPlayer()
 
 	g_PlayerData.prevType = TYPE_RED;
 	g_PlayerData.yellowRemainTime = 0;
+	g_PlayerData.isAttacking = false;
 
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
@@ -108,8 +107,8 @@ void LoadPlayer()
 	//黄
 	g_PlayerData.animation[YELLOW_PLAYER_ANIM_IDLE].handle = LoadGraph("Data/animation/YellowPlayer/YellowPlayer_Idle.png");
 	g_PlayerData.animation[YELLOW_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/YellowPlayer/YellowPlayer_Run.png");
-	g_PlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/YellowPlayer/黄player_fall1.png");
-	g_PlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/YellowPlayer/黄player_jump1.png");
+	g_PlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/YellowPlayer/黄player_fall1.png");
+	g_PlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/YellowPlayer/黄player_jump1.png");
 
 }
 
@@ -131,22 +130,22 @@ void StartPlayer(int stage)
 		break;
 
 	case 2: // Stage2
-		g_PlayerData.pos.x = 50.0f;//仮
-		g_PlayerData.pos.y = 6555.0f;//仮
+		g_PlayerData.pos.x = 50.0f;
+		g_PlayerData.pos.y = 6555.0f;
 		break;
 
 	case 3: // Stage3
-		g_PlayerData.pos.x = 150.0f;//仮
-		g_PlayerData.pos.y = 305.0f;//仮
+		g_PlayerData.pos.x = 150.0f;
+		g_PlayerData.pos.y = 305.0f;
 		break;
 
-	default: // 想定外
-		g_PlayerData.pos.x = 0.0f;//仮
-		g_PlayerData.pos.y = 0.0f;//仮
+	default: //それ以外(あれば)
+		g_PlayerData.pos.x = 0.0f;
+		g_PlayerData.pos.y = 0.0f;
 		break;
 	}
 
-	// 移動量・状態リセット（超重要）
+	// 移動量・状態リセット
 	g_PlayerData.move.x = 0.0f;
 	g_PlayerData.move.y = 0.0f;
 	g_PlayerData.isAir = false;
@@ -164,7 +163,7 @@ void StartPlayer(int stage)
 	g_PlayerData.changeTypeCoolTime = 0;
 	g_PlayerData.yellowRemainTime = 0;
 
-	StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
+	StartPlayerAnimation(RED_PLAYER_ANIM_IDLE);
 }
 
 void StepPlayer()
@@ -241,8 +240,10 @@ void StepPlayer()
 	//赤状態での攻撃
 	if (g_PlayerData.type == TYPE_RED)
 	{
-		if (IsTriggerKey(KEY_F))
+		if (IsTriggerKey(KEY_F) && !g_PlayerData.isAttacking)
 		{
+			g_PlayerData.isAttacking = true;
+			g_PlayerData.attackTimer = 30;
 			StartPlayerAnimation(RED_PLAYER_ANIM_ATTACK);
 		}
 	}
@@ -281,6 +282,7 @@ void StepPlayer()
 
 void UpdatePlayer()
 {
+
 	// 死んでいたら処理しない
 	if (!g_PlayerData.active) return;
 
@@ -317,62 +319,102 @@ PlayerData* GetPlayer()
 
 void StartPlayerAnimation(PlayerAnimationType anim)
 {
-	// 再生中のアニメーションであれば何もしない
 	if (anim == g_PlayerData.playerAnim) return;
 
-	// 再生中アニメーション設定
 	g_PlayerData.playerAnim = anim;
 
-	// 再生に必要なデータを取得
 	AnimationData* animData = &g_PlayerData.animation[anim];
 	PlayerAnimationParam animParam = PLAYER_ANIM_PARAM[anim];
 
-	// アニメーション再生
-	StartAnimation(animData, g_PlayerData.pos.x, g_PlayerData.pos.y, animParam.interval, animParam.framNum, animParam.width, animParam.height, true);
+	bool loop = true;
+	if (anim == RED_PLAYER_ANIM_ATTACK)
+	{
+		loop = false;
+	}
+
+	StartAnimation(
+		animData,
+		g_PlayerData.pos.x,
+		g_PlayerData.pos.y,
+		animParam.interval,
+		animParam.framNum,
+		animParam.width,
+		animParam.height,
+		loop
+	);
 }
 
 void UpdatePlayerAnimation()
 {
-	// 地上にいるか
+	// 赤の攻撃中は最優先
+	if (g_PlayerData.isAttacking)
+	{
+		g_PlayerData.attackTimer--;
+
+		AnimationData* animData =
+			&g_PlayerData.animation[g_PlayerData.playerAnim];
+		UpdateAnimation(animData);
+
+		if (g_PlayerData.attackTimer <= 0)
+		{
+			g_PlayerData.isAttacking = false;
+			StartPlayerAnimation(RED_PLAYER_ANIM_IDLE);
+		}
+		return;
+	}
+
+	// 地上
 	if (!g_PlayerData.isAir)
 	{
 		if (g_PlayerData.move.x != 0.0f)
 		{
-			if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_RUN);
-			else
+			// 移動
+			if (g_PlayerData.type == TYPE_RED)
 				StartPlayerAnimation(RED_PLAYER_ANIM_RUN);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_RUN);
+			else if (g_PlayerData.type == TYPE_YELLOW)
+				StartPlayerAnimation(YELLOW_PLAYER_ANIM_RUN);
 		}
 		else
 		{
-			if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
-			else
+			// 待機
+			if (g_PlayerData.type == TYPE_RED)
 				StartPlayerAnimation(RED_PLAYER_ANIM_IDLE);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_IDLE);
+			else if (g_PlayerData.type == TYPE_YELLOW)
+				StartPlayerAnimation(YELLOW_PLAYER_ANIM_IDLE);
 		}
 	}
-	// 空中にいる
+	// 空中
 	else
 	{
 		if (g_PlayerData.move.y < 0.0f)
 		{
-			if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_JUMP);
-			else
+			// ジャンプ上昇
+			if (g_PlayerData.type == TYPE_RED)
 				StartPlayerAnimation(RED_PLAYER_ANIM_JUMP);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_JUMP);
+			else if (g_PlayerData.type == TYPE_YELLOW)
+				StartPlayerAnimation(YELLOW_PLAYER_ANIM_JUMP);
 		}
 		else
 		{
-			if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_FALL);
-			else
+			// 落下
+			if (g_PlayerData.type == TYPE_RED)
 				StartPlayerAnimation(RED_PLAYER_ANIM_FALL);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_FALL);
+			else if (g_PlayerData.type == TYPE_YELLOW)
+				StartPlayerAnimation(YELLOW_PLAYER_ANIM_FALL);
 		}
 	}
 
 	// アニメーション更新
-	PlayerAnimationType animType = g_PlayerData.playerAnim;
-	AnimationData* animData = &g_PlayerData.animation[animType];
+	AnimationData* animData =
+		&g_PlayerData.animation[g_PlayerData.playerAnim];
 	UpdateAnimation(animData);
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "DxLib.h"
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
@@ -48,6 +49,8 @@ struct PlayerData
 	bool active;
 	bool isTurn;
 	bool isAir;
+	bool isAttacking;
+	int attackTimer;
 
 	PlayerType type;
 	PlayerType prevType;      // 黄色に入る前のタイプ
@@ -67,7 +70,6 @@ void UpdatePlayer();
 void DrawPlayer();
 void FinPlayer();
 void UpdatePlayerAnimation();
-
 
 PlayerData* GetPlayer();
 
