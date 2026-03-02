@@ -9,4 +9,4 @@ void DrawEnemy();
 void FinEnemy();
 
 // enemy”z’u
-void StepEnemySpawnSystem();
+void StepEnemySpawnSystem(int stage);

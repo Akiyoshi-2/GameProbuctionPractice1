@@ -9,7 +9,7 @@ void UpdateShieldEnemy();
 void DrawShieldEnemy();
 void FinShieldEnemy();
 
-void CreatShieldEnemy(float posX, float posY, const EnemyParameter* param);
+void CreateShieldEnemy(float posX, float posY, const EnemyParameter* param);
 
 ShieldEnemyData* GetShieldEnemy();
 

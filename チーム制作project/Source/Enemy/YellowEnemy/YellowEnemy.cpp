@@ -56,6 +56,7 @@ void InitYellowEnemy()
 		yellow->pos.y = 0;
 		yellow->move.x = 0;
 		yellow->move.y = 0;
+		yellow->enemyHP = 0;
 		yellow->active = false;
 		yellow->stun = false;
 		yellow->crush = false;
@@ -112,6 +113,11 @@ void StepYellowEnemy()
 		{
 			yellow->move.x = -YELLOW_ENEMY_MOVE_SPEED;
 		}
+
+		if (yellow->enemyHP == 1)
+		{
+			yellow->stun = true;
+		}
 	}
 }
 
@@ -124,6 +130,11 @@ void UpdateYellowEnemy()
 
 		yellow->pos.x += yellow->move.x;
 		yellow->pos.y += YELLOW_ENEMY_GRAVITY;
+
+		if (yellow->enemyHP < 3)
+		{
+			yellow->enemyHP = 2;
+		}
 
 		UpdateYellowEnemyAnimation(i);
 	}
@@ -190,6 +201,8 @@ void CreateYellowEnemy(float posX, float posY, const EnemyParameter* param)
 
 			yellow->move.x = YELLOW_ENEMY_MOVE_SPEED;
 			yellow->move.y = 0.0f;
+
+			yellow->enemyHP = 2;
 
 			yellow->param = param;
 
