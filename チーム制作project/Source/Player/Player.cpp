@@ -42,7 +42,6 @@ PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
 
 #define PLAYER_MOVE_SPEED (4.0f)
-#define PLAYER_MOVE_JUMP (12.0f)
 
 #define PLAYER_GRAVITY (0.35f)
 
@@ -57,6 +56,20 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_TYPE_CHANGE_COOLTIME (60) //キャラ切替クールタイム設定用
 #define PLAYER_YELLOW_TIME (180) // 黄状態の時間経過 60=1秒
 
+//ジャンプ力
+float GetPlayerJumpPower()
+{
+	switch (g_PlayerData.type)
+	{
+	case TYPE_BLUE:
+		return 13.5f;	// 青
+	case TYPE_RED:
+	case TYPE_YELLOW:
+	default:
+		return 12.0f;	// 赤・黄
+	}
+}
+
 // このCPPでのみ使用する関数の宣言
 void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
 // アニメーション更新
@@ -66,8 +79,8 @@ void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
 void InitPlayer()
 {
 
-	g_PlayerData.pos.x = 100.0f;
-	g_PlayerData.pos.y = 900.0f;
+	g_PlayerData.pos.x = 0.0f;
+	g_PlayerData.pos.y = 0.0f;
 	g_PlayerData.move.x = 0.0f;
 	g_PlayerData.move.y = 0.0f;
 	g_PlayerData.playerAnim = PLAYER_ANIM_NONE;
@@ -265,7 +278,7 @@ void StepPlayer()
 		!g_PrevPlayerData.isAir &&
 		g_PlayerData.canJump)
 	{
-		g_PlayerData.move.y = -PLAYER_MOVE_JUMP;
+		g_PlayerData.move.y = -GetPlayerJumpPower();
 		g_PlayerData.isAir = true;
 		g_PlayerData.canJump = false;
 	}

@@ -19,16 +19,47 @@ void UpdateCamera()
 	PlayerData* player = GetPlayer();
 	if (!player) return;
 
-	// ----------------------------
+	// ステージ別マップサイズ
+	int mapChipXNum = 0;
+	int mapChipYNum = 0;
+
+	switch (g_CameraStage)
+	{
+	case 0: // Tutorial
+		mapChipXNum = MAP_CHIP_X_NUM;
+		mapChipYNum = MAP_CHIP_Y_NUM;
+		break;
+
+	case 1: // Stage1
+		mapChipXNum = STAGE1_MAP_CHIP_X_NUM;
+		mapChipYNum = STAGE1_MAP_CHIP_Y_NUM;
+		break;
+
+	case 2: // Stage2
+		mapChipXNum = STAGE2_MAP_CHIP_X_NUM;
+		mapChipYNum = STAGE2_MAP_CHIP_Y_NUM;
+		break;
+
+	case 3: // Stage3
+		mapChipXNum = STAGE3_MAP_CHIP_X_NUM;
+		mapChipYNum = STAGE3_MAP_CHIP_Y_NUM;
+		break;
+	}
+
 	// X方向（中央追従）
-	// ----------------------------
 	float targetX = player->pos.x - SCREEN_WIDTH * 0.5f;
-	if (targetX < 0.0f) targetX = 0.0f;
+
+	float mapRightX = mapChipXNum * MAP_CHIP_WIDTH;
+	float cameraMinX = 0.0f;
+	float cameraMaxX = mapRightX - SCREEN_WIDTH;
+	if (cameraMaxX < cameraMinX) cameraMaxX = cameraMinX;
+
+	if (targetX < cameraMinX)      targetX = cameraMinX;
+	else if (targetX > cameraMaxX) targetX = cameraMaxX;
+
 	g_CameraData.posX = targetX;
 
-	// ----------------------------
-	// Y方向（デッドゾーン方式）
-	// ----------------------------
+	// Y方向（デッドゾーン）
 	const float DEAD_ZONE_Y = 120.0f;
 	const float START_OFFSET_Y = 200.0f;
 
@@ -43,26 +74,9 @@ void UpdateCamera()
 	else
 	{
 		if (desiredY < currentY - DEAD_ZONE_Y)
-		{
 			currentY = desiredY + DEAD_ZONE_Y;
-		}
 		else if (desiredY > currentY + DEAD_ZONE_Y)
-		{
 			currentY = desiredY - DEAD_ZONE_Y;
-		}
-	}
-
-	// ----------------------------
-	// マップ上下限制限
-	// ----------------------------
-	int mapChipYNum = 0;
-
-	switch (g_CameraStage)
-	{
-	case 0: mapChipYNum = 20;  break; // Tutorial
-	case 1: mapChipYNum = 30;  break; // Stage1
-	case 2: mapChipYNum = 133; break; // Stage2
-	case 3: mapChipYNum = 34;  break; // Stage3
 	}
 
 	float mapBottomY = mapChipYNum * MAP_CHIP_HEIGHT;
@@ -76,10 +90,6 @@ void UpdateCamera()
 	g_CameraData.posY = currentY;
 }
 
-
-// ============================
-// デバッグ描画
-// ============================
 void DrawCamera()
 {
 	DrawFormatString(
@@ -96,9 +106,6 @@ void SetCameraStage(int stage)
 	g_CameraStage = stage;
 }
 
-// ============================
-// カメラ取得
-// ============================
 CameraData GetCamera()
 {
 	return g_CameraData;
