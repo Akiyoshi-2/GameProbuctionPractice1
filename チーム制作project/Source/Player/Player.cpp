@@ -238,6 +238,15 @@ void StepPlayer()
 		}
 	}
 
+	//赤状態での攻撃
+	if (g_PlayerData.type == TYPE_RED)
+	{
+		if (IsTriggerKey(KEY_F))
+		{
+			StartPlayerAnimation(RED_PLAYER_ANIM_ATTACK);
+		}
+	}
+
 	//左
 	if (IsInputKey(KEY_LEFT))
 	{
