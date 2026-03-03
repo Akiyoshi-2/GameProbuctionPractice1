@@ -8,7 +8,9 @@ enum Scene
 	SCENE_STAGE_1,	//ステージ1
 	SCENE_STAGE_2,	//ステージ2
 	SCENE_STAGE_3,	//ステージ3
+	SCENE_CLEAR,
 	TEST_SCENE_A,	//テスト
+
 };
 
 // シーンの状態

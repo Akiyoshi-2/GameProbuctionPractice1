@@ -3,6 +3,7 @@
 #include "../Player/Player.h"
 #include "../Map/MapManager.h"
 #include "../Map/Block.h"
+#include "../Scene/SceneManager.h"
 #include <math.h>
 
 
