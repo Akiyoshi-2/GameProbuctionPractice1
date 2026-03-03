@@ -14,7 +14,7 @@ enum EnemyType
 
 struct EnemyParameter
 {
-	float EnemyDiePosX;
+	float EnemyDiePosY;
 };
 
 const EnemyParameter ENEMY_PARAMETER[] =
@@ -145,6 +145,7 @@ struct YellowEnemyData
 	bool stun;
 	bool crush;
 	bool strike;
+	int enemyHP;
 	VECTOR pos;
 	VECTOR move;
 	AnimationData animation[YELLOW_ENEMY_ANIM_MAX];
@@ -154,6 +155,32 @@ struct YellowEnemyData
 	YellowEnemyData* date;
 };
 
+// FULLARMOR_ENEMYŠÖ˜A
+#define FULLARMOR_ENEMY_MAX	(255)
+#define FULLARMOR_ENEMY_WIDTH	(40.0f)
+#define FULLARMOR_ENEMY_HEIGHT	(43.0f)
+#define FULLARMOR_ENEMY_RADIUD	(21.0f)
+
+enum FullArmEnemyAnimationType
+{
+	FULLARMOR_ENEMY_ANIM_RUN,
+	FULLARMOR_ENEMY_ANIM_DIE,
+	FULLARMOR_ENEMY_ANIM_MAX,
+	FULLARMOR_ENEMY_ANIM_NONE = -1
+};
+
+struct FullArmEnemyData
+{
+	bool isTurn;
+	bool isAir;
+	bool active;
+	VECTOR pos;
+	VECTOR move;
+	AnimationData animation[FULLARMOR_ENEMY_ANIM_MAX];
+	FullArmEnemyAnimationType playAnim;
+	BoxCollision boxCollision;
+	const EnemyParameter* param;
+};
 
 //////////////////////////////////
 
@@ -161,9 +188,15 @@ struct YellowEnemyData
 struct EnemySpawnData
 {
 	EnemyType type;
-	int spawnTime;
 	float posX;
 	float posY;
 	const EnemyParameter* param;
 };
 
+// ”z—ñ
+const EnemySpawnData ENEMY_SPAWN_DATA[] =
+{
+	NORMAL_ENEMY, 100.0f, 100.0f,& ENEMY_PARAMETER[0],
+	HELMET_ENEMY, 100.0f, 100.0f,& ENEMY_PARAMETER[0],
+
+};
