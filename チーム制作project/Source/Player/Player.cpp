@@ -7,6 +7,7 @@
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
 #include "../Map/Block.h"
+#include "../Scene/TitleScene/TitleScene.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -41,8 +42,6 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
 
-#define PLAYER_MOVE_SPEED (4.0f)
-
 #define PLAYER_GRAVITY (0.35f)
 
 #define PLAYER_MAP_COLLISION_OFFSET (0.05f)
@@ -56,6 +55,8 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_TYPE_CHANGE_COOLTIME (60) //キャラ切替クールタイム設定用
 #define PLAYER_YELLOW_TIME (180) // 黄状態の時間経過 60=1秒
 
+#define PLAYER_DIE_TIME (60)   // 1秒待ってから復活
+
 //ジャンプ力
 float GetPlayerJumpPower()
 {
@@ -68,6 +69,20 @@ float GetPlayerJumpPower()
 	
 	default:
 		return 12.0f;	// 赤
+	}
+}
+
+float GetPlayerMoveSpeed()
+{
+	switch (g_PlayerData.type)
+	{
+	case TYPE_YELLOW:
+		return 5.5f; 
+
+	case TYPE_BLUE:
+	case TYPE_RED:
+	default:
+		return 4.0f;
 	}
 }
 
@@ -182,6 +197,19 @@ void StartPlayer(int stage)
 
 void StepPlayer()
 {
+	if (g_PlayerData.isDead)
+	{
+		g_PlayerData.deadTimer--;
+
+		if (g_PlayerData.deadTimer <= 0)
+		{
+			StartPlayer(g_DecidedStage);
+			g_PlayerData.isDead = false;
+		}
+
+		return; // 死亡中は操作禁止
+	}
+
 	g_PrevPlayerData = g_PlayerData;
 
 	if (g_PlayerData.changeTypeCoolTime > 0)
@@ -262,16 +290,17 @@ void StepPlayer()
 		}
 	}
 
+	float moveSpeed = GetPlayerMoveSpeed();
+
 	//左
 	if (IsInputKey(KEY_LEFT))
 	{
-		g_PlayerData.move.x = -PLAYER_MOVE_SPEED;
+		g_PlayerData.move.x = -moveSpeed;
 		g_PlayerData.isTurn = true;
 	}
-	//右
 	else if (IsInputKey(KEY_RIGHT))
 	{
-		g_PlayerData.move.x = PLAYER_MOVE_SPEED;
+		g_PlayerData.move.x = moveSpeed;
 		g_PlayerData.isTurn = false;
 	}
 
@@ -360,6 +389,14 @@ void StartPlayerAnimation(PlayerAnimationType anim)
 
 void UpdatePlayerAnimation()
 {
+	if (g_PlayerData.isDead)
+	{
+		AnimationData* animData =
+			&g_PlayerData.animation[g_PlayerData.playerAnim];
+		UpdateAnimation(animData);
+		return;
+	}
+
 	// 赤の攻撃中は最優先
 	if (g_PlayerData.isAttacking)
 	{
@@ -509,6 +546,96 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 				g_PlayerData.pos.y += (block->pos.y + MAP_CHIP_WIDTH) - y;
 
 			}
+		}
+	}
+}
+
+void PlayerHitThornBlockX(MapChipData mapChipData)
+{
+	BlockData* block = mapChipData.data;
+	if (!block->active) return;
+
+	// ===== 黄色は通常ブロック処理へ =====
+	if (g_PlayerData.type == TYPE_YELLOW)
+	{
+		PlayerHitNormalBlockX(mapChipData);
+		return;
+	}
+
+	// ===== 赤・青は即死 =====
+	PlayerData player = g_PlayerData;
+
+	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
+	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
+
+	player.isTurn = g_PrevPlayerData.isTurn;
+	player.pos.x = g_PlayerData.pos.x;
+	player.pos.y = g_PrevPlayerData.pos.y;
+
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
+
+	if (CheckSquareSquare(
+		x + POS_OFFSET, y + POS_OFFSET,
+		w - SIZE_OFFSET, h - SIZE_OFFSET,
+		block->pos.x, block->pos.y,
+		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		if (!g_PlayerData.isDead)
+		{
+			g_PlayerData.isDead = true;
+			g_PlayerData.deadTimer = PLAYER_DIE_TIME;
+			g_PlayerData.move.x = 0.0f;
+			g_PlayerData.move.y = 0.0f;
+
+			if (g_PlayerData.type == TYPE_RED)
+				StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+		}
+	}
+}
+
+void PlayerHitThornBlockY(MapChipData mapChipData)
+{
+	BlockData* block = mapChipData.data;
+	if (!block->active) return;
+
+	// ===== 黄色は通常ブロック処理へ =====
+	if (g_PlayerData.type == TYPE_YELLOW)
+	{
+		PlayerHitNormalBlockY(mapChipData);
+		return;
+	}
+
+	// ===== 赤・青は即死 =====
+	PlayerData player = g_PlayerData;
+
+	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
+	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
+
+	player.isTurn = g_PrevPlayerData.isTurn;
+
+	float x, y, w, h;
+	CalcBoxCollision(player, x, y, w, h);
+
+	if (CheckSquareSquare(
+		x + POS_OFFSET, y + POS_OFFSET,
+		w - SIZE_OFFSET, h - SIZE_OFFSET,
+		block->pos.x, block->pos.y,
+		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		if (!g_PlayerData.isDead)
+		{
+			g_PlayerData.isDead = true;
+			g_PlayerData.deadTimer = PLAYER_DIE_TIME;
+			g_PlayerData.move.x = 0.0f;
+			g_PlayerData.move.y = 0.0f;
+
+			if (g_PlayerData.type == TYPE_RED)
+				StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
+			else if (g_PlayerData.type == TYPE_BLUE)
+				StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
 		}
 	}
 }

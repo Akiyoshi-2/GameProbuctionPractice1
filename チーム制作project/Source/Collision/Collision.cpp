@@ -5,8 +5,6 @@
 #include "../Map/Block.h"
 #include <math.h>
 
-
-
 bool CheckSquarePoint(float squarePosX,  float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
 {
 	if (pointX >= squarePosX && pointX <= (squarePosX + squareWidth))

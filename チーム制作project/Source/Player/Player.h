@@ -52,6 +52,9 @@ struct PlayerData
 	bool isAttacking;
 	int attackTimer;
 
+	bool isDead;
+	int  deadTimer;
+
 	PlayerType type;
 	PlayerType prevType;      // 黄色に入る前のタイプ
 
@@ -75,3 +78,5 @@ PlayerData* GetPlayer();
 
 void PlayerHitNormalBlockX(MapChipData mapChipData);
 void PlayerHitNormalBlockY(MapChipData mapChipData);
+void PlayerHitThornBlockX(MapChipData mapChipData);
+void PlayerHitThornBlockY(MapChipData mapChipData);

@@ -64,6 +64,10 @@ void CheckMapPlayerCpllision()
 			case NORMAL_BLOCK:
 				PlayerHitNormalBlockX(mapchipdata);
 				break;
+
+			case THORN_BLOCK:
+				PlayerHitThornBlockX(mapchipdata);
+				break;
 			}
 		}
 	}
@@ -84,6 +88,10 @@ void CheckMapPlayerCpllision()
 			{
 			case NORMAL_BLOCK:
 				PlayerHitNormalBlockY(mapChipData);
+				break;
+
+			case THORN_BLOCK:
+				PlayerHitThornBlockY(mapChipData);
 				break;
 			}
 		}

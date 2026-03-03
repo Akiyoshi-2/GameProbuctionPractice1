@@ -34,3 +34,5 @@ void FinTitleScene();
 
 //タイトルに戻る時用
 extern bool g_ReturnFromGame;
+
+extern int g_DecidedStage;
