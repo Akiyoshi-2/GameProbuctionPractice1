@@ -53,9 +53,15 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_BOX_COLLISiON_HEIGHT (25)
 
 #define PLAYER_TYPE_CHANGE_COOLTIME (60) //キャラ切替クールタイム設定用
-#define PLAYER_YELLOW_TIME (180) // 黄状態の時間経過 60=1秒
+#define PLAYER_YELLOW_TIME (900) // 黄状態の時間経過 60=1秒
 
 #define PLAYER_DIE_TIME (60)   // 1秒待ってから復活
+
+//各ステージの落下死ライン
+#define STAGE0_DEAD_LINE (1200.0f)
+#define STAGE1_DEAD_LINE (1450.0f)
+#define STAGE2_DEAD_LINE (7000.0f)
+#define STAGE3_DEAD_LINE (1900.0f)
 
 //ジャンプ力
 float GetPlayerJumpPower()
@@ -325,7 +331,6 @@ void StepPlayer()
 
 void UpdatePlayer()
 {
-
 	// 死んでいたら処理しない
 	if (!g_PlayerData.active) return;
 
@@ -333,6 +338,44 @@ void UpdatePlayer()
 	g_PlayerData.pos.x += g_PlayerData.move.x;
 	g_PlayerData.pos.y += g_PlayerData.move.y;
 
+	//// ===== 落下死判定 =====
+	float deadLine = 0.0f;
+
+	switch (g_DecidedStage)
+	{
+	case 0:
+		deadLine = STAGE0_DEAD_LINE;
+		break;
+
+	case 1:
+		deadLine = STAGE1_DEAD_LINE;
+		break;
+
+	case 2:
+		deadLine = STAGE2_DEAD_LINE;
+		break;
+
+	case 3:
+		deadLine = STAGE3_DEAD_LINE;
+		break;
+
+	default:
+		deadLine = 2000.0f;
+		break;
+	}
+
+	if (!g_PlayerData.isDead && g_PlayerData.pos.y > deadLine)
+	{
+		g_PlayerData.isDead = true;
+		g_PlayerData.deadTimer = PLAYER_DIE_TIME;
+		g_PlayerData.move.x = 0.0f;
+		g_PlayerData.move.y = 0.0f;
+
+		if (g_PlayerData.type == TYPE_RED)
+			StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
+		else if (g_PlayerData.type == TYPE_BLUE)
+			StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+	}
 }
 
 
