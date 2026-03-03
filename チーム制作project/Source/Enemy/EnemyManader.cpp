@@ -91,11 +91,46 @@ void SpawnEnemy(const EnemySpawnData* spawnData)
 // enemy”z’u
 void StepEnemySpawnSystem(int stage)
 {
-	int spawnDataNum = sizeof(ENEMY_SPAWN_DATA) / sizeof(EnemySpawnData);
-
-	const EnemySpawnData* spawn = ENEMY_SPAWN_DATA;
-	for (int i = 0; i < spawnDataNum; i++, spawn++)
+	if (stage == 0)
 	{
-		SpawnEnemy(spawn);
+		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_0) / sizeof(EnemySpawnData);
+
+		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_0;
+		for (int i = 0; i < spawnDataNum; i++, spawn++)
+		{
+			SpawnEnemy(spawn);
+		}
 	}
+	else if (stage == 1)
+	{
+		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_1) / sizeof(EnemySpawnData);
+
+		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_1;
+		for (int i = 0; i < spawnDataNum; i++, spawn++)
+		{
+			SpawnEnemy(spawn);
+		}
+	}
+	else if (stage == 2)
+	{
+		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_2) / sizeof(EnemySpawnData);
+
+		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_2;
+		for (int i = 0; i < spawnDataNum; i++, spawn++)
+		{
+			SpawnEnemy(spawn);
+		}
+	}
+	else if (stage == 3)
+	{
+		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_3) / sizeof(EnemySpawnData);
+
+		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_3;
+		for (int i = 0; i < spawnDataNum; i++, spawn++)
+		{
+			SpawnEnemy(spawn);
+		}
+	}
+
+	
 }

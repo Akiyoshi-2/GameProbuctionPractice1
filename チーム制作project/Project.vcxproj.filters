@@ -65,6 +65,9 @@
     <ClCompile Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.cpp">
       <Filter>Source\Enemy\FullarmorEnemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\ClearScene\ClearScene.cpp">
+      <Filter>Source\Scene\Clear</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -139,6 +142,9 @@
     <ClInclude Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.h">
       <Filter>Source\Enemy\FullarmorEnemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scene\ClearScene\ClearScene.h">
+      <Filter>Source\Scene\Clear</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -200,6 +206,9 @@
     </Filter>
     <Filter Include="Source\Enemy\FullarmorEnemy">
       <UniqueIdentifier>{9da13eed-8474-44e4-b9a1-e14d6b40a44a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Clear">
+      <UniqueIdentifier>{1f9d8728-6666-4c70-80f3-59d6672b95e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
