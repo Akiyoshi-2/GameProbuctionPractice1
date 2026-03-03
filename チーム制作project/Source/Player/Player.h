@@ -41,19 +41,22 @@ struct PlayerData
 	int handle;
 	VECTOR pos;
 	VECTOR move;
-	float hitFlag;
-	int canJump;			//連続ジャンプ防止用
-	int changeTypeCoolTime;	//切替クールタイム
-	int yellowRemainTime;     // 黄色の残り時間（フレーム
+	float hitFlag;				//ヒットフラグ
+	int canJump;				//連続ジャンプ防止用
+	int changeTypeCoolTime;		//切替クールタイム
+	int yellowRemainTime;	    //黄色の残り時間（フレーム)
 
-	bool active;
-	bool isTurn;
-	bool isAir;
-	bool isAttacking;
-	int attackTimer;
+	bool active;				//生存フラグ
+	bool isTurn;				//向き
+	bool isAir;					//空中にいるかどうか
+	bool isAttacking;			//攻撃中かどうか
+	int attackTimer;			//攻撃継続時間
 
-	PlayerType type;
-	PlayerType prevType;      // 黄色に入る前のタイプ
+	bool isDead;				//死亡中かどうか
+	int  deadTimer;				//死亡時間
+
+	PlayerType type;			//タイプ管理
+	PlayerType prevType;		// 黄色に入る前のタイプ
 
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playerAnim;				// 再生中のアニメーション
@@ -75,3 +78,5 @@ PlayerData* GetPlayer();
 
 void PlayerHitNormalBlockX(MapChipData mapChipData);
 void PlayerHitNormalBlockY(MapChipData mapChipData);
+void PlayerHitThornBlockX(MapChipData mapChipData);
+void PlayerHitThornBlockY(MapChipData mapChipData);

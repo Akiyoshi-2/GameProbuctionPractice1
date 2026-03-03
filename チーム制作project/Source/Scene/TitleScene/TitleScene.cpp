@@ -150,28 +150,31 @@ void StartTitleScene()
 }
 void StepTitleScene()
 {
-    //========================================
     // AnyKey待ち
-    //========================================
     if (!g_IsDecided)
     {
         if (Input_IsAnyKeyPush())
         {
             g_IsDecided = true;
 
+            //AnyKey点滅
             g_IsBlinking = true;
             g_DrawKeyUI = true;
             g_BlinkTimer = 0;
 
+            //シーン切り替えの点滅待ち
             g_IsSceneChangeWait = true;
             g_SceneChangeTimer = 0;
 
+            //サウンド
             PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
+
+            //誤爆防止
             Input_Reset();
         }
     }
 
-    // AnyKey点滅
+    // AnyKey点滅速度
     if (g_IsBlinking)
     {
         g_BlinkTimer++;
@@ -195,22 +198,26 @@ void StepTitleScene()
         }
     }
 
-    //========================================
     // メニュー操作
-    //========================================
     if (g_IsShowMenu)
     {
         if (IsTriggerKey(KEY_DOWN) || IsTriggerKey(KEY_UP))
         {
+            //カーソルがセレクトの時にキーが押されたらチュートリアルに、
+            //それ以外(チュートリアル)だったらセレクトにカーソルを動かす
+            //※ここでは内部的に動かしているだけで見た目は変わらない
             g_MenuCursor =
                 (g_MenuCursor == MENU_SELECT) ? MENU_TUTORIAL : MENU_SELECT;
+            //SE
             PlaySoundMem(g_MoveSEHandle, DX_PLAYTYPE_BACK);
         }
 
+        //※ここで見た目が変わる
         g_TitleUIData[MENU_ARROW].pos.y =
             (g_MenuCursor == MENU_SELECT) ? 458.0f : 598.0f;
 
-        if (IsTriggerKey(KEY_F))
+        //Fキーが押されてかつ選択待ちではない時
+        if (IsTriggerKey(KEY_F) && !g_IsStageSceneWait)
         {
             if (g_MenuCursor == MENU_TUTORIAL)
             {
@@ -233,7 +240,7 @@ void StepTitleScene()
                 g_TitleUIData[SELECT_ARROW].pos =
                     VGet(SELECT_ARROW_X, SELECT_ARROW_Y, 0);
 
-                g_SelectInputLockTimer = SELECT_INPUT_LOCK_TIME;
+                g_SelectInputLockTimer = 1;
                 Input_Reset();
                 PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
             }
@@ -261,15 +268,24 @@ void StepTitleScene()
         }
     }
 
-    //========================================
     // ステージセレクト操作
-    //========================================
     if (g_IsStageSelectMode)
     {
         if (g_SelectInputLockTimer > 0)
         {
             g_SelectInputLockTimer--;
-            return;
+
+            // 矢印位置だけは更新
+            if (g_SelectCursor == SELECT_STAGE1)
+                g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X, SELECT_ARROW_Y, 0);
+            else if (g_SelectCursor == SELECT_STAGE2)
+                g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X + 500, SELECT_ARROW_Y, 0);
+            else if (g_SelectCursor == SELECT_STAGE3)
+                g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X + 1000, SELECT_ARROW_Y, 0);
+            else
+                g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X + 520, SELECT_ARROW_Y + 210, 0);
+
+            return; 
         }
 
         if (IsTriggerKey(KEY_RIGHT))
@@ -340,7 +356,6 @@ void StepTitleScene()
             g_IsStageSceneWait = true;
             g_StageSceneTimer = 0;
 
-            g_SelectInputLockTimer = SCENE_CHANGE_WAIT_TIME;
             PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
             Input_Reset();
         }
@@ -407,26 +422,63 @@ void DrawTitleScene()
 
     if (g_IsStageSelectMode)
     {
-        if (!g_IsStageBlink || (g_DrawStageUI && g_DecidedStage == 1))
+        //ステージ1
+        if (g_DecidedStage == 1 && g_IsStageBlink)
+        {
+            if (g_DrawStageUI)
+            {
+                DrawGraph((int)g_TitleUIData[SELECT_STAGE1].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE1].pos.y,
+                    g_TitleUIData[SELECT_STAGE1].handle, TRUE);
+            }
+        }
+        else
+        {
             DrawGraph((int)g_TitleUIData[SELECT_STAGE1].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE1].pos.y,
                 g_TitleUIData[SELECT_STAGE1].handle, TRUE);
+        }
 
-        if (!g_IsStageBlink || (g_DrawStageUI && g_DecidedStage == 2))
+        //ステージ2
+        if (g_DecidedStage == 2 && g_IsStageBlink)
+        {
+            if (g_DrawStageUI)
+            {
+                DrawGraph((int)g_TitleUIData[SELECT_STAGE2].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE2].pos.y,
+                    g_TitleUIData[SELECT_STAGE2].handle, TRUE);
+            }
+        }
+        else
+        {
             DrawGraph((int)g_TitleUIData[SELECT_STAGE2].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE2].pos.y,
                 g_TitleUIData[SELECT_STAGE2].handle, TRUE);
+        }
 
-        if (!g_IsStageBlink || (g_DrawStageUI && g_DecidedStage == 3))
+        //ステージ3
+        if (g_DecidedStage == 3 && g_IsStageBlink)
+        {
+            if (g_DrawStageUI)
+            {
+                DrawGraph((int)g_TitleUIData[SELECT_STAGE3].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE3].pos.y,
+                    g_TitleUIData[SELECT_STAGE3].handle, TRUE);
+            }
+        }
+        else
+        {
             DrawGraph((int)g_TitleUIData[SELECT_STAGE3].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE3].pos.y,
                 g_TitleUIData[SELECT_STAGE3].handle, TRUE);
+        }
 
-        if (!g_IsStageBlink || g_DrawStageUI)
-            DrawGraph((int)g_TitleUIData[SELECT_ARROW].pos.x,
-                (int)g_TitleUIData[SELECT_ARROW].pos.y,
-                g_TitleUIData[SELECT_ARROW].handle, TRUE);
+        // 矢印は常に表示
+        DrawGraph((int)g_TitleUIData[SELECT_ARROW].pos.x,
+            (int)g_TitleUIData[SELECT_ARROW].pos.y,
+            g_TitleUIData[SELECT_ARROW].handle, TRUE);
 
+        // BACK
         DrawGraph((int)g_TitleUIData[SELECT_BACK].pos.x,
             (int)g_TitleUIData[SELECT_BACK].pos.y,
             g_TitleUIData[SELECT_BACK].handle, TRUE);
