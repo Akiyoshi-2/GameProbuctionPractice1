@@ -61,10 +61,11 @@ float GetPlayerJumpPower()
 {
 	switch (g_PlayerData.type)
 	{
+	case TYPE_YELLOW:
 	case TYPE_BLUE:
 		return 13.5f;	// 青
 	case TYPE_RED:
-	case TYPE_YELLOW:
+	
 	default:
 		return 12.0f;	// 赤・黄
 	}

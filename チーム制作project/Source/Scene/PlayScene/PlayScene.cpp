@@ -27,8 +27,8 @@ void LoadPlayScene(int stage)
 
 void StartPlayScene(int stage)
 {
-	ResetCamera();          // ← 超重要
-	SetCameraStage(stage); // ← 超重要
+	ResetCamera();
+	SetCameraStage(stage);
 
 	StartPlayer(stage);
 	StartMap(stage);
