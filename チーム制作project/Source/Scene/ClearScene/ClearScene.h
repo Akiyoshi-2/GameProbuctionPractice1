@@ -1,5 +1,6 @@
 #pragma once
-#include "DxLib.h"
+
+
 
 void InitClearScene();
 void LoadClearScene();
@@ -8,3 +9,4 @@ void StepClearScene();
 void UpdateClearScene();
 void DrawClearScene();
 void FinClearScene();
+

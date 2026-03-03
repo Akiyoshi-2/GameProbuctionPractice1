@@ -5,6 +5,7 @@
 #include "../Scene/TitleScene/Menu/Menu.h"
 #include "TutorialScene/TutorialScene.h"
 #include "TestScene/TestSceneA.h"
+#include "../Scene/ClearScene/ClearScene.h"
 
 // 現在のシーン
 // 初期値は最初に開かれるシーン
@@ -101,6 +102,11 @@ void InitScene()
 		InitTestSceneA();
 		break;
 
+	case SCENE_CLEAR:
+		InitClearScene();
+		break;
+
+
 	}
 }
 
@@ -131,6 +137,10 @@ void LoadScene()
 
 	case TEST_SCENE_A:	// テスト
 		LoadTestSceneA();
+		break;
+
+	case SCENE_CLEAR:
+		LoadClearScene();
 		break;
 
 	}
@@ -165,6 +175,9 @@ void StartScene()
 		StartTestSceneA();
 		break;
 	
+	case SCENE_CLEAR:
+		StartClearScene();
+		break;
 	}
 }
 
@@ -195,6 +208,10 @@ void StepScene()
 
 	case TEST_SCENE_A:	// テスト
 		StepTestSceneA();
+		break;
+
+	case SCENE_CLEAR:
+		StepClearScene();
 		break;
 
 	}
@@ -228,6 +245,10 @@ void UpdateScene()
 	case TEST_SCENE_A:	// テスト
 		UpdateTestSceneA();
 		break;
+
+	case SCENE_CLEAR:
+		UpdateClearScene();
+		break;
 	}
 }
 
@@ -258,6 +279,10 @@ void DrawScene()
 
 	case TEST_SCENE_A:	// テスト
 		DrawTestSceneA();
+		break;
+
+	case SCENE_CLEAR:
+		DrawClearScene();
 		break;
 
 	}
@@ -292,6 +317,9 @@ void FinScene()
 		FinTestSceneA();
 		break;
 
+	case SCENE_CLEAR:
+		FinClearScene();
+		break;
 	}
 }
 

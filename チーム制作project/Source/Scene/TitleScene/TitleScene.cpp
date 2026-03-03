@@ -150,28 +150,31 @@ void StartTitleScene()
 }
 void StepTitleScene()
 {
-    //========================================
     // AnyKey待ち
-    //========================================
     if (!g_IsDecided)
     {
         if (Input_IsAnyKeyPush())
         {
             g_IsDecided = true;
 
+            //AnyKey点滅
             g_IsBlinking = true;
             g_DrawKeyUI = true;
             g_BlinkTimer = 0;
 
+            //シーン切り替えの点滅待ち
             g_IsSceneChangeWait = true;
             g_SceneChangeTimer = 0;
 
+            //サウンド
             PlaySoundMem(g_SEHandle, DX_PLAYTYPE_BACK);
+
+            //誤爆防止
             Input_Reset();
         }
     }
 
-    // AnyKey点滅
+    // AnyKey点滅速度
     if (g_IsBlinking)
     {
         g_BlinkTimer++;
@@ -195,21 +198,25 @@ void StepTitleScene()
         }
     }
 
-    //========================================
     // メニュー操作
-    //========================================
     if (g_IsShowMenu)
     {
         if (IsTriggerKey(KEY_DOWN) || IsTriggerKey(KEY_UP))
         {
+            //カーソルがセレクトの時にキーが押されたらチュートリアルに、
+            //それ以外(チュートリアル)だったらセレクトにカーソルを動かす
+            //※ここでは内部的に動かしているだけで見た目は変わらない
             g_MenuCursor =
                 (g_MenuCursor == MENU_SELECT) ? MENU_TUTORIAL : MENU_SELECT;
+            //SE
             PlaySoundMem(g_MoveSEHandle, DX_PLAYTYPE_BACK);
         }
 
+        //※ここで見た目が変わる
         g_TitleUIData[MENU_ARROW].pos.y =
             (g_MenuCursor == MENU_SELECT) ? 458.0f : 598.0f;
 
+        //Fキーが押されてかつ選択待ちではない時
         if (IsTriggerKey(KEY_F) && !g_IsStageSceneWait)
         {
             if (g_MenuCursor == MENU_TUTORIAL)
@@ -261,9 +268,7 @@ void StepTitleScene()
         }
     }
 
-    //========================================
     // ステージセレクト操作
-    //========================================
     if (g_IsStageSelectMode)
     {
         if (g_SelectInputLockTimer > 0)
@@ -417,7 +422,7 @@ void DrawTitleScene()
 
     if (g_IsStageSelectMode)
     {
-        // ===== ステージ1 =====
+        //ステージ1
         if (g_DecidedStage == 1 && g_IsStageBlink)
         {
             if (g_DrawStageUI)
@@ -434,7 +439,7 @@ void DrawTitleScene()
                 g_TitleUIData[SELECT_STAGE1].handle, TRUE);
         }
 
-        // ===== ステージ2 =====
+        //ステージ2
         if (g_DecidedStage == 2 && g_IsStageBlink)
         {
             if (g_DrawStageUI)
@@ -451,7 +456,7 @@ void DrawTitleScene()
                 g_TitleUIData[SELECT_STAGE2].handle, TRUE);
         }
 
-        // ===== ステージ3 =====
+        //ステージ3
         if (g_DecidedStage == 3 && g_IsStageBlink)
         {
             if (g_DrawStageUI)

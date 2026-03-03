@@ -6,6 +6,7 @@
 #include "../../Camera/Camera.h"
 #include "../TitleScene/TitleScene.h"
 #include "../../Collision/Collision.h"
+#include "../ClearScene/ClearScene.h"
 
 int g_Stage1Handle = -1;
 
@@ -27,6 +28,7 @@ void LoadPlayScene(int stage)
 
 void StartPlayScene(int stage)
 {
+
 	ResetCamera();
 	SetCameraStage(stage);
 
@@ -36,13 +38,20 @@ void StartPlayScene(int stage)
 
 void StepPlayScene()
 {
+		
 	StepPlayer();
+	if (IsTriggerKey(KEY_C))
+	{
+		ChangeScene(SCENE_CLEAR);
+	}
+	
 
 	if (IsTriggerKey(KEY_P))
 	{
 		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
 	}
+		
 }
 
 void UpdatePlayScene()
