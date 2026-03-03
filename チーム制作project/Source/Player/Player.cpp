@@ -203,6 +203,7 @@ void StartPlayer(int stage)
 
 void StepPlayer()
 {
+	//リスポーン待機
 	if (g_PlayerData.isDead)
 	{
 		g_PlayerData.deadTimer--;
