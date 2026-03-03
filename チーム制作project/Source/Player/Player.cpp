@@ -63,11 +63,11 @@ float GetPlayerJumpPower()
 	{
 	case TYPE_YELLOW:
 	case TYPE_BLUE:
-		return 13.5f;	// 青
+		return 13.5f;	// 青・黄
 	case TYPE_RED:
 	
 	default:
-		return 12.0f;	// 赤・黄
+		return 12.0f;	// 赤
 	}
 }
 
