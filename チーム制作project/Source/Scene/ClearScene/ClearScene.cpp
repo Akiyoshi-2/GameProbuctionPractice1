@@ -41,8 +41,7 @@ void StepClearScene()
 	if (IsTriggerKey(KEY_C))
 	{
 		ChangeScene(SCENE_TITLE);
-	}
-	
+	}	
 	
 }
 

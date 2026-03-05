@@ -20,6 +20,7 @@ void LoadBlock()
 {
 	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/MapData/Block.png");
 	g_BlockHandle[THORN_BLOCK] = LoadGraph("Data/MapData/ThornBlock.png");
+
 }
 
 void StartBlock()
