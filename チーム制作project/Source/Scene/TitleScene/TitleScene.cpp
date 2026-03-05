@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
+#include "../../Timer/Timer.h"
 
 //‰æ‘œ
 int g_TitleHandle = -1;
@@ -228,6 +229,8 @@ void StepTitleScene()
         {
             if (g_MenuCursor == MENU_TUTORIAL)
             {
+                SetTimerStage(0);
+
                 g_IsTutorialBlink = true;
                 g_DrawTutorialUI = true;
                 g_TutorialBlinkTimer = 0;
@@ -358,6 +361,8 @@ void StepTitleScene()
             g_DecidedStage =
                 (g_SelectCursor == SELECT_STAGE1) ? 1 :
                 (g_SelectCursor == SELECT_STAGE2) ? 2 : 3;
+
+            SetTimerStage(g_DecidedStage);
 
             g_IsStageBlink = true;
             g_DrawStageUI = true;

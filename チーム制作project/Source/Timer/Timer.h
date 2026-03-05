@@ -1,7 +1,11 @@
 #pragma once
 #include "DxLib.h"
 
-void InitTimer();     // 初期化
-void UpdateTimer();   // 更新
-void DrawTimer();     // 描画
-void ResetTimer();    // リセット
+// タイマー
+void InitTimer();
+void UpdateTimer();
+void DrawTimer();
+void ResetTimer();
+
+// ★ 追加
+void SetTimerStage(int stage);
