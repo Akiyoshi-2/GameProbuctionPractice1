@@ -162,6 +162,7 @@
     <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp" />
     <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp" />
+    <ClCompile Include="Source\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Source\Scene\TestScene\TestSceneA.h" />
     <ClInclude Include="Source\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h" />
+    <ClInclude Include="Source\Timer\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
