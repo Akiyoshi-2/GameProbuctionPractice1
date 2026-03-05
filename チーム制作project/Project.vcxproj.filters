@@ -70,6 +70,9 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Timer\Timer.cpp">
+      <Filter>Source\Timer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="Source\Scene\ClearScene\ClearScene.h">
       <Filter>Source\Scene\Clear</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Timer\Timer.h">
+      <Filter>Source\Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -211,6 +217,9 @@
     </Filter>
     <Filter Include="Source\Scene\Clear">
       <UniqueIdentifier>{1f9d8728-6666-4c70-80f3-59d6672b95e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Timer">
+      <UniqueIdentifier>{819d55f4-846c-491d-8c31-9c9e73b87195}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
