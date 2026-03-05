@@ -110,15 +110,11 @@ void CheckCollision()
 	// プレイヤーとマップの当たり判定
 	CheckMapPlayerCpllision();
 
-<<<<<<< HEAD
-	// プレイヤーとゴールの当たり判定
-	
-=======
 	// エネミーとマップとの当たり判定
 	CheckMapNormalEnemyCollision();
 	CheckMapHelmetEnemyCollision();
 	CheckMapShieldEnemyCollision();
 	CheckMapYellowEnemyCollision();
 	CheckMapFullarmorEnemyCollision();
->>>>>>> 8cf2bef3d5d2018d0cd9cf5345a30eeddf626b50
+
 }
