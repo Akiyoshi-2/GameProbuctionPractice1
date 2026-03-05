@@ -7,6 +7,7 @@
 #include "../../Animation/Animation.h"
 #include "../TitleScene/TitleScene.h"
 #include "../../Collision/Collision.h"
+#include "../../Enemy/EnemyManager.h"
 
 int g_TestHandle = -1;
 
@@ -15,6 +16,7 @@ void InitTutorialScene()
 	g_TestHandle = -1;
 
 	InitPlayer();
+	InitEnemy();
 	InitMap();
 }
 
@@ -23,6 +25,7 @@ void LoadTutorialScene(int stage)
 	g_TestHandle = LoadGraph("Data/Title/Select/StageSelect.png");
 
 	LoadPlayer();
+	LoadEnemy();
 	LoadMap(stage);
 }
 
@@ -33,22 +36,30 @@ void StartTutorialScene(int stage)
 	StartMap(stage);
 }
 
-void StepTutorialScene()
+void StepTutorialScene(int stage)
 {
 	// Pでタイトルに戻る（デバッグ用）
 	if (IsTriggerKey(KEY_P))
 	{
 		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
+	
 	}
 
 	StepPlayer();
+
+	StepEnemy();
+
+	StepEnemySpawnSystem(stage);
+
+	
 }
 
 void UpdateTutorialScene()
 {
 
 	UpdatePlayer();
+	UpdateEnemy();
 	UpdateCamera();
 	CheckCollision();
 	UpdatePlayerAnimation();
@@ -70,6 +81,7 @@ void DrawTutorialScene()
 
 	DrawMap();      // 背景（ブロック）
 	DrawPlayer();   // プレイヤー
+	DrawEnemy();
 	DrawCamera();   // デバッグ
 }
 
@@ -82,5 +94,6 @@ void FinTutorialScene()
 	}
 
 	FinPlayer();
+	FinEnemy();
 	FinMap();
 }

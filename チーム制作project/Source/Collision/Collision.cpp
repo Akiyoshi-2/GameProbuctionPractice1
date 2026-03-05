@@ -87,4 +87,11 @@ void CheckCollision()
 {
 	// プレイヤーとマップの当たり判定
 	CheckMapPlayerCpllision();
+
+	// エネミーとマップとの当たり判定
+	CheckMapNormalEnemyCollision();
+	CheckMapHelmetEnemyCollision();
+	CheckMapShieldEnemyCollision();
+	CheckMapYellowEnemyCollision();
+	CheckMapFullarmorEnemyCollision();
 }

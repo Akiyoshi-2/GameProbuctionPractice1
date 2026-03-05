@@ -7,8 +7,8 @@ void DrawMap();
 void FinMap();
 
 void CheckMapPlayerCpllision();
-//void CheckMapEnemyCollision();
-//void CheckMapHelmetEnemyCollision();
-//void CheckMapNormalEnemyCollision();
-//void CheckMapShieldEnemyCollision();
-//void CheckMapYellowEnemyCollision();
+void CheckMapNormalEnemyCollision();
+void CheckMapHelmetEnemyCollision();
+void CheckMapShieldEnemyCollision();
+void CheckMapYellowEnemyCollision();
+void CheckMapFullarmorEnemyCollision();

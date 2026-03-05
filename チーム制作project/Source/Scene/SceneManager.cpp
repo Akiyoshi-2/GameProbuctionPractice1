@@ -191,7 +191,7 @@ void StepScene()
 		break;
 
 	case SCENE_TUTORIAL:	// チュートリアル
-		StepTutorialScene();
+		StepTutorialScene(0);
 		break;
 
 	case SCENE_STAGE_1:	// ステージ1
