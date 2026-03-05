@@ -89,6 +89,7 @@ void DrawTutorialScene()
 	DrawEnemy();
 	DrawCamera();   // デバッグ
 	DrawTimer();
+	DrawAttack();
 }
 
 void FinTutorialScene()

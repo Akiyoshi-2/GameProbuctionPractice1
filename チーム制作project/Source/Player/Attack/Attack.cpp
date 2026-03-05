@@ -5,6 +5,8 @@
 #define ATTACK_WIDTH  (25)
 #define ATTACK_HEIGHT (50)
 
+#define ATTACK_OFFSET (40) 
+
 static float g_AttackX = 0.0f;
 static float g_AttackY = 0.0f;
 static bool  g_AttackActive = false;
@@ -39,11 +41,11 @@ void DrawAttack()
 
     if (g_IsLeft)
     {
-        drawX = g_AttackX - ATTACK_WIDTH;
+        drawX = g_AttackX - ATTACK_WIDTH - ATTACK_OFFSET;
     }
     else
     {
-        drawX = g_AttackX;
+        drawX = g_AttackX + ATTACK_OFFSET;
     }
 
     DrawBox(

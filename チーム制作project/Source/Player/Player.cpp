@@ -28,7 +28,7 @@ struct PlayerAnimationParam
 const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 {
 	//赤
-	10, 3, 50, 50,	//攻撃
+	8, 3, 50, 50,	//攻撃
 	30, 2, 50, 50,	//待機
 	10, 2, 50, 50 , //移動
 	8, 1, 50, 50,	//ジャンプ
@@ -308,7 +308,7 @@ void StepPlayer()
 		if (IsTriggerKey(KEY_F) && !g_PlayerData.isAttacking)
 		{
 			g_PlayerData.isAttacking = true;
-			g_PlayerData.attackTimer = 30;
+			g_PlayerData.attackTimer = 24;
 
 			StartPlayerAnimation(RED_PLAYER_ANIM_ATTACK);
 
