@@ -37,12 +37,24 @@ void InitGoal()
 		goal->playAnim = GOAL_ANIM_NONE;
 		goal->boxCollision.width = GOAL_BOX_COLLISION_WIDTH;
 		goal->boxCollision.height = GOAL_BOX_COLLISION_HEIGHT;
+
+		for (int j = 0; j < GOAL_ANIM_MAX; j++)
+		{
+			InitAnimation(&goal->animation[j]);
+		}
+
+		memset(&goal[i].boxCollision, 0, sizeof(goal[i].boxCollision));
 	}
 }
 
 void LoadGoal()
 {
+	int goalHandle = LoadGraph("Data/Akiyosi/GoalAnimation.png");
 
+	for (int i = 0; i < GOAL_MAX; i++)
+	{
+		g_GoalData[i].animation[GOAL_ANIM_IDLE].handle = goalHandle;
+	}
 }
 
 void StepGoal()
