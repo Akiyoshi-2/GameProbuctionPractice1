@@ -29,6 +29,7 @@ int g_SelectCursor = SELECT_STAGE1;
 //SE関連
 int g_SEHandle = -1;
 int g_MoveSEHandle = -1;
+int g_BGMHandle = -1;
 
 //点滅関係
 //AnyKey専用
@@ -134,10 +135,16 @@ void LoadTitleScene()
 	// SE
 	g_SEHandle = LoadSoundMem("Data/title/Sound/SE/決定(案1).ogg");
 	g_MoveSEHandle = LoadSoundMem("Data/title/Sound/SE/カーソル移動案(1).ogg");
+
+    // BGM
+    g_BGMHandle = LoadSoundMem("Data/title/Sound/BGM/TitleBGM案_1_.ogg");
 }
 
 void StartTitleScene()
 {
+    // BGMループ再生
+    PlaySoundMem(g_BGMHandle, DX_PLAYTYPE_LOOP);
+
 	g_TitleUIData[TITLE_KEYUI].pos = VGet(0.0f, 0.0f, 0.0f);
 	g_TitleUIData[MENU_SELECT].pos = VGet(600.0f, MENU_SELECT_Y, 0.0f);
 	g_TitleUIData[MENU_TUTORIAL].pos = VGet(600.0f, MENU_TUTORIAL_Y, 0.0f);
@@ -264,6 +271,9 @@ void StepTitleScene()
         g_TutorialSceneTimer++;
         if (g_TutorialSceneTimer >= SCENE_CHANGE_WAIT_TIME)
         {
+            //BGM停止
+            StopSoundMem(g_BGMHandle);
+
             ChangeScene(SCENE_TUTORIAL);
         }
     }
@@ -378,6 +388,9 @@ void StepTitleScene()
         g_StageSceneTimer++;
         if (g_StageSceneTimer >= SCENE_CHANGE_WAIT_TIME)
         {
+            //BGM停止
+            StopSoundMem(g_BGMHandle);
+
             if (g_DecidedStage == 1) ChangeScene(SCENE_STAGE_1);
             else if (g_DecidedStage == 2) ChangeScene(SCENE_STAGE_2);
             else if (g_DecidedStage == 3) ChangeScene(SCENE_STAGE_3);
@@ -496,4 +509,6 @@ void FinTitleScene()
 
 	DeleteSoundMem(g_SEHandle);
 	DeleteSoundMem(g_MoveSEHandle);
+
+    DeleteSoundMem(g_BGMHandle);
 }

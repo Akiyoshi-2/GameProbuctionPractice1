@@ -39,6 +39,8 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 	8, 1, 50, 50,	//落下
 };
 
+int JumpSEHandle = -1;
+
 PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
 
@@ -144,6 +146,9 @@ void LoadPlayer()
 	g_PlayerData.animation[YELLOW_PLAYER_ANIM_RUN].handle = LoadGraph("Data/animation/YellowPlayer/YellowPlayer_Run.png");
 	g_PlayerData.animation[YELLOW_PLAYER_ANIM_FALL].handle = LoadGraph("Data/animation/YellowPlayer/黄player_fall1.png");
 	g_PlayerData.animation[YELLOW_PLAYER_ANIM_JUMP].handle = LoadGraph("Data/animation/YellowPlayer/黄player_jump1.png");
+
+	//SE
+	JumpSEHandle = LoadSoundMem("Data/SE/サウンド案/se_jump.ogg");
 
 }
 
@@ -318,6 +323,8 @@ void StepPlayer()
 		g_PlayerData.move.y = -GetPlayerJumpPower();
 		g_PlayerData.isAir = true;
 		g_PlayerData.canJump = false;
+
+		PlaySoundMem(JumpSEHandle, DX_PLAYTYPE_BACK);
 	}
 
 	// キーを離したら再度ジャンプ可能
@@ -397,6 +404,8 @@ void FinPlayer()
 	{
 		DeleteGraph(g_PlayerData.animation[i].handle);
 	}
+
+	DeleteSoundMem(JumpSEHandle);
 }
 
 PlayerData* GetPlayer()
