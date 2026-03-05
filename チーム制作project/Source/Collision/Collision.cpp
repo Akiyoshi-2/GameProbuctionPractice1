@@ -3,7 +3,11 @@
 #include "../Player/Player.h"
 #include "../Map/MapManager.h"
 #include "../Map/Block.h"
-#include "../Scene/SceneManager.h"
+#include "../Enemy/NormalEnemy/NormalEnemy.h"
+#include "../Enemy/HelmetEnemy/HelmetEnemy.h"
+#include "../Enemy/ShieldEnemy/ShieldEnemy.h"
+#include "../Enemy/YellowEnemy/YellowEnemy.h"
+#include "../Enemy/FullarmorEnemy/FullarmorEnemy.h"
 #include <math.h>
 
 bool CheckSquarePoint(float squarePosX,  float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
@@ -81,6 +85,24 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 	return false;
 }
 
+void CheckPlayerEnemy()
+{
+	PlayerData* player = GetPlayer();
+	NormalEnemyData* normal = GetNormalEnemy();
+	HelmetEnemyData* helmet = GetHelmetEnemy();
+	ShieldEnemyData* shield = GetShieldEnemy();
+	YellowEnemyData* yellow = GetYellowEnemy();
+	FullArmEnemyData* fullArm = GetFullArmorEnemy();
+
+	if (player->active)
+	{
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normal++)
+		{
+			if (!normal->active)continue;
+		}
+	}
+
+}
 
 // Še“–‚½‚è”»’è‚ðŒÄ‚Ô
 void CheckCollision()
