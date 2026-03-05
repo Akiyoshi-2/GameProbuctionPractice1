@@ -212,6 +212,7 @@ void NormalEnemyHitBlockX(MapChipData mapChipData, int index)
 		if (normalEnemy->move.x > 0.0f)
 		{
 			normalEnemy->isTurn = false;
+			normalEnemy->pos.x -= (normalEnemy->pos.x + NORMAL_ENEMY_BOX_COLLISION_WIDTH) - block->pos.x;
 		}
 		// ‰E‚©‚ç“–‚½‚Á‚½
 		else if (normalEnemy->move.x < 0.0f)

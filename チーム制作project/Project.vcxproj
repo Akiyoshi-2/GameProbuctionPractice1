@@ -145,6 +145,7 @@
     <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Enemy\EnemyManader.cpp" />
     <ClCompile Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.cpp" />
+    <ClCompile Include="Source\Enemy\Goal\Goal.cpp" />
     <ClCompile Include="Source\Enemy\HelmetEnemy\HelmetEnemy.cpp" />
     <ClCompile Include="Source\Enemy\NormalEnemy\NormalEnemy.cpp" />
     <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\Enemy\EnemyManager.h" />
     <ClInclude Include="Source\Enemy\EnemyParameter.h" />
     <ClInclude Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.h" />
+    <ClInclude Include="Source\Enemy\Goal\Goal.h" />
     <ClInclude Include="Source\Enemy\HelmetEnemy\HelmetEnemy.h" />
     <ClInclude Include="Source\Enemy\NormalEnemy\NormalEnemy.h" />
     <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h" />
