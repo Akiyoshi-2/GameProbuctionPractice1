@@ -10,6 +10,7 @@ enum EnemyType
 	SHIELD_ENEMY,
 	YELLOW_ENEMY,
 	FULLARMOR_ENEMY,
+	GOAL,
 };
 
 struct EnemyParameter
@@ -182,6 +183,29 @@ struct FullArmEnemyData
 	const EnemyParameter* param;
 };
 
+// GOAL
+#define GOAL_MAX	(25)
+#define GOAL_WIDTH	(50)
+#define GOAL_HEIGHT	(50)
+#define GOAL_RADIUS	(25)
+
+enum GoalAnimationType
+{
+	GOAL_ANIM_IDLE,
+	GOAL_ANIM_MAX,
+	GOAL_ANIM_NONE = -1,
+};
+
+struct GoalData
+{
+	bool active;
+	VECTOR pos;
+	AnimationData animation[GOAL_ANIM_MAX];
+	GoalAnimationType playAnim;
+	BoxCollision boxCollision;
+	const EnemyParameter* param;
+};
+
 //////////////////////////////////
 
 // スポーンデータ
@@ -199,12 +223,12 @@ struct EnemySpawnData
 const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 {
 	NORMAL_ENEMY, 10, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
-	HELMET_ENEMY, 20, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
-	SHIELD_ENEMY, 30, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
+	/*HELMET_ENEMY, 20, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
+	SHIELD_ENEMY, 30, 300.0f, 800.0f,& ENEMY_PARAMETER[0],*/
 
-	NORMAL_ENEMY, 10, 4400.0f, 300.0f,& ENEMY_PARAMETER[0],
+	/*NORMAL_ENEMY, 10, 4400.0f, 300.0f,& ENEMY_PARAMETER[0],
 	HELMET_ENEMY, 10, 4400.0f, 600.0f,& ENEMY_PARAMETER[0],
-	SHIELD_ENEMY, 10, 4500.0f, 900.0f,& ENEMY_PARAMETER[0],
+	SHIELD_ENEMY, 10, 4500.0f, 900.0f,& ENEMY_PARAMETER[0],*/
 
 
 };
