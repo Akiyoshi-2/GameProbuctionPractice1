@@ -5,10 +5,12 @@
 #include "YellowEnemy/YellowEnemy.h"
 #include "FullarmorEnemy/FullarmorEnemy.h"
 
-
+int g_EnemySpawnTimer = 0;
 
 void InitEnemy()
 {
+	g_EnemySpawnTimer = 0;
+
 	// 各エネミー初期化
 	InitNormalEnemy();
 	InitHelmetEnemy();
@@ -98,10 +100,15 @@ void StepEnemySpawnSystem(int stage)
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_0;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-			SpawnEnemy(spawn);
+			if (spawn->spawnTimer == g_EnemySpawnTimer)
+			{
+				SpawnEnemy(spawn);
+			}
 		}
+
+		g_EnemySpawnTimer++;
 	}
-	else if (stage == 1)
+	/*else if (stage == 1)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_1) / sizeof(EnemySpawnData);
 
@@ -130,7 +137,7 @@ void StepEnemySpawnSystem(int stage)
 		{
 			SpawnEnemy(spawn);
 		}
-	}
+	}*/
 
 	
 }
