@@ -2,13 +2,12 @@
 #include "ClearScene.h"
 #include "../SceneManager.h"
 #include "../../Input/Input.h"
+#include "../PlayScene/PlayScene.h"
 
 //ゲームクリアの画像
 int g_ClearHandle = -1;
 //リザルトの画像
 int g_ResultHandle = 0;
-
-
 
 
 void InitClearScene()
@@ -27,6 +26,13 @@ void LoadClearScene()
 
 void StartClearScene()
 {
+//	CreateUITxet("");
+
+//	CreateScoreUI();
+
+//	CreateHighScoreUI();
+
+//	PlayBGM();
 
 }
 
@@ -34,7 +40,7 @@ void StepClearScene()
 {
 	if (IsTriggerKey(KEY_C))
 	{
-		ChangeScene(SCENE_STAGE_2);
+		ChangeScene(SCENE_TITLE);
 	}
 	
 	
@@ -55,6 +61,8 @@ void DrawClearScene()
 	{
 		DrawGraph(0, 0, g_ResultHandle, TRUE);
 	}
+
+//	DrawUIText();
 
 }
 
