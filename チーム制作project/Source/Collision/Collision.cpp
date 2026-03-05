@@ -87,4 +87,7 @@ void CheckCollision()
 {
 	// プレイヤーとマップの当たり判定
 	CheckMapPlayerCpllision();
+
+	// プレイヤーとゴールの当たり判定
+	
 }
