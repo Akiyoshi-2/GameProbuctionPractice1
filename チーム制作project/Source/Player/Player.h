@@ -3,6 +3,7 @@
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
+#include "../Enemy/EnemyParameter.h"
 
 #define PLAYER_WIDTH	(50.0f)
 #define PLAYER_HEIGHT	(50.0f)
@@ -80,3 +81,5 @@ void PlayerHitNormalBlockX(MapChipData mapChipData);
 void PlayerHitNormalBlockY(MapChipData mapChipData);
 void PlayerHitThornBlockX(MapChipData mapChipData);
 void PlayerHitThornBlockY(MapChipData mapChipData);
+
+void PlayerHitEnemy();

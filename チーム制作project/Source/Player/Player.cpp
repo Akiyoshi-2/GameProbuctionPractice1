@@ -8,6 +8,13 @@
 #include "../Collision/Collision.h"
 #include "../Map/Block.h"
 #include "../Scene/TitleScene/TitleScene.h"
+#include "../Enemy/EnemyParameter.h"
+#include "../Enemy/NormalEnemy/NormalEnemy.h"
+#include "../Enemy/FullarmorEnemy/FullarmorEnemy.h"
+#include "../Enemy/HelmetEnemy/HelmetEnemy.h"
+#include "../Enemy/ShieldEnemy/ShieldEnemy.h"
+#include "../Enemy/YellowEnemy/YellowEnemy.h"
+
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -701,4 +708,14 @@ void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
 	y = player.pos.y + player.boxCollision.posY;
 	w = player.boxCollision.width;
 	h = player.boxCollision.height;
+}
+
+void PlayerHitEnemy()
+{
+	PlayerData player = g_PlayerData;
+	NormalEnemyData* normal = GetNormalEnemy();
+	HelmetEnemyData* helmet = GetHelmetEnemy();
+	ShieldEnemyData* shield = GetShieldEnemy();
+	YellowEnemyData* yellow = GetYellowEnemy();
+	FullArmEnemyData* fullarm = GetFullArmorEnemy();
 }
