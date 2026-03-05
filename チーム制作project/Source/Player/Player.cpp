@@ -15,6 +15,7 @@
 #include "../Enemy/ShieldEnemy/ShieldEnemy.h"
 #include "../Enemy/YellowEnemy/YellowEnemy.h"
 #include "../Timer/Timer.h"
+#include "Attack/Attack.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -308,7 +309,14 @@ void StepPlayer()
 		{
 			g_PlayerData.isAttacking = true;
 			g_PlayerData.attackTimer = 30;
+
 			StartPlayerAnimation(RED_PLAYER_ANIM_ATTACK);
+
+			StartAttack(
+				g_PlayerData.pos.x,
+				g_PlayerData.pos.y,
+				g_PlayerData.isTurn
+			);
 		}
 	}
 
@@ -320,12 +328,14 @@ void StepPlayer()
 		g_PlayerData.move.x = -moveSpeed;
 		g_PlayerData.isTurn = true;
 	}
+	//右
 	else if (IsInputKey(KEY_RIGHT))
 	{
 		g_PlayerData.move.x = moveSpeed;
 		g_PlayerData.isTurn = false;
 	}
 
+	//ジャンプ
 	if (IsTriggerKey(KEY_SPACE) &&
 		!g_PrevPlayerData.isAir &&
 		g_PlayerData.canJump)

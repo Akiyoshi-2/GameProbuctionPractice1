@@ -76,6 +76,9 @@
     <ClCompile Include="Source\Scene\GameOverScene\GameOverScene.cpp">
       <Filter>Source\Scene\GameOver</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player\Attack\Attack.cpp">
+      <Filter>Source\Player\AttackCllision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -159,6 +162,9 @@
     <ClInclude Include="Source\Scene\GameOverScene\GameOverScene.h">
       <Filter>Source\Scene\GameOver</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Player\Attack\Attack.h">
+      <Filter>Source\Player\AttackCllision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -229,6 +235,9 @@
     </Filter>
     <Filter Include="Source\Scene\GameOver">
       <UniqueIdentifier>{b872a6cb-9c8a-47b9-9bc8-9315ab76789b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player\AttackCllision">
+      <UniqueIdentifier>{40aeda40-0eae-4a34-a55b-08e48a1d1fdb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
