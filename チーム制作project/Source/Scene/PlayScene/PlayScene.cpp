@@ -8,6 +8,7 @@
 #include "../../Collision/Collision.h"
 #include "../ClearScene/ClearScene.h"
 #include "../../Timer/Timer.h"
+#include "../../Player/Attack/Attack.h"
 
 int g_Stage1Handle = -1;
 
@@ -64,6 +65,7 @@ void UpdatePlayScene()
 	CheckCollision();
 	UpdatePlayerAnimation();
 	UpdateTimer();
+	UpdateAttack();
 }
 
 void DrawPlayScene()
@@ -84,6 +86,7 @@ void DrawPlayScene()
 	DrawPlayer();
 	DrawCamera(); // デバッグ
 	DrawTimer();
+	DrawAttack(); //デバック
 }
 
 

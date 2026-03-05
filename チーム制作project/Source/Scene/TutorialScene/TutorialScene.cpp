@@ -9,6 +9,7 @@
 #include "../../Collision/Collision.h"
 #include "../../Enemy/EnemyManager.h"
 #include "../../Timer/Timer.h"
+#include "../../Player/Attack/Attack.h"
 
 int g_TestHandle = -1;
 
@@ -66,6 +67,7 @@ void UpdateTutorialScene()
 	CheckCollision();
 	UpdatePlayerAnimation();
 	UpdateTimer();
+	UpdateAttack();
 }
 
 void DrawTutorialScene()
@@ -87,6 +89,7 @@ void DrawTutorialScene()
 	DrawEnemy();
 	DrawCamera();   // デバッグ
 	DrawTimer();
+	DrawAttack();
 }
 
 void FinTutorialScene()

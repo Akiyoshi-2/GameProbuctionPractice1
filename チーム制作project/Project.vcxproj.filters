@@ -76,8 +76,13 @@
     <ClCompile Include="Source\Scene\GameOverScene\GameOverScene.cpp">
       <Filter>Source\Scene\GameOver</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\Enemy\Goal\Goal.cpp">
       <Filter>Source\Enemy\Goal</Filter>
+=======
+    <ClCompile Include="Source\Player\Attack\Attack.cpp">
+      <Filter>Source\Player\AttackCllision</Filter>
+>>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +167,13 @@
     <ClInclude Include="Source\Scene\GameOverScene\GameOverScene.h">
       <Filter>Source\Scene\GameOver</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\Enemy\Goal\Goal.h">
       <Filter>Source\Enemy\Goal</Filter>
+=======
+    <ClInclude Include="Source\Player\Attack\Attack.h">
+      <Filter>Source\Player\AttackCllision</Filter>
+>>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,8 +246,13 @@
     <Filter Include="Source\Scene\GameOver">
       <UniqueIdentifier>{b872a6cb-9c8a-47b9-9bc8-9315ab76789b}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Source\Enemy\Goal">
       <UniqueIdentifier>{70890a83-c7cd-4bfa-9294-994684b9183b}</UniqueIdentifier>
+=======
+    <Filter Include="Source\Player\AttackCllision">
+      <UniqueIdentifier>{40aeda40-0eae-4a34-a55b-08e48a1d1fdb}</UniqueIdentifier>
+>>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
     </Filter>
   </ItemGroup>
 </Project>
