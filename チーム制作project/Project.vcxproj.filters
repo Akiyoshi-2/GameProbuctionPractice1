@@ -1,258 +1,241 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Akiyosi\Akiyosi.cpp">
+      <Filter>Akiyosi</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Animation\Animation.cpp">
-      <Filter>Source\Animation</Filter>
+      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera\Camera.cpp">
-      <Filter>Source\Camera</Filter>
+      <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="Source\Collision\Collision.cpp">
-      <Filter>Source\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map\Block.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map\MapChip.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map\MapManager.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Input\Input.cpp">
-      <Filter>Source\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player\Player.cpp">
-      <Filter>Source\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\SceneManager.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map\Tutorial\TutorialMap.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp">
-      <Filter>Source\Scene\Play</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp">
-      <Filter>Source\Scene\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp">
-      <Filter>Source\Scene\Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
-      <Filter>Source\Scene\Tutorial</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Akiyosi\Akiyosi.cpp">
-      <Filter>Source\Akiyosi</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy\HelmetEnemy\HelmetEnemy.cpp">
-      <Filter>Source\Enemy\HelmetEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy\YellowEnemy\YellowEnemy.cpp">
-      <Filter>Source\Enemy\YellowEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp">
-      <Filter>Source\Enemy\ShieldEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy\NormalEnemy\NormalEnemy.cpp">
-      <Filter>Source\Enemy\NormalEnemy</Filter>
+      <Filter>Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enemy\EnemyManader.cpp">
-      <Filter>Source\Enemy</Filter>
+      <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.cpp">
-      <Filter>Source\Enemy\FullarmorEnemy</Filter>
+      <Filter>Enemy\FullArmEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\HelmetEnemy\HelmetEnemy.cpp">
+      <Filter>Enemy\HelmetEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\Goal\Goal.cpp">
+      <Filter>Enemy\Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp">
+      <Filter>Enemy\ShieldEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\YellowEnemy\YellowEnemy.cpp">
+      <Filter>Enemy\YellowEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\NormalEnemy\NormalEnemy.cpp">
+      <Filter>Enemy\NormalEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\MapChip.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\MapManager.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map\Block.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\Attack\Attack.cpp">
+      <Filter>Player\Attack</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene\ClearScene\ClearScene.cpp">
-      <Filter>Source\Scene\Clear</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Timer\Timer.cpp">
-      <Filter>Source\Timer</Filter>
+      <Filter>Scene\ClearScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene\GameOverScene\GameOverScene.cpp">
-      <Filter>Source\Scene\GameOver</Filter>
+      <Filter>Scene\GameOverScene</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\Enemy\Goal\Goal.cpp">
-      <Filter>Source\Enemy\Goal</Filter>
-=======
-    <ClCompile Include="Source\Player\Attack\Attack.cpp">
-      <Filter>Source\Player\AttackCllision</Filter>
->>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
+    <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp">
+      <Filter>Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TestScene\TestSceneA.cpp">
+      <Filter>Scene\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TitleScene\TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\TutorialScene\TutorialScene.cpp">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer\Timer.cpp">
+      <Filter>Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Akiyosi\Akiyosi.h">
+      <Filter>Akiyosi</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Animation\Animation.h">
-      <Filter>Source\Animation</Filter>
+      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera\Camera.h">
-      <Filter>Source\Camera</Filter>
+      <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="Source\Collision\Collision.h">
-      <Filter>Source\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\Block.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\MapChip.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\MapManager.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\MapParameter.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameSetting\GameSetting.h">
-      <Filter>Source\GameSetting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\Input.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player\Player.h">
-      <Filter>Source\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\SceneManager.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map\Tutorial\TutorialMap.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
-      <Filter>Source\Scene\Play</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
-      <Filter>Source\Scene\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h">
-      <Filter>Source\Scene\Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
-      <Filter>Source\Scene\Tutorial</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Akiyosi\Akiyosi.h">
-      <Filter>Source\Akiyosi</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\HelmetEnemy\HelmetEnemy.h">
-      <Filter>Source\Enemy\HelmetEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\YellowEnemy\YellowEnemy.h">
-      <Filter>Source\Enemy\YellowEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h">
-      <Filter>Source\Enemy\ShieldEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\NormalEnemy\NormalEnemy.h">
-      <Filter>Source\Enemy\NormalEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\EnemyParameter.h">
-      <Filter>Source\Enemy</Filter>
+      <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy\EnemyManager.h">
-      <Filter>Source\Enemy</Filter>
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyParameter.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.h">
-      <Filter>Source\Enemy\FullarmorEnemy</Filter>
+      <Filter>Enemy\FullArmEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\HelmetEnemy\HelmetEnemy.h">
+      <Filter>Enemy\HelmetEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\Goal\Goal.h">
+      <Filter>Enemy\Goal</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h">
+      <Filter>Enemy\ShieldEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\YellowEnemy\YellowEnemy.h">
+      <Filter>Enemy\YellowEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\NormalEnemy\NormalEnemy.h">
+      <Filter>Enemy\NormalEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameSetting\GameSetting.h">
+      <Filter>GameSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapChip.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapManager.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\MapParameter.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map\Block.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Attack\Attack.h">
+      <Filter>Player\Attack</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene\ClearScene\ClearScene.h">
-      <Filter>Source\Scene\Clear</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer\Timer.h">
-      <Filter>Source\Timer</Filter>
+      <Filter>Scene\ClearScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene\GameOverScene\GameOverScene.h">
-      <Filter>Source\Scene\GameOver</Filter>
+      <Filter>Scene\GameOverScene</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\Enemy\Goal\Goal.h">
-      <Filter>Source\Enemy\Goal</Filter>
-=======
-    <ClInclude Include="Source\Player\Attack\Attack.h">
-      <Filter>Source\Player\AttackCllision</Filter>
->>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
+    <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
+      <Filter>Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
+      <Filter>Scene\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TitleScene\TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\TutorialScene\TutorialScene.h">
+      <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer\Timer.h">
+      <Filter>Timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{40feb21b-d791-4d31-859d-643b9bdbe504}</UniqueIdentifier>
+    <Filter Include="Akiyosi">
+      <UniqueIdentifier>{7bb0ea00-d3b3-40c6-af18-acd25b0e997a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Animation">
-      <UniqueIdentifier>{68ed1466-ccab-4683-9a3f-f472512902cc}</UniqueIdentifier>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{e67b19d9-0af2-42a4-8e73-0af2a9441899}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Camera">
-      <UniqueIdentifier>{265b3674-4237-4408-9871-21604da2c51e}</UniqueIdentifier>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{465ede20-305b-4346-9f7d-a08db909e9d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Collision">
-      <UniqueIdentifier>{1734a2b7-c204-424f-b8c7-4b7cddf821a5}</UniqueIdentifier>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{0e23f3c8-b480-4f2b-a3d9-5b017c420b69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Map">
-      <UniqueIdentifier>{55823a02-39d9-4ad8-9543-1f99f3ff9332}</UniqueIdentifier>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{62032954-8636-4bf0-b1f1-bd711d9b534b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\GameSetting">
-      <UniqueIdentifier>{aaa7b594-4b3c-410f-ba0c-8f31b4b1b77b}</UniqueIdentifier>
+    <Filter Include="Enemy\NormalEnemy">
+      <UniqueIdentifier>{28773bb6-d604-4624-b27d-273abc007230}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Input">
-      <UniqueIdentifier>{d6f5e6ac-16bf-4ce0-bb92-427bcd6b196d}</UniqueIdentifier>
+    <Filter Include="Enemy\HelmetEnemy">
+      <UniqueIdentifier>{5a8e7798-0c6d-43e2-b741-9b39adc502db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Player">
-      <UniqueIdentifier>{8cbd4b34-a8ee-45d8-a07f-7e98ad2ae8c1}</UniqueIdentifier>
+    <Filter Include="Enemy\ShieldEnemy">
+      <UniqueIdentifier>{5fb798c1-a7cf-459c-a569-56505fa645de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene">
-      <UniqueIdentifier>{1a0ec841-b30a-4ddc-8565-7f71bc50f00c}</UniqueIdentifier>
+    <Filter Include="Enemy\YellowEnemy">
+      <UniqueIdentifier>{2db4b2c8-0b0f-4141-8609-58fa412bfc09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Play">
-      <UniqueIdentifier>{8f2fc46c-f80c-4386-b471-ebc7c4359977}</UniqueIdentifier>
+    <Filter Include="Enemy\FullArmEnemy">
+      <UniqueIdentifier>{807a8a9b-b54d-4ec4-80ba-c3369ea99805}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Test">
-      <UniqueIdentifier>{ae6cdc05-d9a6-42fd-ab7b-bb476316ea52}</UniqueIdentifier>
+    <Filter Include="Enemy\Goal">
+      <UniqueIdentifier>{e2df30ff-b658-4cae-b6ad-fab9a26f6114}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Title">
-      <UniqueIdentifier>{62d6754a-ff07-40cd-89c7-939227a0cdf0}</UniqueIdentifier>
+    <Filter Include="GameSetting">
+      <UniqueIdentifier>{cd6687ae-e7e2-4060-95e7-7158971759af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Tutorial">
-      <UniqueIdentifier>{cefa7f22-2e28-4ed7-b20b-52b1f482def4}</UniqueIdentifier>
+    <Filter Include="Input">
+      <UniqueIdentifier>{7709f9f1-d549-4129-9613-265784aed114}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Akiyosi">
-      <UniqueIdentifier>{f446cb5e-3a15-4604-9b9d-285870972e24}</UniqueIdentifier>
+    <Filter Include="Map">
+      <UniqueIdentifier>{c7884a0a-4835-407a-845b-9d6ab0e53624}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy">
-      <UniqueIdentifier>{fd86b461-e951-4dd5-99d4-c7991e14a884}</UniqueIdentifier>
+    <Filter Include="Player">
+      <UniqueIdentifier>{cee211e5-df28-4735-9822-f4f917b27f12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\HelmetEnemy">
-      <UniqueIdentifier>{dd36b73b-3232-4adf-bf66-7389fe2b6e89}</UniqueIdentifier>
+    <Filter Include="Player\Attack">
+      <UniqueIdentifier>{7c88a188-5236-40ff-8342-4bb251e5b429}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\ShieldEnemy">
-      <UniqueIdentifier>{3700de21-9550-4f76-9047-faf92a1e3d15}</UniqueIdentifier>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{1e2d21ba-4581-4601-a9b4-a10e4911264e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\YellowEnemy">
-      <UniqueIdentifier>{f0865de9-2ac7-48d5-a35e-0bd2f998841e}</UniqueIdentifier>
+    <Filter Include="Scene\ClearScene">
+      <UniqueIdentifier>{402f06ef-2660-4a1e-ac47-af5d94ec4965}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\NormalEnemy">
-      <UniqueIdentifier>{7259b339-f453-4d5b-be76-5cdeca9374d4}</UniqueIdentifier>
+    <Filter Include="Scene\GameOverScene">
+      <UniqueIdentifier>{22f0fd0c-2d0c-4407-a1cc-28951cd43702}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\FullarmorEnemy">
-      <UniqueIdentifier>{9da13eed-8474-44e4-b9a1-e14d6b40a44a}</UniqueIdentifier>
+    <Filter Include="Scene\PlayScene">
+      <UniqueIdentifier>{308d6b54-9490-44ef-b357-3aaa6980826e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\Clear">
-      <UniqueIdentifier>{1f9d8728-6666-4c70-80f3-59d6672b95e8}</UniqueIdentifier>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{ff26f703-e492-4e6f-a067-04274ff606d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Timer">
-      <UniqueIdentifier>{819d55f4-846c-491d-8c31-9c9e73b87195}</UniqueIdentifier>
+    <Filter Include="Scene\TestScene">
+      <UniqueIdentifier>{941dac76-ac58-4d90-9158-356cb0cad0e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Scene\GameOver">
-      <UniqueIdentifier>{b872a6cb-9c8a-47b9-9bc8-9315ab76789b}</UniqueIdentifier>
+    <Filter Include="Scene\TutorialScene">
+      <UniqueIdentifier>{205ade54-f18d-4be9-a537-3c181ee54b50}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
-    <Filter Include="Source\Enemy\Goal">
-      <UniqueIdentifier>{70890a83-c7cd-4bfa-9294-994684b9183b}</UniqueIdentifier>
-=======
-    <Filter Include="Source\Player\AttackCllision">
-      <UniqueIdentifier>{40aeda40-0eae-4a34-a55b-08e48a1d1fdb}</UniqueIdentifier>
->>>>>>> 809dd18f70a7895b379bd82e3b925a7be4153cb1
+    <Filter Include="Timer">
+      <UniqueIdentifier>{ab15d62f-f31f-4ce0-a041-122468389972}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
