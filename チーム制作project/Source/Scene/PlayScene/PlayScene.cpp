@@ -42,9 +42,10 @@ void StepPlayScene()
 {
 		
 	StepPlayer();
+
 	if (IsTriggerKey(KEY_C))
 	{
-		ChangeScene(SCENE_CLEAR);
+		ChangeScene(SCENE_STAGE_2);
 	}
 	
 
