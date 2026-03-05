@@ -8,6 +8,7 @@
 #include "../TitleScene/TitleScene.h"
 #include "../../Collision/Collision.h"
 #include "../../Enemy/EnemyManager.h"
+#include "../../Timer/Timer.h"
 
 int g_TestHandle = -1;
 
@@ -18,6 +19,7 @@ void InitTutorialScene()
 	InitPlayer();
 	InitEnemy();
 	InitMap();
+	InitTimer();
 }
 
 void LoadTutorialScene(int stage)
@@ -63,6 +65,7 @@ void UpdateTutorialScene()
 	UpdateCamera();
 	CheckCollision();
 	UpdatePlayerAnimation();
+	UpdateTimer();
 }
 
 void DrawTutorialScene()
@@ -83,6 +86,7 @@ void DrawTutorialScene()
 	DrawPlayer();   // プレイヤー
 	DrawEnemy();
 	DrawCamera();   // デバッグ
+	DrawTimer();
 }
 
 void FinTutorialScene()
