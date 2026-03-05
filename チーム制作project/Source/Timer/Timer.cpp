@@ -1,40 +1,48 @@
 #include "Timer.h"
 #include "../GameSetting/GameSetting.h"
 
+#define START_TIME    180
+
 int g_FontHandle = -1;
-int g_TimeFrame = 0;
+int g_StartTime = 0;
+int g_RemainTime = START_TIME;
 
 void InitTimer()
 {
-	// Agency FB フォント作成
-	g_FontHandle = CreateFontToHandle("Agency FB", 64, 3);
+	//("フォント名",サイズ,太さ)
+    g_FontHandle = CreateFontToHandle("Agency FB", 64, 3);
 
-	g_TimeFrame = 0;
+    g_StartTime = GetNowCount();
+
+    g_RemainTime = START_TIME;
 }
 
 void UpdateTimer()
 {
-	g_TimeFrame++;
+    //現在の経過時間
+    int now = GetNowCount();
+    int elapsed = (now - g_StartTime) / 1000;
+
+    //スタート時間から経過時間を引く
+    g_RemainTime = START_TIME - elapsed;
+
+    if (g_RemainTime < 0)
+    {
+        g_RemainTime = 0;   // 0で止めるだけ
+    }
 }
 
 void DrawTimer()
 {
-	int totalSeconds = g_TimeFrame / 60;
+    char timeText[16];
+    sprintf_s(timeText, "%d", g_RemainTime);
 
-    int minutes = totalSeconds / 60;
-    int seconds = totalSeconds % 60;
-
-    char timeText[32];
-    sprintf_s(timeText, "%02d:%02d", minutes, seconds);
-
-    // 文字幅取得
     int strWidth = GetDrawStringWidthToHandle(
         timeText,
         strlen(timeText),
         g_FontHandle
     );
 
-    // 右上（余白20px）
     int posX = SCREEN_WIDTH - strWidth - 20;
     int posY = 20;
 
@@ -47,7 +55,8 @@ void DrawTimer()
     );
 }
 
-void Timer_Reset()
+void ResetTimer()
 {
-    g_TimeFrame = 0;
+    g_StartTime = GetNowCount();
+    g_RemainTime = START_TIME;
 }
