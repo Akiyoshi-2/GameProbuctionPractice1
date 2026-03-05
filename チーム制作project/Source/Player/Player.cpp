@@ -14,7 +14,7 @@
 #include "../Enemy/HelmetEnemy/HelmetEnemy.h"
 #include "../Enemy/ShieldEnemy/ShieldEnemy.h"
 #include "../Enemy/YellowEnemy/YellowEnemy.h"
-
+#include "../Timer/Timer.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -224,6 +224,9 @@ void StepPlayer()
 		{
 			StartPlayer(g_DecidedStage);
 			g_PlayerData.isDead = false;
+			g_PlayerData.active = true;
+
+			ResetTimer();
 		}
 
 		return; // 死亡中は操作禁止
@@ -381,6 +384,7 @@ void UpdatePlayer()
 
 	if (!g_PlayerData.isDead && g_PlayerData.pos.y > deadLine)
 	{
+		g_PlayerData.active = false;
 		g_PlayerData.isDead = true;
 		g_PlayerData.deadTimer = PLAYER_DIE_TIME;
 		g_PlayerData.move.x = 0.0f;
@@ -390,6 +394,7 @@ void UpdatePlayer()
 			StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 		else if (g_PlayerData.type == TYPE_BLUE)
 			StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+
 	}
 }
 
@@ -643,6 +648,7 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 	{
 		if (!g_PlayerData.isDead)
 		{
+			g_PlayerData.active = false;
 			g_PlayerData.isDead = true;
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME;
 			g_PlayerData.move.x = 0.0f;
@@ -687,6 +693,7 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 	{
 		if (!g_PlayerData.isDead)
 		{
+			g_PlayerData.active = false;
 			g_PlayerData.isDead = true;
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME;
 			g_PlayerData.move.x = 0.0f;
@@ -696,6 +703,7 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 				StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 			else if (g_PlayerData.type == TYPE_BLUE)
 				StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+
 		}
 	}
 }
