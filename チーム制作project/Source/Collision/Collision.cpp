@@ -97,12 +97,100 @@ void CheckPlayerEnemy()
 
 	if (player->active)
 	{
+		// プレイヤーの位置設定
+		int playerX = player->pos.x;
+		int playerY = player->pos.y;
+		int playerW = PLAYER_WIDTH;
+		int playerH = PLAYER_HEIGHT;
+
 		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normal++)
 		{
 			if (!normal->active)continue;
+
+			// NormalEnemyの位置設定
+			int normalX = normal->pos.x;
+			int normalY = normal->pos.y;
+			int normalW = NORMAL_ENEMY_WIDTH;
+			int normalH = NORMAL_ENEMY_HEIGHT;
+
+			if (CheckSquareSquare(playerX, playerY, playerW, playerH, 
+				normalX, normalY, normalW, normalH))
+			{
+				// NormalEnemyとPlayerの当たり判定
+			}
+		}
+
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, helmet++)
+		{
+			if (!helmet->active)continue;
+
+			// HelmetEnemyの位置設定
+			int helmetX = helmet->pos.x;
+			int helmetY = helmet->pos.y;
+			int helmetW = NORMAL_ENEMY_WIDTH;
+			int helmetH = NORMAL_ENEMY_HEIGHT;
+
+			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+				helmetX, helmetY, helmetW, helmetH))
+			{
+				// HelmetEnemyとPlayerの当たり判定 
+			}
+		}
+
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, shield++)
+		{
+			if (!shield->active)continue;
+
+			// ShieldEnemyの位置設定
+			int shieldX = shield->pos.x;
+			int shieldY = shield->pos.y;
+			int shieldW = NORMAL_ENEMY_WIDTH;
+			int shieldH = NORMAL_ENEMY_HEIGHT;
+
+			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+				shieldX, shieldY, shieldW, shieldH))
+			{
+				// ShieldEnemyとPlayerの当たり判定 
+			}
+		}
+
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, yellow++)
+		{
+			if (!yellow->active)continue;
+
+			// YellowEnemyの位置設定
+			int yellowX = yellow->pos.x;
+			int yellowY = yellow->pos.y;
+			int yellowW = NORMAL_ENEMY_WIDTH;
+			int yellowH = NORMAL_ENEMY_HEIGHT;
+
+			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+				yellowX, yellowY, yellowW, yellowH))
+			{
+				// YellowEnemyとPlayerの当たり判定 
+			}
+		}
+
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, fullArm++)
+		{
+			if (!fullArm->active)continue;
+
+			// FullArmEnemyの位置設定
+			int fullArmX = fullArm->pos.x;
+			int fullArmY = fullArm->pos.y;
+			int fullArmW = NORMAL_ENEMY_WIDTH;
+			int fullArmH = NORMAL_ENEMY_HEIGHT;
+
+			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+				fullArmX, fullArmY, fullArmW, fullArmH))
+			{
+				// FullArmEnemyとPlayerの当たり判定 
+			}
 		}
 	}
-
+	
+		
+	
 }
 
 void CheackPlayerGoal()

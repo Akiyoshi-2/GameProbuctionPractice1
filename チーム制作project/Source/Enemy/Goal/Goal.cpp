@@ -24,7 +24,7 @@ const GoalAnimationParam GOAL_ANIM_PARAM[GOAL_ANIM_MAX] =
 GoalData g_GoalData[GOAL_MAX] = { 0 };
 
 
-void StartGoalAnimation(GoalAnimationType type, int index);
+void StartGoalAnimation(GoalAnimationType anim, int index);
 void UpdateGoalAnimation(int index);
 
 void InitGoal()
@@ -127,4 +127,27 @@ void CreateGoal(float posX, float posY, const EnemyParameter* param)
 			break;
 		}
 	}
+}
+
+void StartGoalAnimation(GoalAnimationType anim, int index)
+{
+	GoalData* goal = &g_GoalData[index];
+
+	if (anim == goal->playAnim)return;
+
+	goal->playAnim = anim;
+
+	AnimationData* animData = &goal->animation[anim];
+	GoalAnimationParam animParam = GOAL_ANIM_PARAM[anim];
+
+	StartAnimation(animData, goal->pos.x, goal->pos.y,
+		animParam.interval, animParam.frameNum,
+		animParam.width, animParam.height, true);
+}
+
+void UpdateGoalAnimation(int index)
+{
+	GoalData* goal = &g_GoalData[index];
+
+	StartGoalAnimation(GOAL_ANIM_IDLE, index);
 }
