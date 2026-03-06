@@ -8,6 +8,7 @@
 #include "../Enemy/ShieldEnemy/ShieldEnemy.h"
 #include "../Enemy/YellowEnemy/YellowEnemy.h"
 #include "../Enemy/FullarmorEnemy/FullarmorEnemy.h"
+#include "../Enemy/Goal/Goal.h"
 #include <math.h>
 
 bool CheckSquarePoint(float squarePosX,  float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
@@ -102,6 +103,32 @@ void CheckPlayerEnemy()
 		}
 	}
 
+}
+
+void CheackPlayerGoal()
+{
+	PlayerData* player = GetPlayer();
+	GoalData* goal = GetGoal();
+
+	if (player->active)
+	{
+		float playerCenterX = player->pos.x + PLAYER_WIDTH / 2;
+		float playerCenterY = player->pos.y + PLAYER_HEIGHT / 2;
+
+		for (int i = 0; i < GOAL_MAX; i++, goal++)
+		{
+			if (!goal->active)continue;
+
+			float goalCenterX = goal->pos.x + GOAL_WIDTH / 2;
+			float goalCenterY = goal->pos.y + GOAL_HEIGHT / 2;
+
+			if (CheckCircleCircle(playerCenterX, playerCenterY, PLAYER_RADIUS,
+				goalCenterX, goalCenterY, GOAL_RADIUS))
+			{
+				PlayerHitGoal();
+			}
+		}
+	}
 }
 
 // Še“–‚½‚è”»’è‚ðŒÄ‚Ô

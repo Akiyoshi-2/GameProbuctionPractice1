@@ -4,6 +4,7 @@
 #include "ShieldEnemy/ShieldEnemy.h"
 #include "YellowEnemy/YellowEnemy.h"
 #include "FullarmorEnemy/FullarmorEnemy.h"
+#include "Goal/Goal.h"
 
 int g_EnemySpawnTimer = 0;
 
@@ -17,6 +18,8 @@ void InitEnemy()
 	InitShieldEnemy();
 	InitYellowEnemy();
 	InitFullArmorEnemy();
+	// ƒS[ƒ‹
+	InitGoal();
 }
 
 void LoadEnemy()
@@ -27,6 +30,8 @@ void LoadEnemy()
 	LoadShieldEnemy();
 	LoadYellowEnemy();
 	LoadFullArmorEnemy();
+	// ƒS[ƒ‹
+	LoadGoal();
 }
 
 void StepEnemy()
@@ -37,6 +42,8 @@ void StepEnemy()
 	StepShieldEnemy();
 	StepYellowEnemy();
 	StepFullArmorEnemy();
+	// ƒS[ƒ‹
+	StepGoal();
 }
 
 void UpdateEnemy()
@@ -47,6 +54,8 @@ void UpdateEnemy()
 	UpdateShieldEnemy();
 	UpdateYellowEnemy();
 	UpdateFullArmorEnemy();
+	// ƒS[ƒ‹
+	UpdateGoal();
 }
 void DrawEnemy()
 {
@@ -56,6 +65,8 @@ void DrawEnemy()
 	DrawShieldEnemy();
 	DrawYellowEnemy();
 	DrawFullArmorEnemy();
+	// ƒS[ƒ‹
+	DrawGoal();
 }
 
 void FinEnemy()
@@ -66,6 +77,8 @@ void FinEnemy()
 	FinShieldEnemy();
 	FinYellowEnemy();
 	FinFullArmorEnemy();
+	// ƒS[ƒ‹
+	FinGoal();
 }
 
 void SpawnEnemy(const EnemySpawnData* spawnData)
@@ -86,6 +99,9 @@ void SpawnEnemy(const EnemySpawnData* spawnData)
 		break;
 	case FULLARMOR_ENEMY:
 		CreateFullArmorEnemy(spawnData->posX, spawnData->posY, spawnData->param);
+		break;
+	case GOAL:
+		CreateGoal(spawnData->posX, spawnData->posY, spawnData->param);
 		break;
 	}
 }
