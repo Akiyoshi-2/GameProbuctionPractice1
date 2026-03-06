@@ -3,6 +3,7 @@
 #include "../SceneManager.h"
 #include "../../Input/Input.h"
 #include "../PlayScene/PlayScene.h"
+#include "../../Sound/SoundManager.h"
 
 //ƒQ[ƒ€ƒNƒŠƒA‚Ì‰æ‘œ
 int g_ClearHandle = -1;
