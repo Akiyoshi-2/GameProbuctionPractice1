@@ -46,8 +46,9 @@ void StepPlayScene()
 
 	if (IsTriggerKey(KEY_C)) //デバッグ用
 	{
-		ChangeScene(SCENE_STAGE_2); 
+		ChangeScene(SCENE_STAGE_2);
 	}
+	
 	
 
 	if (IsTriggerKey(KEY_P))
