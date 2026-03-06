@@ -2,6 +2,7 @@
 #include "Goal.h"
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
+#include "../../Scene/SceneManager.h"
 
 
 struct GoalAnimationParam
@@ -59,25 +60,71 @@ void LoadGoal()
 
 void StepGoal()
 {
-	GoalData* goal = g_GoalData;
-	for (int i = 0; i < GOAL_MAX; i++, goal++)
-	{
-		// Ž€‚ñ‚Å‚¢‚½‚çˆ—‚µ‚È‚¢
-		if (!goal->active)continue;
-	}
+	
 }
 
 void UpdateGoal()
 {
+	GoalData* goal = g_GoalData;
+	for (int i = 0; i < GOAL_MAX; i++, goal++)
+	{
+		
+		if (!goal->active)continue;
 
+		UpdateGoalAnimation(i);
+	}
 }
 
 void DrawGoal()
 {
+	GoalData* goal = g_GoalData;
+	for (int i = 0; i < GOAL_MAX; i++, goal++)
+	{
+		if (!goal->active)continue;
 
+		GoalAnimationType animType = goal->playAnim;
+		AnimationData* animData = &goal->animation[animType];
+
+		DrawAnimation(animData, goal->pos.x, goal->pos.y, FALSE, FALSE);
+	}
+	
 }
 
 void FinGoal()
 {
+	for (int i = 0; i < GOAL_ANIM_MAX; i++)
+	{
+		DeleteGraph(g_GoalData->animation[i].handle);
+	}
+}
 
+GoalData* GetGoal()
+{
+	return g_GoalData;
+}
+
+void PlayerHitGoal()
+{
+	ChangeScene(SCENE_CLEAR);
+}
+
+void CreateGoal(float posX, float posY, const EnemyParameter* param)
+{
+	GoalData* goal = g_GoalData;
+	for (int i = 0; i < GOAL_MAX; i++, goal++)
+	{
+		if (!goal->active)
+		{
+			goal->active = true;
+
+			goal->animation->handle = g_GoalData->animation->handle;
+
+			goal->pos.x = posX;
+			goal->pos.y = posY;
+
+			goal->param = param;
+
+			break;
+		}
+	}
 }

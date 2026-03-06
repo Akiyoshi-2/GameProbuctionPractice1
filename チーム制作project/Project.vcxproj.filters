@@ -77,8 +77,13 @@
     <ClCompile Include="Source\Timer\Timer.cpp">
       <Filter>Timer</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\Sound\SoundManager.cpp">
       <Filter>Sound</Filter>
+=======
+    <ClCompile Include="Source\Player\Attack\Crush.cpp">
+      <Filter>Player\Attack</Filter>
+>>>>>>> ed7f76659705eed0806450e9a290994ee2053290
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +171,13 @@
     <ClInclude Include="Source\Timer\Timer.h">
       <Filter>Timer</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\Sound\SoundManager.h">
       <Filter>Sound</Filter>
+=======
+    <ClInclude Include="Source\Player\Attack\Crush.h">
+      <Filter>Player\Attack</Filter>
+>>>>>>> ed7f76659705eed0806450e9a290994ee2053290
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

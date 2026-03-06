@@ -5,6 +5,7 @@
 #include "../../Map/Block.h"
 #include "../../Player/Attack/Attack.h"
 #include "../../Collision/Collision.h"
+#include "../../Camera/Camera.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -174,6 +175,7 @@ void UpdateNormalEnemy()
 void DrawNormalEnemy()
 {
 	NormalEnemyData* normalEnemy = g_NormalEnemyData;
+	CameraData cam = GetCamera();
 
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)
 	{
@@ -182,28 +184,29 @@ void DrawNormalEnemy()
 		NormalEnemyAnimationType animType = normalEnemy->playAnim;
 		AnimationData* animData = &normalEnemy->animation[animType];
 
+		float drawX = normalEnemy->pos.x - cam.posX;
+		float drawY = normalEnemy->pos.y - cam.posY;
+
 		if (!normalEnemy->isTurn)
 		{
-			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, TRUE, FALSE);
+			DrawAnimation(animData, drawX, drawY, TRUE, FALSE);
 		}
 		else
 		{
-			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, FALSE, FALSE);
+			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 
-		// ===== デバッグ用当たり判定 =====
+		// デバッグ当たり判定
 		DrawBox(
-			normalEnemy->pos.x,
-			normalEnemy->pos.y,
-			normalEnemy->pos.x + NORMAL_ENEMY_BOX_COLLISION_WIDTH,
-			normalEnemy->pos.y + NORMAL_ENEMY_BOX_COLLISION_HEIGHT,
+			drawX,
+			drawY,
+			drawX + NORMAL_ENEMY_BOX_COLLISION_WIDTH,
+			drawY + NORMAL_ENEMY_BOX_COLLISION_HEIGHT,
 			GetColor(0, 255, 0),
 			FALSE
 		);
 	}
-
 }
-
 void FinNormalEnemy()
 {
 	for (int i = 0; i < NORMAL_ENEMY_ANIM_MAX; i++)
