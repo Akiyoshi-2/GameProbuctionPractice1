@@ -46,7 +46,7 @@ void StepTutorialScene(int stage)
 	{
 		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
-	
+
 	}
 
 	StepPlayer();
@@ -55,7 +55,7 @@ void StepTutorialScene(int stage)
 
 	StepEnemySpawnSystem(stage);
 
-	
+
 }
 
 void UpdateTutorialScene()
@@ -87,9 +87,14 @@ void DrawTutorialScene()
 	DrawMap();      // 背景（ブロック）
 	DrawPlayer();   // プレイヤー
 	DrawEnemy();
-	DrawCamera();   // デバッグ
 	DrawTimer();
+	//デバック
+	DrawCamera();
 	DrawAttack();
+	DrawString(0, 40, "A:ジャンプ", GetColor(255, 255, 255));
+	DrawString(0, 60, "B:攻撃", GetColor(255, 255, 255));
+	DrawString(0, 80, "X:カラーチェンジ", GetColor(255, 255, 255));
+	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));
 }
 
 void FinTutorialScene()

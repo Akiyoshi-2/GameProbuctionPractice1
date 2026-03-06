@@ -47,6 +47,8 @@ struct NormalEnemyData
 	bool active;
 	bool crush;
 	bool strike;
+	int strikeTimer;// アニメーション時間
+	int crushTimer;
 	VECTOR pos;
 	VECTOR move;
 	AnimationData animation[NORMAL_ENEMY_MAX];
@@ -222,7 +224,7 @@ struct EnemySpawnData
 // チュートリアルシーン
 const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 {
-	NORMAL_ENEMY, 10, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
+	NORMAL_ENEMY, 10, 300.0f, 800.0f,&ENEMY_PARAMETER[0],
 	/*HELMET_ENEMY, 20, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
 	SHIELD_ENEMY, 30, 300.0f, 800.0f,& ENEMY_PARAMETER[0],*/
 
