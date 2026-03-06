@@ -51,7 +51,7 @@ struct NormalEnemyData
 	int crushTimer;
 	VECTOR pos;
 	VECTOR move;
-	AnimationData animation[NORMAL_ENEMY_MAX];
+	AnimationData animation[NORMAL_ENEMY_ANIM_MAX];
 	NormalEnemyAnimationType playAnim;
 	BoxCollision boxCollision;
 	const EnemyParameter* param;
