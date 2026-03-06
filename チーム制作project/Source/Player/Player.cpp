@@ -82,7 +82,7 @@ float GetPlayerJumpPower()
 	case TYPE_BLUE:
 		return 13.5f;	// 青・黄
 	case TYPE_RED:
-	
+
 	default:
 		return 12.0f;	// 赤
 	}
@@ -93,7 +93,7 @@ float GetPlayerMoveSpeed()
 	switch (g_PlayerData.type)
 	{
 	case TYPE_YELLOW:
-		return 5.5f; 
+		return 5.5f;
 
 	case TYPE_BLUE:
 	case TYPE_RED:
@@ -248,7 +248,7 @@ void StepPlayer()
 	{
 		if (g_PlayerData.type == TYPE_YELLOW)
 		{
-		
+
 		}
 		else
 		{
@@ -406,14 +406,17 @@ void UpdatePlayer()
 			StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
 
 	}
+
+	UpdateAttack();
 }
 
 
 
 void DrawPlayer()
 {
+	//デバック
 	CameraData camera = GetCamera();
-	DrawFormatString(0, 100, GetColor(255, 255, 255), "プレイヤーの座標＝[%f, %f]", g_PlayerData.pos.x, g_PlayerData.pos.y);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "プレイヤーの座標＝[%f, %f]", g_PlayerData.pos.x, g_PlayerData.pos.y);
 
 	PlayerAnimationType animType = g_PlayerData.playerAnim;
 	AnimationData* animData = &g_PlayerData.animation[animType];

@@ -64,6 +64,66 @@ void UpdateInput()
 	{
 		g_InputState |= KEY_C;
 	}
+
+	// ===== Xboxコントローラー =====
+	int pad = GetJoypadInputState(DX_INPUT_PAD1);
+
+	// 十字キー
+	if (pad & PAD_INPUT_UP)
+	{
+		g_InputState |= KEY_UP;
+	}
+	if (pad & PAD_INPUT_DOWN)
+	{
+		g_InputState |= KEY_DOWN;
+	}
+	if (pad & PAD_INPUT_LEFT)
+	{
+		g_InputState |= KEY_LEFT;
+	}
+	if (pad & PAD_INPUT_RIGHT)
+	{
+		g_InputState |= KEY_RIGHT;
+	}
+
+	// ボタン
+	if (pad & PAD_INPUT_1)
+	{
+		g_InputState |= KEY_SPACE;	// Aボタン
+	}
+	if (pad & PAD_INPUT_3)
+	{
+		g_InputState |= KEY_R;		// Xボタン
+	}
+	if (pad & PAD_INPUT_2)
+	{
+		g_InputState |= KEY_F;		// Bボタン
+	}
+	if (pad & PAD_INPUT_6)
+	{
+		g_InputState |= KEY_P;		// RBボタン
+	}
+
+	// ===== 左スティック =====
+	int x, y;
+	GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1);
+
+	if (x < -500)
+	{
+		g_InputState |= KEY_LEFT;
+	}
+	if (x > 500)
+	{
+		g_InputState |= KEY_RIGHT;
+	}
+	if (y < -500)
+	{
+		g_InputState |= KEY_UP;
+	}
+	if (y > 500)
+	{
+		g_InputState |= KEY_DOWN;
+	}
 }
 
 void DrawInput()

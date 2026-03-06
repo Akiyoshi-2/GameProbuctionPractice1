@@ -3,6 +3,8 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
+#include "../../Player/Attack/Attack.h"
+#include "../../Collision/Collision.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -17,7 +19,7 @@ const NormalEnemyAnimationParam NORMAL_ENEMY_ANIM_PARAM[NORMAL_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
 	8, 10, 50, 10,	// CRUSH
-	8, 10, 50, 10,	// STRIKE
+	8, 10, 50, 50,	// STRIKE
 };
 
 // 移動速度
@@ -51,10 +53,14 @@ void InitNormalEnemy()
 		normalEnemy->pos.y = 0;
 		normalEnemy->move.x = 0;
 		normalEnemy->move.y = 0;
+
 		normalEnemy->active = false;
 		normalEnemy->crush = false;
 		normalEnemy->strike = false;
+
 		normalEnemy->playAnim = NORMAL_ENEMY_ANIM_NONE;
+
+		// 当たり判定サイズ
 		normalEnemy->boxCollision.width = NORMAL_ENEMY_BOX_COLLISION_WIDTH;
 		normalEnemy->boxCollision.height = NORMAL_ENEMY_BOX_COLLISION_HEIGHT;
 
@@ -62,11 +68,8 @@ void InitNormalEnemy()
 		{
 			InitAnimation(&normalEnemy->animation[j]);
 		}
-
-		memset(&normalEnemy[i].boxCollision, 0, sizeof(normalEnemy[i].boxCollision));
 	}
 }
-
 void LoadNormalEnemy()
 {
 	int runHandle = LoadGraph("Data/animation/Normal_Enemy/Normal_Enemy_run.png");
@@ -107,24 +110,70 @@ void StepNormalEnemy()
 
 void UpdateNormalEnemy()
 {
+
 	NormalEnemyData* normalEnemy = g_NormalEnemyData;
+
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)
 	{
-		if (!normalEnemy->active)continue;
+		if (!normalEnemy->active) continue;
+
+		if (normalEnemy->strike)
+		{
+			normalEnemy->strikeTimer--;
+
+			if (normalEnemy->strikeTimer <= 0)
+			{
+				normalEnemy->active = false;
+				continue;
+			}
+
+			UpdateNormalEnemyAnimation(i);
+			continue;
+		}
 
 		normalEnemy->pos.x += normalEnemy->move.x;
 		normalEnemy->pos.y += normalEnemy->move.y;
 
+		// 攻撃判定
+		if (IsAttackActive())
+		{
+			float ax = 0.0f;
+			float ay = 0.0f;
+			float aw = 0.0f;
+			float ah = 0.0f;
+
+			float ex = normalEnemy->pos.x;
+			float ey = normalEnemy->pos.y;
+
+			GetAttackRect(ax, ay, aw, ah);
+
+			if (CheckSquareSquare(
+				ax, ay, aw, ah,
+				ex,
+				ey,
+				NORMAL_ENEMY_BOX_COLLISION_WIDTH,
+				NORMAL_ENEMY_BOX_COLLISION_HEIGHT))
+			{
+
+				normalEnemy->strike = true;
+				normalEnemy->strikeTimer = 80;
+
+				StartNormalEnemyAnimation(NORMAL_ENEMY_STRIKE, i);
+			}
+		}
+
 		UpdateNormalEnemyAnimation(i);
 	}
+
 }
 
 void DrawNormalEnemy()
 {
 	NormalEnemyData* normalEnemy = g_NormalEnemyData;
+
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)
 	{
-		if (!normalEnemy->active)continue;
+		if (!normalEnemy->active) continue;
 
 		NormalEnemyAnimationType animType = normalEnemy->playAnim;
 		AnimationData* animData = &normalEnemy->animation[animType];
@@ -133,11 +182,22 @@ void DrawNormalEnemy()
 		{
 			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, TRUE, FALSE);
 		}
-		else if (normalEnemy->isTurn)
+		else
 		{
 			DrawAnimation(animData, normalEnemy->pos.x, normalEnemy->pos.y, FALSE, FALSE);
 		}
+
+		// ===== デバッグ用当たり判定 =====
+		DrawBox(
+			normalEnemy->pos.x,
+			normalEnemy->pos.y,
+			normalEnemy->pos.x + NORMAL_ENEMY_BOX_COLLISION_WIDTH,
+			normalEnemy->pos.y + NORMAL_ENEMY_BOX_COLLISION_HEIGHT,
+			GetColor(0, 255, 0),
+			FALSE
+		);
 	}
+
 }
 
 void FinNormalEnemy()
@@ -211,13 +271,13 @@ void NormalEnemyHitBlockX(MapChipData mapChipData, int index)
 		// 左から当たった
 		if (normalEnemy->move.x > 0.0f)
 		{
-			normalEnemy->isTurn = false;
-			normalEnemy->pos.x -= (normalEnemy->pos.x + NORMAL_ENEMY_BOX_COLLISION_WIDTH) - block->pos.x;
+			normalEnemy->isTurn = true;
 		}
+
 		// 右から当たった
 		else if (normalEnemy->move.x < 0.0f)
 		{
-			normalEnemy->isTurn = true;
+			normalEnemy->isTurn = false;
 		}
 
 	}
@@ -230,7 +290,7 @@ void NormalEnemyHitBlockY(MapChipData mapChipData, int index)
 	const float POS_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET;
 	const float SIZE_OFFSET = NORMAL_ENEMY_COLLISION_OFFSET * 2;
 
-	normalEnemy->isTurn = g_PravNormalEnemyData->isTurn;
+	normalEnemy->isTurn = g_PravNormalEnemyData[index].isTurn;
 
 	if (CheckSquareSquare(normalEnemy->pos.x + POS_OFFSET, normalEnemy->pos.y - POS_OFFSET,
 		NORMAL_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, NORMAL_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
@@ -278,16 +338,15 @@ void UpdateNormalEnemyAnimation(int index)
 {
 	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
 
-	// 歩くアニメーション
-	StartNormalEnemyAnimation(NORMAL_ENEMY_RUN, index);
-	
-	// 増えれば追加する
-	// StartNormalEnemyAnimation(???, index);
+	if (normalEnemy->strike)
+	{
+		StartNormalEnemyAnimation(NORMAL_ENEMY_STRIKE, index);
+	}
+	else
+	{
+		StartNormalEnemyAnimation(NORMAL_ENEMY_RUN, index);
+	}
 
-
-
-	// アニメーション更新
-	NormalEnemyAnimationType animType = normalEnemy->playAnim;
-	AnimationData* animData = &normalEnemy->animation[animType];
+	AnimationData* animData = &normalEnemy->animation[normalEnemy->playAnim];
 	UpdateAnimation(animData);
 }
