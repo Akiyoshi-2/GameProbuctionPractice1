@@ -95,7 +95,7 @@ void StepNormalEnemy()
 
 		g_PravNormalEnemyData[i] = g_NormalEnemyData[i];
 
-		normalEnemy->move.y += NORMAL_ENEMY_GRAVITY;
+		//normalEnemy->move.y += NORMAL_ENEMY_GRAVITY;
 
 		normalEnemy->move.x = 0.0f;
 

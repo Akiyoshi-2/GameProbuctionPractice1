@@ -77,6 +77,9 @@
     <ClCompile Include="Source\Timer\Timer.cpp">
       <Filter>Timer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player\Attack\Crush.cpp">
+      <Filter>Player\Attack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="Source\Timer\Timer.h">
       <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Attack\Crush.h">
+      <Filter>Player\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
