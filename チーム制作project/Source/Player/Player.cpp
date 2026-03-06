@@ -29,6 +29,8 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/TitleScene/TitleScene.h"
 
+//メモ竹中　EnemyとPlayerの衝突を書く(コピー用のCheckPlayerHitEnemy())
+
 // アニメーション用パラメータ
 struct PlayerAnimationParam
 {
