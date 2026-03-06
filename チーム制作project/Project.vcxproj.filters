@@ -77,6 +77,9 @@
     <ClCompile Include="Source\Timer\Timer.cpp">
       <Filter>Timer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Sound\SoundManager.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -163,6 +166,9 @@
     <ClInclude Include="Source\Timer\Timer.h">
       <Filter>Timer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Sound\SoundManager.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Akiyosi">
@@ -236,6 +242,9 @@
     </Filter>
     <Filter Include="Timer">
       <UniqueIdentifier>{ab15d62f-f31f-4ce0-a041-122468389972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{119128a9-deba-4bba-b308-ae94f8649c9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
