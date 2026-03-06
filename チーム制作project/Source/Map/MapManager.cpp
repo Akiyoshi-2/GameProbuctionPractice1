@@ -117,7 +117,7 @@ void CheckMapNormalEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -135,7 +135,7 @@ void CheckMapNormalEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -171,7 +171,7 @@ void CheckMapHelmetEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -189,7 +189,7 @@ void CheckMapHelmetEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -227,7 +227,7 @@ void CheckMapShieldEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -245,7 +245,7 @@ void CheckMapShieldEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -281,7 +281,7 @@ void CheckMapYellowEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -299,7 +299,7 @@ void CheckMapYellowEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -335,7 +335,7 @@ void CheckMapFullarmorEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{
@@ -353,7 +353,7 @@ void CheckMapFullarmorEnemyCollision()
 
 		for (int y = top; y <= bottom; y++)
 		{
-			if (y < 0 || y >= MAP_CHIP_X_NUM_MAX)continue;
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
 
 			for (int x = left; x <= right; x++)
 			{

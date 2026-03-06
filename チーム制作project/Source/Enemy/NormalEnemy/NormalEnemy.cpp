@@ -25,6 +25,8 @@ const NormalEnemyAnimationParam NORMAL_ENEMY_ANIM_PARAM[NORMAL_ENEMY_ANIM_MAX] =
 // 移動速度
 #define NORMAL_ENEMY_MOVE_SPEED	(0.8f)
 
+#define NORMAL_ENEMY_GRAVITY	(0.3f)
+
 // マップ衝撃判定のサイズ補正
 #define NORMAL_ENEMY_COLLISION_OFFSET	(0.1f)
 
@@ -92,6 +94,8 @@ void StepNormalEnemy()
 		if (!normalEnemy->active)continue;
 
 		g_PravNormalEnemyData[i] = g_NormalEnemyData[i];
+
+		normalEnemy->move.y += NORMAL_ENEMY_GRAVITY;
 
 		normalEnemy->move.x = 0.0f;
 
