@@ -59,7 +59,12 @@ void LoadGoal()
 
 void StepGoal()
 {
-
+	GoalData* goal = g_GoalData;
+	for (int i = 0; i < GOAL_MAX; i++, goal++)
+	{
+		// Ž€‚ñ‚Å‚¢‚½‚çˆ—‚µ‚È‚¢
+		if (!goal->active)continue;
+	}
 }
 
 void UpdateGoal()
