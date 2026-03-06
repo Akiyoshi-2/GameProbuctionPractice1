@@ -11,7 +11,7 @@ void LoadBGM()
 //	g_BGMHandle[BGM_TITLE] = LoadSoundMem("");
 //	g_BGMHandle[BGM_PLAY] = LoadSoundMem("");
 //	g_BGMHandle[BGM_GAME_CLEAR] = LoadSoundMem("");
-//	g_BGMHandle[BGM_GAME_OVER] = LoadSoundMem("");
+	g_BGMHandle[BGM_GAME_OVER] = LoadSoundMem("Data/Sound/BGM/GameOver.mp3");
 
 }
 
