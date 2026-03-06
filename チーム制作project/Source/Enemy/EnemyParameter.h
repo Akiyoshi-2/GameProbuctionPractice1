@@ -45,8 +45,9 @@ struct NormalEnemyData
 	bool isTurn;
 	bool isAir;
 	bool active;
-	bool crush;
 	bool strike;
+	bool crush;
+
 	int strikeTimer;// アニメーション時間
 	int crushTimer;
 	VECTOR pos;
@@ -57,7 +58,6 @@ struct NormalEnemyData
 	const EnemyParameter* param;
 	NormalEnemyData* data;
 };
-
 
 // HELMET_ENEMY関連
 #define HELMET_ENEMY_MAX	(255)
@@ -224,15 +224,14 @@ struct EnemySpawnData
 // チュートリアルシーン
 const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 {
-	NORMAL_ENEMY, 10, 300.0f, 750.0f,&ENEMY_PARAMETER[0],
-	/*HELMET_ENEMY, 20, 300.0f, 800.0f,& ENEMY_PARAMETER[0],
-	SHIELD_ENEMY, 30, 300.0f, 800.0f,& ENEMY_PARAMETER[0],*/
+	{ NORMAL_ENEMY, 10, 300.0f, 750.0f, &ENEMY_PARAMETER[0] },
 
-	/*NORMAL_ENEMY, 10, 4400.0f, 300.0f,& ENEMY_PARAMETER[0],
-	HELMET_ENEMY, 10, 4400.0f, 600.0f,& ENEMY_PARAMETER[0],
-	SHIELD_ENEMY, 10, 4500.0f, 900.0f,& ENEMY_PARAMETER[0],*/
+	//{ HELMET_ENEMY, 20, 300.0f, 800.0f, &ENEMY_PARAMETER[0] },
+	//{ SHIELD_ENEMY, 30, 300.0f, 800.0f, &ENEMY_PARAMETER[0] },
 
-
+	{ NORMAL_ENEMY, 10, 4400.0f, 300.0f, &ENEMY_PARAMETER[0] },
+	{ HELMET_ENEMY, 10, 4400.0f, 600.0f, &ENEMY_PARAMETER[0] },
+	{ SHIELD_ENEMY, 10, 4500.0f, 900.0f, &ENEMY_PARAMETER[0] },
 };
 
 // ステージ1

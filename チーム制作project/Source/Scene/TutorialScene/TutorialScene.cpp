@@ -1,15 +1,27 @@
 #include "TutorialScene.h"
+
+// --- DxLib / 基本入力 ---
 #include "../../Input/Input.h"
+#include "DxLib.h"
+
+// --- シーン関連 ---
 #include "../../Scene/SceneManager.h"
+#include "../TitleScene/TitleScene.h"
+
+// --- プレイヤー関連 ---
 #include "../../Player/Player.h"
+#include "../../Player/Attack/Attack.h"
+#include "../../Player/Attack/Crush.h"
+
+// --- マップ・カメラ・アニメーション ---
 #include "../../Map/MapManager.h"
 #include "../../Camera/Camera.h"
 #include "../../Animation/Animation.h"
-#include "../TitleScene/TitleScene.h"
+
+// --- 敵・衝突・タイマー関連 ---
 #include "../../Collision/Collision.h"
 #include "../../Enemy/EnemyManager.h"
 #include "../../Timer/Timer.h"
-#include "../../Player/Attack/Attack.h"
 
 int g_TestHandle = -1;
 
@@ -17,10 +29,10 @@ void InitTutorialScene()
 {
 	g_TestHandle = -1;
 
-	InitPlayer();
-	InitEnemy();
-	InitMap();
-	InitTimer();
+	InitPlayer();      // プレイヤー初期化
+	InitEnemy();       // 敵初期化
+	InitMap();         // マップ初期化
+	InitTimer();       // タイマー初期化
 }
 
 void LoadTutorialScene(int stage)
@@ -46,49 +58,45 @@ void StepTutorialScene(int stage)
 	{
 		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
-
 	}
 
-	StepPlayer();
-
-	StepEnemy();
-
-	StepEnemySpawnSystem(stage);
-
-
+	StepPlayer();               // プレイヤー更新
+	StepEnemy();                // 敵更新
+	StepEnemySpawnSystem(stage); // 敵スポーンシステム更新
 }
 
 void UpdateTutorialScene()
 {
-
-	UpdatePlayer();
-	UpdateEnemy();
-	UpdateCamera();
-	CheckCollision();
-	UpdatePlayerAnimation();
-	UpdateTimer();
-	UpdateAttack();
+	UpdatePlayer();        // プレイヤー更新
+	UpdateAttack();        // 攻撃更新
+	UpdateCrush();         // Crush攻撃更新
+	UpdateEnemy();         // 敵更新
+	UpdateCamera();        // カメラ更新
+	CheckCollision();      // 衝突判定
+	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
+	UpdateTimer();         // タイマー更新
 }
 
 void DrawTutorialScene()
 {
-	CameraData cam = GetCamera();   //追加
+	CameraData cam = GetCamera();   // カメラ取得
 
 	if (g_TestHandle != -1)
 	{
 		DrawGraph(
-			(int)-cam.posX,         // カメラを引く
+			(int)-cam.posX,       // カメラに合わせて描画
 			(int)-cam.posY,
 			g_TestHandle,
 			TRUE
 		);
 	}
 
-	DrawMap();      // 背景（ブロック）
-	DrawPlayer();   // プレイヤー
-	DrawEnemy();
-	DrawTimer();
-	//デバック
+	DrawMap();        // 背景（ブロック）
+	DrawPlayer();     // プレイヤー
+	DrawEnemy();      // 敵
+	DrawTimer();      // タイマー
+
+	// デバッグ表示
 	DrawCamera();
 	DrawAttack();
 	DrawString(0, 40, "A:ジャンプ", GetColor(255, 255, 255));
@@ -105,7 +113,7 @@ void FinTutorialScene()
 		g_TestHandle = -1;
 	}
 
-	FinPlayer();
-	FinEnemy();
-	FinMap();
+	FinPlayer();   // プレイヤー終了処理
+	FinEnemy();    // 敵終了処理
+	FinMap();      // マップ終了処理
 }
