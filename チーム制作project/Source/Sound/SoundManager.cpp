@@ -22,7 +22,7 @@ void PlayBGM(BGMType type)
 }
 
 // BGM‚ðŽ~‚ß‚é
-void SotpBGM(BGMType type)
+void StopBGM(BGMType type)
 {
 	StopSoundMem(g_BGMHandle[type]);
 }
