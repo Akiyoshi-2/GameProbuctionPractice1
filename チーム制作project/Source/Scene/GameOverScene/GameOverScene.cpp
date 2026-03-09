@@ -4,6 +4,8 @@
 #include "../PlayScene/PlayScene.h"
 #include "../../Input/Input.h"
 #include "../../Sound/SoundManager.h"
+#include "../../UI/UIText.h"
+#include "../../Player/Player.h"
 
 // GamOver•¶Žš‰æ‘œ
 int g_GameOverHandle = 0;
@@ -61,5 +63,7 @@ void DrawGameOver()
 void FinGameOver()
 {
 	DeleteGraph(g_GameOverHandle);
+
+	StopBGM(BGM_GAME_OVER);
 	
 }

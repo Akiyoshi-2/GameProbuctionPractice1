@@ -4,6 +4,8 @@
 #include "../../Input/Input.h"
 #include "../PlayScene/PlayScene.h"
 #include "../../Sound/SoundManager.h"
+#include "../../UI/UIText.h"
+#include "../../Enemy/Goal/Goal.h"
 
 //ƒQ[ƒ€ƒNƒŠƒA‚Ì‰æ‘œ
 int g_ClearHandle = -1;
@@ -70,6 +72,8 @@ void FinClearScene()
 {
 	DeleteGraph(g_ClearHandle);
 	DeleteGraph(g_ResultHandle);
+
+	StopBGM(BGM_GAME_CLEAR);
 
 }
 
