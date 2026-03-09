@@ -69,7 +69,6 @@ void UpdateTutorialScene()
 {
 	UpdatePlayer();        // プレイヤー更新
 	UpdateAttack();        // 攻撃更新
-	UpdateCrush();         // Crush攻撃更新
 	UpdateEnemy();         // 敵更新
 	UpdateCamera();        // カメラ更新
 	CheckCollision();      // 衝突判定

@@ -10,6 +10,7 @@
 #include "../Enemy/FullarmorEnemy/FullarmorEnemy.h"
 #include "../Enemy/Goal/Goal.h"
 #include <math.h>
+#include "../Player/Attack/Crush.h"
 
 bool CheckSquarePoint(float squarePosX,  float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
 {
@@ -103,94 +104,107 @@ void CheckPlayerEnemy()
 		int playerW = PLAYER_WIDTH;
 		int playerH = PLAYER_HEIGHT;
 
-		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normal++)
+		for (int i = 0; i < NORMAL_ENEMY_MAX; i++)
 		{
-			if (!normal->active)continue;
+			NormalEnemyData* enemy = &normal[i];
 
-			// NormalEnemy‚ÌˆÊ’uÝ’è
-			int normalX = normal->pos.x;
-			int normalY = normal->pos.y;
+			if (!enemy->active) continue;
+
+			// “¥‚Ý‚Â‚¯Ž€–S’†EUŒ‚Ž€–S’†‚Í”»’è‚µ‚È‚¢
+			if (enemy->crush || enemy->strike) continue;
+
+			int normalX = enemy->pos.x;
+			int normalY = enemy->pos.y;
 			int normalW = NORMAL_ENEMY_WIDTH;
 			int normalH = NORMAL_ENEMY_HEIGHT;
 
-			if (CheckSquareSquare(playerX, playerY, playerW, playerH, 
+			if (CheckSquareSquare(
+				playerX, playerY, playerW, playerH,
 				normalX, normalY, normalW, normalH))
 			{
-				// NormalEnemy‚ÆPlayer‚Ì“–‚½‚è”»’è
+				// ‚±‚Ì“G‚¾‚¯“¥‚Ý‚Â‚¯”»’è
+				if (UpdateCrush(i))
+				{
+					return;
+				}
+
+				PlayerHitEnemy();
+				return;
 			}
 		}
 
-		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, helmet++)
+		for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
 		{
 			if (!helmet->active)continue;
 
 			// HelmetEnemy‚ÌˆÊ’uÝ’è
 			int helmetX = helmet->pos.x;
 			int helmetY = helmet->pos.y;
-			int helmetW = NORMAL_ENEMY_WIDTH;
-			int helmetH = NORMAL_ENEMY_HEIGHT;
+			int helmetW = HELMET_ENEMY_WIDTH;
+			int helmetH = HELMET_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				helmetX, helmetY, helmetW, helmetH))
 			{
-				// HelmetEnemy‚ÆPlayer‚Ì“–‚½‚è”»’è 
+				PlayerHitEnemy();
+				return;
 			}
 		}
 
-		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, shield++)
+		for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shield++)
 		{
 			if (!shield->active)continue;
 
 			// ShieldEnemy‚ÌˆÊ’uÝ’è
 			int shieldX = shield->pos.x;
 			int shieldY = shield->pos.y;
-			int shieldW = NORMAL_ENEMY_WIDTH;
-			int shieldH = NORMAL_ENEMY_HEIGHT;
+			int shieldW = SHIELD_ENEMY_WIDTH;
+			int shieldH = SHIELD_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				shieldX, shieldY, shieldW, shieldH))
 			{
-				// ShieldEnemy‚ÆPlayer‚Ì“–‚½‚è”»’è 
+				PlayerHitEnemy();
+				return;
 			}
 		}
 
-		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, yellow++)
+		for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
 		{
 			if (!yellow->active)continue;
 
 			// YellowEnemy‚ÌˆÊ’uÝ’è
 			int yellowX = yellow->pos.x;
 			int yellowY = yellow->pos.y;
-			int yellowW = NORMAL_ENEMY_WIDTH;
-			int yellowH = NORMAL_ENEMY_HEIGHT;
+			int yellowW = YELLOW_ENEMY_WIDTH;
+			int yellowH = YELLOW_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				yellowX, yellowY, yellowW, yellowH))
 			{
-				// YellowEnemy‚ÆPlayer‚Ì“–‚½‚è”»’è 
+				PlayerHitEnemy();
+				return;
 			}
 		}
 
-		for (int i = 0; i < NORMAL_ENEMY_MAX; i++, fullArm++)
+		for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArm++)
 		{
 			if (!fullArm->active)continue;
 
 			// FullArmEnemy‚ÌˆÊ’uÝ’è
 			int fullArmX = fullArm->pos.x;
 			int fullArmY = fullArm->pos.y;
-			int fullArmW = NORMAL_ENEMY_WIDTH;
-			int fullArmH = NORMAL_ENEMY_HEIGHT;
+			int fullArmW = FULLARMOR_ENEMY_WIDTH;
+			int fullArmH = FULLARMOR_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				fullArmX, fullArmY, fullArmW, fullArmH))
 			{
-				// FullArmEnemy‚ÆPlayer‚Ì“–‚½‚è”»’è 
+				PlayerHitEnemy();
+				return;
 			}
 		}
-	}
-	
-		
-	
+	}	
 }
 
 void CheackPlayerGoal()
@@ -233,5 +247,6 @@ void CheckCollision()
 	CheckMapShieldEnemyCollision();
 	CheckMapYellowEnemyCollision();
 	CheckMapFullarmorEnemyCollision();
+	CheckPlayerEnemy();
 
 }

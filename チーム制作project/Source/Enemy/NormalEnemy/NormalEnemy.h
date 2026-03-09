@@ -2,6 +2,7 @@
 #include "../EnemyParameter.h"
 #include "../../Map/MapParameter.h"
 
+
 void InitNormalEnemy();
 void LoadNormalEnemy();
 void StepNormalEnemy();

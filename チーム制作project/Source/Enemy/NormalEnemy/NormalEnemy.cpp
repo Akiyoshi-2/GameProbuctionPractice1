@@ -63,9 +63,9 @@ void InitNormalEnemy()
 		normalEnemy->move.y = 0;
 
 		// 状態
-		normalEnemy->active = false;
-		normalEnemy->crush = false;
-		normalEnemy->strike = false;
+		normalEnemy->active = false;	//敵がゲーム内で有効かどうか
+		normalEnemy->crush = false;		//踏みつけられて死亡中か
+		normalEnemy->strike = false;	//攻撃されて死亡中か
 
 		// タイマー
 		normalEnemy->crushTimer = 0;
@@ -367,7 +367,11 @@ void PlayerKillNormalEnemy(int index)
 	enemy->crush = true;
 	enemy->crushTimer = 50;
 
-	// 踏みつけアニメーション開始
+	// 移動停止
+	enemy->move.x = 0.0f;
+	enemy->move.y = 0.0f;
+
+	// 踏みつけアニメーション
 	StartNormalEnemyAnimation(NORMAL_ENEMY_CRUSH, index);
 
 	// スコア

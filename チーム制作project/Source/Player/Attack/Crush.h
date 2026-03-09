@@ -1,3 +1,3 @@
 #pragma once
 
-void UpdateCrush();
+bool UpdateCrush(int enemyIndex);

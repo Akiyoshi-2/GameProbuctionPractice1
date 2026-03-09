@@ -29,8 +29,6 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/TitleScene/TitleScene.h"
 
-//メモ竹中　EnemyとPlayerの衝突を書く(コピー用のCheckPlayerHitEnemy())
-
 // アニメーション用パラメータ
 struct PlayerAnimationParam
 {
@@ -92,7 +90,7 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_YELLOW_TIME (900)
 
 // 死亡後のリスポーン待機時間
-#define PLAYER_DIE_TIME (60)
+//#define PLAYER_DIE_TIME (60)->includしたいため.hのほうに移動
 
 // プレイヤーがこのY座標より下に落ちると死亡
 #define STAGE0_DEAD_LINE (1200.0f)
@@ -130,7 +128,6 @@ float GetPlayerMoveSpeed()
 }
 
 // このCPPでのみ使用する関数の宣言
-void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
 // アニメーション更新
 void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
@@ -514,6 +511,25 @@ void DrawPlayer()
 		g_PlayerData.pos.y - camera.posY,
 		g_PlayerData.isTurn
 	);
+
+	//（プレイヤー当たり判定デバッグ）
+
+	float boxX;
+	float boxY;
+	float boxW;
+	float boxH;
+
+	CalcBoxCollision(g_PlayerData, boxX, boxY, boxW, boxH);
+
+	DrawBox(
+		boxX - camera.posX,
+		boxY - camera.posY,
+		boxX + boxW - camera.posX,
+		boxY + boxH - camera.posY,
+		GetColor(255, 0, 0),
+		FALSE
+	);
+
 }
 
 void FinPlayer()
@@ -888,13 +904,25 @@ void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
 
 void PlayerHitEnemy()
 {
-	// 現在のプレイヤーデータをコピー
-	PlayerData player = g_PlayerData;
+	PlayerData* player = GetPlayer();
 
-	// 各種敵データ取得
-	NormalEnemyData* normal = GetNormalEnemy();
-	HelmetEnemyData* helmet = GetHelmetEnemy();
-	ShieldEnemyData* shield = GetShieldEnemy();
-	YellowEnemyData* yellow = GetYellowEnemy();
-	FullArmEnemyData* fullarm = GetFullArmorEnemy();
+	// 黄色は無敵
+	if (player->type == TYPE_YELLOW) return;
+
+	// 既に死んでいたら無視
+	if (player->isDead) return;
+
+	//プレイヤー死亡
+	player->isDead = true;
+	player->deadTimer = PLAYER_DIE_TIME;
+	player->active = false;
+
+	player->move.x = 0;
+	player->move.y = 0;
+
+	// 死亡アニメーション
+	if (player->type == TYPE_RED)
+		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
+	else if (player->type == TYPE_BLUE)
+		StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
 }

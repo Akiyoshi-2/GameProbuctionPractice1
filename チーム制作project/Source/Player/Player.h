@@ -9,6 +9,9 @@
 #define PLAYER_HEIGHT	(50.0f)
 #define PLAYER_RADIUS	(36.0f)
 
+// 死亡後のリスポーン待機時間
+#define PLAYER_DIE_TIME (60)
+
 enum PlayerAnimationType
 {
 	RED_PLAYER_ANIM_ATTACK,
@@ -73,6 +76,7 @@ void StepPlayer();
 void UpdatePlayer();
 void DrawPlayer();
 void FinPlayer();
+void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
 void UpdatePlayerAnimation();
 
 PlayerData* GetPlayer();

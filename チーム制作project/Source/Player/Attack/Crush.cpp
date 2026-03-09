@@ -3,41 +3,36 @@
 #include "../Player.h"
 #include "../../Enemy/NormalEnemy/NormalEnemy.h"
 
-void UpdateCrush()
+extern PlayerData g_PrevPlayerData;
+
+bool UpdateCrush(int enemyIndex)
 {
     PlayerData* player = GetPlayer();
-
-    // 青状態以外は踏めない
-    if (player->type != TYPE_BLUE) return;
-
-    // 空中じゃないと踏めない
-    if (!player->isAir) return;
-
     NormalEnemyData* enemy = GetNormalEnemy();
 
-    for (int i = 0; i < NORMAL_ENEMY_MAX; i++)
+    // 青状態のみ
+    if (player->type != TYPE_BLUE) return false;
+
+    // 落下中のみ
+    if (player->move.y <= 0.0f) return false;
+
+    NormalEnemyData* e = &enemy[enemyIndex];
+
+    if (!e->active) return false;
+
+    float playerBottomPrev = g_PrevPlayerData.pos.y + PLAYER_HEIGHT;
+    float enemyTop = e->pos.y;
+
+    // 前フレームで敵より上なら踏みつけ
+    if (playerBottomPrev <= enemyTop)
     {
-        if (!enemy[i].active) continue;
+        PlayerKillNormalEnemy(enemyIndex);
 
-        float px = player->pos.x + 10;
-        float py = player->pos.y + 40;
-        float pw = 30;
-        float ph = 10;
+        // バウンド
+        player->move.y = -8.0f;
 
-        float ex = enemy[i].pos.x;
-        float ey = enemy[i].pos.y;
-        float ew = 38;
-        float eh = 38;
-
-        if (CheckSquareSquare(px, py, pw, ph, ex, ey, ew, eh))
-        {
-            // 敵を倒す
-            PlayerKillNormalEnemy(i);
-
-            // プレイヤーを少し跳ねさせる
-            player->move.y = -8.0f;
-
-            return;
-        }
+        return true;
     }
+
+    return false;
 }
