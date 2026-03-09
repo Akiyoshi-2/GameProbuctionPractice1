@@ -5,6 +5,7 @@
 #include "../PlayScene/PlayScene.h"
 #include "../../Sound/SoundManager.h"
 #include "../../UI/UIText.h"
+#include "../../Enemy/Goal/Goal.h"
 
 //ƒQ[ƒ€ƒNƒŠƒA‚Ì‰æ‘œ
 int g_ClearHandle = -1;
