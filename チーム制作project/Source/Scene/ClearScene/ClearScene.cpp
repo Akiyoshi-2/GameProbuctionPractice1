@@ -4,6 +4,7 @@
 #include "../../Input/Input.h"
 #include "../PlayScene/PlayScene.h"
 #include "../../Sound/SoundManager.h"
+#include "../../UI/UIText.h"
 
 //ƒQ[ƒ€ƒNƒŠƒA‚Ì‰æ‘œ
 int g_ClearHandle = -1;
