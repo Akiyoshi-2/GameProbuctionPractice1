@@ -5,6 +5,8 @@
 #include "../../Input/Input.h"
 #include "../../Sound/SoundManager.h"
 #include "../../UI/UIText.h"
+#include "../../Animation/Animation.h"
+#include "../../Player/Player.h"
 
 // GamOver•¶Žš‰æ‘œ
 int g_GameOverHandle = 0;
