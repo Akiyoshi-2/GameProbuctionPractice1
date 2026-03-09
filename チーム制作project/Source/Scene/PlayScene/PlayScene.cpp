@@ -7,6 +7,7 @@
 #include "../TitleScene/TitleScene.h"
 #include "../../Collision/Collision.h"
 #include "../ClearScene/ClearScene.h"
+#include "../GameOverScene/GameOverScene.h"
 #include "../../Timer/Timer.h"
 #include "../../Player/Attack/Attack.h"
 
