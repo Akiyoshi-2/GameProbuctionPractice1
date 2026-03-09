@@ -73,5 +73,7 @@ void FinClearScene()
 	DeleteGraph(g_ClearHandle);
 	DeleteGraph(g_ResultHandle);
 
+	StopBGM(BGM_GAME_CLEAR);
+
 }
 
