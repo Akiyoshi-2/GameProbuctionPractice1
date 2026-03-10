@@ -11,6 +11,7 @@
 #include "../../Timer/Timer.h"
 #include "../../Player/Attack/Attack.h"
 #include "../../Enemy/EnemyManager.h"
+#include "../../Score/Score.h"
 
 int g_Stage1Handle = -1;
 
@@ -22,6 +23,7 @@ void InitPlayScene()
 	InitEnemy();
 	InitMap();
 	InitTimer();
+	InitScore();
 }
 
 void LoadPlayScene(int stage)
@@ -45,22 +47,22 @@ void StartPlayScene(int stage)
 
 void StepPlayScene(int stage)
 {
-		
+
 	StepPlayer();
 
 	if (IsTriggerKey(KEY_C)) //デバッグ用
 	{
 		ChangeScene(SCENE_STAGE_2);
 	}
-	
-	
+
+
 
 	if (IsTriggerKey(KEY_P))
 	{
 		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
 	}
-		
+
 	StepEnemy();
 	StepEnemySpawnSystem(stage);
 }
@@ -74,6 +76,7 @@ void UpdatePlayScene()
 	CheckCollision();      // 衝突判定
 	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
 	UpdateTimer();         // タイマー更新
+	UpdateScore();
 }
 
 void DrawPlayScene()
@@ -94,6 +97,7 @@ void DrawPlayScene()
 	DrawPlayer();     // プレイヤー
 	DrawEnemy();      // 敵
 	DrawTimer();      // タイマー
+	DrawScore();
 
 	// デバッグ表示
 	DrawCamera();

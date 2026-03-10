@@ -5,6 +5,7 @@
 #include "../../Map/Block.h"
 #include "../../Camera/Camera.h"
 #include "../../Player/Player.h"
+#include "../../Score/Score.h"
 
 // アニメーション用パラメータ
 struct ShieldEnemyAnimationParam
@@ -294,8 +295,7 @@ void PlayerKillShieldEnemy(int index)
 	StartShieldEnemyAnimation(SHIELD_ENEMY_CRUSH, index);
 
 	// スコア
-	// int score = GetScore() + SHIELD_ENEMY_SCORE;
-	// SetScore(score);
+	AddScore(500);
 }
 
 void StartShieldEnemyAnimation(ShieldEnemyAnimationType anim, int index)

@@ -6,6 +6,7 @@
 #include "../../Player/Attack/Attack.h"
 #include "../../Collision/Collision.h"
 #include "../../Camera/Camera.h"
+#include "../../Score/Score.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -161,6 +162,7 @@ void UpdateNormalEnemy()
 			if (normalEnemy->strikeTimer <= 0)
 			{
 				normalEnemy->active = false;
+				AddScore(200);
 				continue;
 			}
 
@@ -355,8 +357,7 @@ void PlayerKillNormalEnemy(int index)
 	StartNormalEnemyAnimation(NORMAL_ENEMY_CRUSH, index);
 
 	// スコア
-	// int score = GetScore() + NORMAL_ENEMY_SCORE;
-	// SetScore(score);
+	AddScore(200);
 }
 
 void StartNormalEnemyAnimation(NormalEnemyAnimationType anim, int index)
