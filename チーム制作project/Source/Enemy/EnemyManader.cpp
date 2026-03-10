@@ -124,7 +124,7 @@ void StepEnemySpawnSystem(int stage)
 
 		g_EnemySpawnTimer++;
 	}
-	/*
+	
 	else if (stage == 1)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_1) / sizeof(EnemySpawnData);
@@ -132,9 +132,14 @@ void StepEnemySpawnSystem(int stage)
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_1;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-			SpawnEnemy(spawn);
+			if (spawn->spawnTimer == g_EnemySpawnTimer)
+			{
+				SpawnEnemy(spawn);
+			}
 		}
-	}*/
+
+		g_EnemySpawnTimer++;
+	}
 	/*else if (stage == 2)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_2) / sizeof(EnemySpawnData);
@@ -142,8 +147,12 @@ void StepEnemySpawnSystem(int stage)
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_2;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-			SpawnEnemy(spawn);
+						if (spawn->spawnTimer == g_EnemySpawnTimer)
+			{
+				SpawnEnemy(spawn);
+			}
 		}
+		g_EnemySpawnTimer++;
 	}
 	else if (stage == 3)
 	{
@@ -152,8 +161,12 @@ void StepEnemySpawnSystem(int stage)
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_3;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-			SpawnEnemy(spawn);
+						if (spawn->spawnTimer == g_EnemySpawnTimer)
+			{
+				SpawnEnemy(spawn);
+			}
 		}
+		g_EnemySpawnTimer++;
 	}*/
 
 	
