@@ -124,7 +124,8 @@ void StepEnemySpawnSystem(int stage)
 
 		g_EnemySpawnTimer++;
 	}
-	/*else if (stage == 1)
+	/*
+	else if (stage == 1)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_1) / sizeof(EnemySpawnData);
 
@@ -133,8 +134,8 @@ void StepEnemySpawnSystem(int stage)
 		{
 			SpawnEnemy(spawn);
 		}
-	}
-	else if (stage == 2)
+	}*/
+	/*else if (stage == 2)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_2) / sizeof(EnemySpawnData);
 

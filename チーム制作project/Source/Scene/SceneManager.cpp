@@ -195,15 +195,15 @@ void StepScene()
 		break;
 
 	case SCENE_STAGE_1:	// ステージ1
-		StepPlayScene();
+		StepPlayScene(1);
 		break;
 
 	case SCENE_STAGE_2:	// ステージ2
-		StepPlayScene();
+		StepPlayScene(2);
 		break;
 
 	case SCENE_STAGE_3:	// ステージ3
-		StepPlayScene();
+		StepPlayScene(3);
 		break;
 
 	case TEST_SCENE_A:	// テスト

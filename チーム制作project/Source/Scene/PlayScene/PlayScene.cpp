@@ -10,6 +10,7 @@
 #include "../GameOverScene/GameOverScene.h"
 #include "../../Timer/Timer.h"
 #include "../../Player/Attack/Attack.h"
+#include "../../Enemy/EnemyManager.h"
 
 int g_Stage1Handle = -1;
 
@@ -17,7 +18,8 @@ void InitPlayScene()
 {
 	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
 
-	LoadPlayer();
+	InitPlayer();
+	InitEnemy();
 	InitMap();
 	InitTimer();
 }
@@ -27,6 +29,7 @@ void LoadPlayScene(int stage)
 	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
 
 	LoadPlayer();
+	LoadEnemy();
 	LoadMap(stage);
 }
 
@@ -40,7 +43,7 @@ void StartPlayScene(int stage)
 	StartMap(stage);
 }
 
-void StepPlayScene()
+void StepPlayScene(int stage)
 {
 		
 	StepPlayer();
@@ -58,43 +61,59 @@ void StepPlayScene()
 		ChangeScene(SCENE_TITLE);
 	}
 		
+	StepEnemy();
+	StepEnemySpawnSystem(stage);
 }
 
 void UpdatePlayScene()
 {
-	UpdatePlayer();
-	UpdateCamera();
-	CheckCollision();
-	UpdatePlayerAnimation();
-	UpdateTimer();
-	UpdateAttack();
+	UpdatePlayer();        // プレイヤー更新
+	UpdateAttack();        // 攻撃更新
+	UpdateEnemy();         // 敵更新
+	UpdateCamera();        // カメラ更新
+	CheckCollision();      // 衝突判定
+	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
+	UpdateTimer();         // タイマー更新
 }
 
 void DrawPlayScene()
 {
-	CameraData cam = GetCamera();
+	CameraData cam = GetCamera();   // カメラ取得
 
 	if (g_Stage1Handle != -1)
 	{
 		DrawGraph(
-			(int)-cam.posX,
+			(int)-cam.posX,       // カメラに合わせて描画
 			(int)-cam.posY,
 			g_Stage1Handle,
 			TRUE
 		);
 	}
 
-	DrawMap();
-	DrawPlayer();
-	DrawCamera(); // デバッグ
-	DrawTimer();
-	DrawAttack(); //デバック
+	DrawMap();        // 背景（ブロック）
+	DrawPlayer();     // プレイヤー
+	DrawEnemy();      // 敵
+	DrawTimer();      // タイマー
+
+	// デバッグ表示
+	DrawCamera();
+	DrawAttack();
+	DrawString(0, 40, "A:ジャンプ", GetColor(255, 255, 255));
+	DrawString(0, 60, "B:攻撃", GetColor(255, 255, 255));
+	DrawString(0, 80, "X:カラーチェンジ", GetColor(255, 255, 255));
+	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));
 }
 
 
 void FinPlayScene()
 {
-	FinMap();
+	if (g_Stage1Handle != -1)
+	{
+		DeleteGraph(g_Stage1Handle);
+		g_Stage1Handle = -1;
+	}
 
-	FinPlayer();
+	FinPlayer();   // プレイヤー終了処理
+	FinEnemy();    // 敵終了処理
+	FinMap();      // マップ終了処理
 }

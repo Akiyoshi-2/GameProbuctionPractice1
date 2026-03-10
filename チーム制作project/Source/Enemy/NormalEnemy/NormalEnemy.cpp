@@ -228,16 +228,6 @@ void DrawNormalEnemy()
 			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 
-		// デバッグEnemy場所
-		DrawFormatString(
-			0,
-			120 + i * 20,
-			GetColor(255, 255, 255),
-			"Enemy[%d] = [%f , %f]",
-			i,
-			normalEnemy->pos.x,
-			normalEnemy->pos.y
-		);
 	}
 }
 
