@@ -248,7 +248,7 @@ const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 	{ HELMET_ENEMY, 10, 4400.0f, 600.0f, &ENEMY_PARAMETER[0] },
 	{ SHIELD_ENEMY, 10, 4500.0f, 900.0f, &ENEMY_PARAMETER[0] },
 };
-/*
+
 // ステージ1
 	const EnemySpawnData ENEMY_SPAWN_DATA_1[] =
 	{
@@ -285,7 +285,7 @@ const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 	SHIELD_ENEMY, 1, 10600.0f, 600.0f,& ENEMY_PARAMETER[0],
 	SHIELD_ENEMY, 1, 11550.0f, 1300.0f,& ENEMY_PARAMETER[0],
 
-	};*/
+	};
 //
 //// ステージ2
 //const EnemySpawnData ENEMY_SPAWN_DATA_2[] =
