@@ -12,7 +12,7 @@
 #include <math.h>
 #include "../Player/Attack/Crush.h"
 
-bool CheckSquarePoint(float squarePosX,  float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
+bool CheckSquarePoint(float squarePosX, float squarePosY, float squareWidth, float squareHeight, float pointX, float pointY)
 {
 	if (pointX >= squarePosX && pointX <= (squarePosX + squareWidth))
 	{
@@ -115,7 +115,7 @@ void CheckPlayerEnemy()
 
 			int normalX = enemy->pos.x;
 			int normalY = enemy->pos.y;
-			int normalW = NORMAL_ENEMY_WIDTH;
+			int normalW = NORMAL_ENEMY_WIDTH + 10.0f;
 			int normalH = NORMAL_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(
@@ -133,37 +133,71 @@ void CheckPlayerEnemy()
 			}
 		}
 
-		for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
+		for (int i = 0; i < HELMET_ENEMY_MAX; i++)
 		{
-			if (!helmet->active)continue;
+			HelmetEnemyData* enemy = &helmet[i];
 
-			// HelmetEnemyの位置設定
-			int helmetX = helmet->pos.x;
-			int helmetY = helmet->pos.y;
-			int helmetW = HELMET_ENEMY_WIDTH;
+			if (!enemy->active) continue;
+
+			int helmetX = enemy->pos.x;
+			int helmetY = enemy->pos.y;
+			int helmetW = HELMET_ENEMY_WIDTH + 10.0f;
 			int helmetH = HELMET_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				helmetX, helmetY, helmetW, helmetH))
 			{
+				// 青プレイヤー → 踏んでも死ぬ
+				if (player->type == TYPE_BLUE)
+				{
+					PlayerHitEnemy();
+					return;
+				}
+
+				// 赤プレイヤー攻撃のみ有効
+				if (player->type == TYPE_RED && player->isAttacking)
+				{
+					PlayerKillHelmetEnemy(i);
+					return;
+				}
+
+				// それ以外は死亡
 				PlayerHitEnemy();
 				return;
 			}
 		}
 
-		for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shield++)
+		for (int i = 0; i < SHIELD_ENEMY_MAX; i++)
 		{
-			if (!shield->active)continue;
+			ShieldEnemyData* enemy = &shield[i];
 
-			// ShieldEnemyの位置設定
-			int shieldX = shield->pos.x;
-			int shieldY = shield->pos.y;
+			if (!enemy->active) continue;
+
+			int shieldX = enemy->pos.x;
+			int shieldY = enemy->pos.y;
 			int shieldW = SHIELD_ENEMY_WIDTH;
 			int shieldH = SHIELD_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				shieldX, shieldY, shieldW, shieldH))
 			{
+				// 青プレイヤー踏みつけのみ
+				if (player->type == TYPE_BLUE && player->move.y > 0)
+				{
+					PlayerKillShieldEnemy(i);
+
+					// バウンド
+					player->move.y = -8.0f;
+
+					return;
+				}
+
+				// 赤攻撃は無効
+				if (player->type == TYPE_RED && player->isAttacking)
+				{
+					return;
+				}
+
 				PlayerHitEnemy();
 				return;
 			}
@@ -204,7 +238,7 @@ void CheckPlayerEnemy()
 				return;
 			}
 		}
-	}	
+	}
 }
 
 void CheackPlayerGoal()

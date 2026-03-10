@@ -3,6 +3,7 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
+#include "../../Camera/Camera.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -16,21 +17,28 @@ struct helmetEnemyAnimationParam
 const helmetEnemyAnimationParam HELMET_ENEMYANIM_PARAM[HELMET_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
-	8, 10, 50, 50,	// DIE
+	5, 10, 50, 50,	// DIE
+	5, 10, 50, 50,  // STRIKE
 };
+
+//メモたけなか　なぜかヘルメットの当たり判定がおかしい
+//現状→　ストライクの当たり判定だけシビア、死亡アニメーションがずっと流れたまま動かない(その間衝突判定アリ)
 
 // 移動速度
 #define HELMET_ENEMY_MOVE_SPEED	(0.8f)
 
+// 重力
+#define HELMET_ENEMY_GRAVITY (0.3f)
+
 // マップ衝撃判定のサイズ補正
-#define HELMET_ENEMY_COLLISION_OFFSET	(0.1f)
+#define HELMET_ENEMY_COLLISION_OFFSET	(1.0f)
 
 // 死亡エフェクトインターバル
 #define HELMET_ENEMY_DEAD_EFFECT_INTERVAL	(5)
 
 // 矩形判定サイズ
 #define HELMET_ENEMY_BOX_COLLISION_WIDTH	(38.0f)
-#define HELMET_ENEMY_BOX_COLLISION_HEIGHT	(39.0f)
+#define HELMET_ENEMY_BOX_COLLISION_HEIGHT	(47.0f)
 
 // 撃破時のスコア
 #define HELMET_ENEMY_SCORE	(500)
@@ -44,68 +52,93 @@ void UpdateHelmetEnemyAnimation(int index);
 void InitHelmetEnemy()
 {
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
+
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
 	{
 		helmet->pos.x = 0;
 		helmet->pos.y = 0;
+
 		helmet->move.x = 0;
 		helmet->move.y = 0;
+
 		helmet->active = false;
+
+		helmet->isDead = false;
+		helmet->strike = false;
+		helmet->strikeTimer = 0;
+
 		helmet->playAnim = HELMET_ENEMY_ANIM_NONE;
+
 		helmet->boxCollision.width = HELMET_ENEMY_BOX_COLLISION_WIDTH;
 		helmet->boxCollision.height = HELMET_ENEMY_BOX_COLLISION_HEIGHT;
 
 		for (int j = 0; j < HELMET_ENEMY_ANIM_MAX; j++)
 		{
 			InitAnimation(&helmet->animation[j]);
-
-			memset(&helmet[i].boxCollision, 0, sizeof(helmet[i].boxCollision));
 		}
 	}
 }
 
 void LoadHelmetEnemy()
 {
-	int runHandlde = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_run.png");
-	int dieHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_die.png");
+	int runHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_run.png");
+	//int dieHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_die.png");
+	int strikeHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_strike.png");
 
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++)
 	{
-		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_RUN].handle = runHandlde;
-		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_DIE].handle = dieHandle;
+		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_RUN].handle = runHandle;
+		//g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_DIE].handle = dieHandle;
+		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_STRIKE].handle = strikeHandle;
 	}
 }
 
 void StepHelmetEnemy()
 {
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
+
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
 	{
-		if (!helmet->active)continue;
+		if (!helmet->active) continue;
+
+		// STRIKE死亡
+		if (helmet->strike)
+		{
+			helmet->strikeTimer--;
+
+			if (helmet->strikeTimer <= 0)
+			{
+				helmet->active = false;
+			}
+
+			continue;
+		}
+
+		// DIE
+		if (helmet->isDead) continue;
 
 		g_PravHelmetEnemyData[i] = g_HelmetEnemyData[i];
 
-		helmet->move.x = 0.0f;
+		helmet->move.y += HELMET_ENEMY_GRAVITY;
 
-		// 右に移動
-		if (!helmet->isTurn)
-		{
-			helmet->move.x = HELMET_ENEMY_MOVE_SPEED;
-		}
-		// 左に移動
-		else if (helmet->isTurn)
-		{
-			helmet->move.x = -HELMET_ENEMY_MOVE_SPEED;
-		}
+		helmet->move.x = (!helmet->isTurn) ? HELMET_ENEMY_MOVE_SPEED : -HELMET_ENEMY_MOVE_SPEED;
 	}
 }
 
 void UpdateHelmetEnemy()
 {
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
+
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
 	{
-		if (!helmet->active)continue;
+		if (!helmet->active) continue;
+
+		// 死亡中は移動させない
+		if (helmet->isDead || helmet->strike)
+		{
+			UpdateHelmetEnemyAnimation(i);
+			continue;
+		}
 
 		helmet->pos.x += helmet->move.x;
 		helmet->pos.y += helmet->move.y;
@@ -117,20 +150,25 @@ void UpdateHelmetEnemy()
 void DrawHelmetEnemy()
 {
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
+	CameraData cam = GetCamera();
+
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
 	{
-		if (!helmet->active)continue;
+		if (!helmet->active) continue;
 
 		HelmetAnimationType animType = helmet->playAnim;
 		AnimationData* animData = &helmet->animation[animType];
 
+		float drawX = helmet->pos.x - cam.posX;
+		float drawY = helmet->pos.y - cam.posY;
+
 		if (!helmet->isTurn)
 		{
-			DrawAnimation(animData, helmet->pos.x, helmet->pos.y, TRUE, FALSE);
+			DrawAnimation(animData, drawX, drawY, TRUE, FALSE);
 		}
-		else if (helmet->isTurn)
+		else
 		{
-			DrawAnimation(animData, helmet->pos.x, helmet->pos.y, FALSE, FALSE);
+			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 	}
 }
@@ -151,8 +189,10 @@ HelmetEnemyData* GetHelmetEnemy()
 void PlayerKillHelmetEnemy(int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
-
-	helmet->active = false;
+	helmet->isDead = true;
+	helmet->move.x = 0.0f; // ←これで攻撃中は動かない
+	helmet->move.y = 0.0f;
+	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
 
 	// スコア
 	// int score = GetScore() + HELMET_ENEMY_SCORE;
@@ -192,59 +232,61 @@ void HelmetEnemyHitBlockX(MapChipData mapChipData, int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = HELMET_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = HELMET_ENEMY_COLLISION_OFFSET * 2;
 
-	helmet->pos.x = g_HelmetEnemyData[index].pos.x;
-	helmet->pos.y = g_HelmetEnemyData[index].pos.y;
+	float prevX = g_PravHelmetEnemyData[index].pos.x;
 
-	if (CheckSquareSquare(helmet->pos.x + POS_OFFSET, helmet->pos.y - POS_OFFSET,
-		HELMET_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, HELMET_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	if (CheckSquareSquare(
+		helmet->pos.x,
+		helmet->pos.y,
+		HELMET_ENEMY_BOX_COLLISION_WIDTH + 10.0f,
+		HELMET_ENEMY_BOX_COLLISION_HEIGHT - HELMET_ENEMY_COLLISION_OFFSET,
+		block->pos.x,
+		block->pos.y,
+		MAP_CHIP_WIDTH,
+		MAP_CHIP_HEIGHT))
 	{
 		// 左から当たった
-		if (helmet->move.x > 0.0f)
-		{
-			helmet->isTurn = false;
-		}
-		// 右から当たった
-		else if (helmet->move.x < 0.0f)
+		if (prevX + HELMET_ENEMY_BOX_COLLISION_WIDTH <= block->pos.x)
 		{
 			helmet->isTurn = true;
 		}
-
+		// 右から当たった
+		else if (prevX >= block->pos.x + MAP_CHIP_WIDTH)
+		{
+			helmet->isTurn = false;
+		}
 	}
 }
 
 void HelmetEnemyHitBlockY(MapChipData mapChipData, int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
+	HelmetEnemyData* prev = &g_PravHelmetEnemyData[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = HELMET_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = HELMET_ENEMY_COLLISION_OFFSET * 2;
 
-	helmet->isTurn = g_HelmetEnemyData->isTurn;
-
-	if (CheckSquareSquare(helmet->pos.x + POS_OFFSET, helmet->pos.y - POS_OFFSET,
-		HELMET_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, HELMET_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	if (CheckSquareSquare(
+		helmet->pos.x,
+		helmet->pos.y,
+		HELMET_ENEMY_BOX_COLLISION_WIDTH,
+		HELMET_ENEMY_BOX_COLLISION_HEIGHT,
+		block->pos.x,
+		block->pos.y,
+		MAP_CHIP_WIDTH,
+		MAP_CHIP_HEIGHT))
 	{
-		// 上から当たった
-		if (helmet->move.y > 0.0f)
+		// 上から落ちた
+		if (prev->pos.y + HELMET_ENEMY_BOX_COLLISION_HEIGHT <= block->pos.y)
 		{
-			// 上に押し出す
-			helmet->pos.y -= (helmet->pos.y * HELMET_ENEMY_BOX_COLLISION_HEIGHT) - block->pos.y;
+			helmet->pos.y = block->pos.y - HELMET_ENEMY_BOX_COLLISION_HEIGHT;
+			helmet->move.y = 0.0f;
 			helmet->isAir = false;
 		}
-		// 下から当たったか
-		else if (helmet->move.y < 0.0f)
+		// 下から当たった
+		else if (prev->pos.y >= block->pos.y + MAP_CHIP_HEIGHT)
 		{
-			// 下に押し出す
-			helmet->pos.y += (block->pos.y + MAP_CHIP_WIDTH) - helmet->pos.y;
+			helmet->pos.y = block->pos.y + MAP_CHIP_HEIGHT;
+			helmet->move.y = 0.0f;
 		}
-
-		// Yの移動量を0にする
-		helmet->move.y = 0.0f;
 	}
 }
 
@@ -252,35 +294,44 @@ void StartHelmetEnemyAnimation(HelmetAnimationType anim, int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
 
-	// アニメーション再生中なら何もしない
-	if (anim == helmet->playAnim)return;
+	if (anim == helmet->playAnim) return;
 
-	// 再生中アニメーション設定
 	helmet->playAnim = anim;
 
-	// データを取得
 	AnimationData* animData = &helmet->animation[anim];
 	helmetEnemyAnimationParam animParam = HELMET_ENEMYANIM_PARAM[anim];
 
-	//再生
-	StartAnimation(animData, helmet->pos.x, helmet->pos.y,
-		animParam.interval, animParam.frameNum, animParam.width, animParam.height, true);
+	StartAnimation(animData,
+		helmet->pos.x,
+		helmet->pos.y,
+		animParam.interval,
+		animParam.frameNum,
+		animParam.width,
+		animParam.height,
+		true);
 }
 
 void UpdateHelmetEnemyAnimation(int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
 
-	// 歩くアニメーション
-	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_RUN, index);
+	// 死亡・STRIKE優先
+	if (helmet->strike || helmet->isDead)
+	{
+		StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
+	}
+	else
+	{
+		StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_RUN, index);
+	}
 
-	// 増えれば追加する
-	// StartHelmetEnemyAnimation(???, index);
-
-
-
-	// アニメーション更新
-	HelmetAnimationType animType = helmet->playAnim;
-	AnimationData* animData = &helmet->animation[animType];
+	AnimationData* animData = &helmet->animation[helmet->playAnim];
 	UpdateAnimation(animData);
+
+	// STRIKE終了で active を切る
+	if ((helmet->strike || helmet->isDead) && animData->isEnd)
+	{
+		helmet->active = false;  // 衝突判定もここで消える
+	}
 }
+

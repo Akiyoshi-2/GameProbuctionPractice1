@@ -205,7 +205,7 @@ void StartPlayer(int stage)
 	{
 	case 0: // チュートリアル
 		g_PlayerData.pos.x = 100.0f;
-		g_PlayerData.pos.y = 900.0f;
+		g_PlayerData.pos.y = 800.0f;
 		break;
 
 	case 1: // Stage1
@@ -215,7 +215,7 @@ void StartPlayer(int stage)
 
 	case 2: // Stage2
 		g_PlayerData.pos.x = 50.0f;
-		g_PlayerData.pos.y = 6555.0f;
+		g_PlayerData.pos.y = 6455.0f;
 		break;
 
 	case 3: // Stage3
@@ -510,24 +510,6 @@ void DrawPlayer()
 		g_PlayerData.pos.x - camera.posX,
 		g_PlayerData.pos.y - camera.posY,
 		g_PlayerData.isTurn
-	);
-
-	//（プレイヤー当たり判定デバッグ）
-
-	float boxX;
-	float boxY;
-	float boxW;
-	float boxH;
-
-	CalcBoxCollision(g_PlayerData, boxX, boxY, boxW, boxH);
-
-	DrawBox(
-		boxX - camera.posX,
-		boxY - camera.posY,
-		boxX + boxW - camera.posX,
-		boxY + boxH - camera.posY,
-		GetColor(255, 0, 0),
-		FALSE
 	);
 
 }

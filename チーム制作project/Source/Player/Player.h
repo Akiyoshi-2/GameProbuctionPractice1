@@ -5,8 +5,8 @@
 #include "../Collision/Collision.h"
 #include "../Enemy/EnemyParameter.h"
 
-#define PLAYER_WIDTH	(50.0f)
-#define PLAYER_HEIGHT	(50.0f)
+#define PLAYER_WIDTH	(32.0f)
+#define PLAYER_HEIGHT	(35.0f)
 #define PLAYER_RADIUS	(36.0f)
 
 // 死亡後のリスポーン待機時間

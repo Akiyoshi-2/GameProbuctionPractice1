@@ -62,7 +62,7 @@ struct NormalEnemyData
 // HELMET_ENEMY関連
 #define HELMET_ENEMY_MAX	(255)
 #define HELMET_ENEMY_WIDTH	(38.0f)
-#define HELMET_ENEMY_HEIGHT	(39.0f)
+#define HELMET_ENEMY_HEIGHT	(38.0f)
 #define HELMET_ENEMY_RADIUS	(19.5f)
 
 // アニメーションタイプ
@@ -70,6 +70,7 @@ enum HelmetAnimationType
 {
 	HELMET_ENEMY_ANIM_RUN,
 	HELMET_ENEMY_ANIM_DIE,
+	HELMET_ENEMY_ANIM_STRIKE,
 	HELMET_ENEMY_ANIM_MAX,
 	HELMET_ENEMY_ANIM_NONE = -1
 };
@@ -80,10 +81,18 @@ struct HelmetEnemyData
 	bool isTurn;
 	bool isAir;
 	bool active;
+
+	bool isDead;
+	bool strike;
+
+	int strikeTimer;
+
 	VECTOR pos;
 	VECTOR move;
+
 	AnimationData animation[HELMET_ENEMY_ANIM_MAX];
 	HelmetAnimationType playAnim;
+
 	BoxCollision boxCollision;
 	const EnemyParameter* param;
 	HelmetEnemyData* data;
@@ -226,8 +235,8 @@ const EnemySpawnData ENEMY_SPAWN_DATA_0[] =
 {
 	{ NORMAL_ENEMY, 10, 300.0f, 750.0f, &ENEMY_PARAMETER[0] },
 
-	//{ HELMET_ENEMY, 20, 300.0f, 800.0f, &ENEMY_PARAMETER[0] },
-	//{ SHIELD_ENEMY, 30, 300.0f, 800.0f, &ENEMY_PARAMETER[0] },
+	{ HELMET_ENEMY, 20, 400.0f, 800.0f, &ENEMY_PARAMETER[0] },
+	{ SHIELD_ENEMY, 30, 500.0f, 800.0f, &ENEMY_PARAMETER[0] },
 
 	{ NORMAL_ENEMY, 10, 4400.0f, 300.0f, &ENEMY_PARAMETER[0] },
 	{ HELMET_ENEMY, 10, 4400.0f, 600.0f, &ENEMY_PARAMETER[0] },

@@ -11,6 +11,7 @@ struct AnimationData
 	int framHeight;
 	int timer;
 	int interval;
+	int isEnd;
 	float posX;
 	float posY;
 };

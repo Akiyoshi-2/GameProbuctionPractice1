@@ -228,16 +228,6 @@ void DrawNormalEnemy()
 			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 
-		// デバッグ当たり判定
-		DrawBox(
-			drawX,
-			drawY,
-			drawX + NORMAL_ENEMY_BOX_COLLISION_WIDTH,
-			drawY + NORMAL_ENEMY_BOX_COLLISION_HEIGHT,
-			GetColor(0, 255, 0),
-			FALSE
-		);
-
 		// デバッグEnemy場所
 		DrawFormatString(
 			0,
@@ -305,7 +295,7 @@ void NormalEnemyHitBlockX(MapChipData mapChipData, int index)
 	if (CheckSquareSquare(
 		normalEnemy->pos.x,
 		normalEnemy->pos.y,
-		NORMAL_ENEMY_BOX_COLLISION_WIDTH,
+		NORMAL_ENEMY_BOX_COLLISION_WIDTH + 10.0f,
 		NORMAL_ENEMY_BOX_COLLISION_HEIGHT - NORMAL_ENEMY_COLLISION_OFFSET,
 		block->pos.x,
 		block->pos.y,

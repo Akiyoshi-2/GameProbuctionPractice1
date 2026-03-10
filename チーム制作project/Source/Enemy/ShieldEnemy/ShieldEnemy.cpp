@@ -3,6 +3,7 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
+#include "../../Camera/Camera.h"
 
 // アニメーション用パラメータ
 struct ShieldEnemyAnimationParam
@@ -22,15 +23,18 @@ const ShieldEnemyAnimationParam SHIELD_ENEMY_ANIM_PARAM[SHIELD_ENEMY_ANIM_MAX] =
 //移動速度
 #define SHIELD_ENEMY_MOVE_SPEED	(0.8f)
 
+// 重力
+#define SHIELD_ENEMY_GRAVITY (0.3f)
+
 // マップ衝撃判定のサイズ補正
-#define SHIELD_ENEMY_COLLISION_OFFSET	(0.1f)
+#define SHIELD_ENEMY_COLLISION_OFFSET	(1.0f)
 
 // 死亡エフェクトインターバル
 #define SHIELD_ENEMY_DEAD_EFFECT_INTARVAL	(5)
 
 // 矩形判定サイズ
 #define SHIELD_ENEMY_BOX_COLLISION_WIDTH	(38.0f)
-#define SHIELD_ENEMY_BOX_COLLISION_HEIGHT	(38.0f)
+#define SHIELD_ENEMY_BOX_COLLISION_HEIGHT	(47.0f)
 
 // 撃破時のスコア
 #define SHIELD_ENEMY_SCORE	(500)
@@ -59,22 +63,21 @@ void InitShieldEnemy()
 			InitAnimation(&shieldEnemy->animation[j]);
 		}
 
-		memset(&shieldEnemy[i].boxCollision, 0, sizeof(shieldEnemy[i].boxCollision));
 	}
 }
 
 
-	void LoadShieldEnemy()
-	{
-		int runHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_run.png");
-		int dieHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_die.png");
+void LoadShieldEnemy()
+{
+	int runHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_run.png");
+	int dieHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_die.png");
 
-		for (int i = 0; i < SHIELD_ENEMY_MAX; i++)
-		{
-			g_ShieldEnemyData[i].animation[SHIELD_ENEMY_RUN].handle = runHandle;
-			g_ShieldEnemyData[i].animation[SHIELD_ENEMY_DIE].handle = dieHandle;
-		}
+	for (int i = 0; i < SHIELD_ENEMY_MAX; i++)
+	{
+		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_RUN].handle = runHandle;
+		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_DIE].handle = dieHandle;
 	}
+}
 
 
 void StepShieldEnemy()
@@ -85,6 +88,9 @@ void StepShieldEnemy()
 		if (!shieldEnemy->active)continue;
 
 		g_PravShieldEnemyData[i] = g_ShieldEnemyData[i];
+
+		// 重力
+		shieldEnemy->move.y += SHIELD_ENEMY_GRAVITY;
 
 		shieldEnemy->move.x = 0.0f;
 
@@ -119,6 +125,8 @@ void UpdateShieldEnemy()
 void DrawShieldEnemy()
 {
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
+	CameraData cam = GetCamera();
+
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)
 	{
 		if (!shieldEnemy->active)continue;
@@ -126,13 +134,16 @@ void DrawShieldEnemy()
 		ShieldEnemyAnimationType animType = shieldEnemy->playAnim;
 		AnimationData* animData = &shieldEnemy->animation[animType];
 
+		float drawX = shieldEnemy->pos.x - cam.posX;
+		float drawY = shieldEnemy->pos.y - cam.posY;
+
 		if (!shieldEnemy->isTurn)
 		{
-			DrawAnimation(animData, shieldEnemy->pos.x, shieldEnemy->pos.y, TRUE, FALSE);
+			DrawAnimation(animData, drawX, drawY, TRUE, FALSE);
 		}
 		else if (shieldEnemy->isTurn)
 		{
-			DrawAnimation(animData, shieldEnemy->pos.x, shieldEnemy->pos.y, FALSE, FALSE);
+			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 	}
 }
@@ -184,59 +195,66 @@ void CreateShieldEnemy(float posX, float posY, const EnemyParameter* param)
 
 void ShieldEnemyHitBlockX(MapChipData mapChipData, int index)
 {
-	ShieldEnemyData* shieldEnemy =  &g_ShieldEnemyData[index];
-	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = SHIELD_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = SHIELD_ENEMY_COLLISION_OFFSET * 2;
-
-	shieldEnemy->pos.x = g_ShieldEnemyData[index].pos.x;
-	shieldEnemy->pos.y = g_ShieldEnemyData[index].pos.y;
-
-	if (CheckSquareSquare(shieldEnemy->pos.x + POS_OFFSET, shieldEnemy->pos.y - POS_OFFSET,
-		SHIELD_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, SHIELD_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
-	{
-		if (shieldEnemy->move.x > 0.0f)
-		{
-			shieldEnemy->isTurn = false;
-		}
-		else if (shieldEnemy->move.x < 0.0f)
-		{
-			shieldEnemy->isTurn = true;
-		}
-	}
-		
-}
-
-void ShieldEnemyHitBlockY(MapChipData mapChipData, int index)
-{
 	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
 	BlockData* block = mapChipData.data;
 	const float POS_OFFSET = SHIELD_ENEMY_COLLISION_OFFSET;
 	const float SIZE_OFFSET = SHIELD_ENEMY_COLLISION_OFFSET * 2;
 
-	shieldEnemy->isTurn = g_PravShieldEnemyData->isTurn;
+	float prevX = g_PravShieldEnemyData[index].pos.x;
 
-	if (CheckSquareSquare(shieldEnemy->pos.x + POS_OFFSET, shieldEnemy->pos.y - POS_OFFSET,
-		SHIELD_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, SHIELD_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	if (CheckSquareSquare(
+		shieldEnemy->pos.x,
+		shieldEnemy->pos.y,
+		SHIELD_ENEMY_BOX_COLLISION_WIDTH + 10.0f,
+		SHIELD_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
+		block->pos.x,
+		block->pos.y,
+		MAP_CHIP_WIDTH,
+		MAP_CHIP_HEIGHT))
 	{
-		if (shieldEnemy->move.y > 0.0f)
+		// 左から当たった
+		if (prevX + SHIELD_ENEMY_BOX_COLLISION_WIDTH <= block->pos.x)
 		{
-			// 上に押し出す
-			shieldEnemy->pos.y -= (shieldEnemy->pos.y * SHIELD_ENEMY_BOX_COLLISION_HEIGHT) - block->pos.y;
+			shieldEnemy->isTurn = true;
+		}
+		// 右から当たった
+		else if (prevX >= block->pos.x + MAP_CHIP_WIDTH)
+		{
+			shieldEnemy->isTurn = false;
+		}
+	}
+
+}
+
+void ShieldEnemyHitBlockY(MapChipData mapChipData, int index)
+{
+	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
+	ShieldEnemyData* prev = &g_PravShieldEnemyData[index];
+	BlockData* block = mapChipData.data;
+	if (CheckSquareSquare(
+		shieldEnemy->pos.x,
+		shieldEnemy->pos.y,
+		SHIELD_ENEMY_BOX_COLLISION_WIDTH,
+		SHIELD_ENEMY_BOX_COLLISION_HEIGHT,
+		block->pos.x,
+		block->pos.y,
+		MAP_CHIP_WIDTH,
+		MAP_CHIP_HEIGHT))
+	{
+		// 上から落ちた
+		if (prev->pos.y + SHIELD_ENEMY_BOX_COLLISION_HEIGHT <= block->pos.y)
+		{
+			shieldEnemy->pos.y = block->pos.y - SHIELD_ENEMY_BOX_COLLISION_HEIGHT;
+			shieldEnemy->move.y = 0.0f;
 			shieldEnemy->isAir = false;
 		}
-		else if (shieldEnemy->move.y < 0.0f)
+		// 下から当たった
+		else if (prev->pos.y >= block->pos.y + MAP_CHIP_HEIGHT)
 		{
-			// 下に押し出す
-			shieldEnemy->pos.y += (block->pos.y + MAP_CHIP_WIDTH) - shieldEnemy->pos.y;
-
+			shieldEnemy->pos.y = block->pos.y + MAP_CHIP_HEIGHT;
+			shieldEnemy->move.y = 0.0f;
 		}
-
-		shieldEnemy->move.y = 0.0f;
 	}
-	
 }
 
 void StartShieldEnemyAnimation(ShieldEnemyAnimationType anim, int index)
