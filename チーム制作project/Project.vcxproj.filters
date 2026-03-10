@@ -83,9 +83,6 @@
     <ClCompile Include="Source\Timer\Timer.cpp">
       <Filter>Timer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Score\Score.cpp">
-      <Filter>Score</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -178,9 +175,6 @@
     <ClInclude Include="Source\Timer\Timer.h">
       <Filter>Timer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Score\Score.h">
-      <Filter>Score</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Akiyosi">
@@ -257,9 +251,6 @@
     </Filter>
     <Filter Include="Timer">
       <UniqueIdentifier>{6de95c08-5403-49ff-b8f2-47a392488f29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Score">
-      <UniqueIdentifier>{4d4c9ecd-2ff3-47e4-b953-7189e7717488}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
