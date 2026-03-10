@@ -4,6 +4,7 @@
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
 #include "../../Camera/Camera.h"
+#include "../../Player/Attack/Attack.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -20,9 +21,6 @@ const helmetEnemyAnimationParam HELMET_ENEMYANIM_PARAM[HELMET_ENEMY_ANIM_MAX] =
 	5, 10, 50, 50,	// DIE
 	5, 10, 50, 50,  // STRIKE
 };
-
-//メモたけなか　なぜかヘルメットの当たり判定がおかしい
-//現状→　ストライクの当たり判定だけシビア、死亡アニメーションがずっと流れたまま動かない(その間衝突判定アリ)
 
 // 移動速度
 #define HELMET_ENEMY_MOVE_SPEED	(0.8f)
@@ -62,9 +60,9 @@ void InitHelmetEnemy()
 		helmet->move.y = 0;
 
 		helmet->active = false;
-
 		helmet->isDead = false;
 		helmet->strike = false;
+
 		helmet->strikeTimer = 0;
 
 		helmet->playAnim = HELMET_ENEMY_ANIM_NONE;
@@ -101,19 +99,6 @@ void StepHelmetEnemy()
 	{
 		if (!helmet->active) continue;
 
-		// STRIKE死亡
-		if (helmet->strike)
-		{
-			helmet->strikeTimer--;
-
-			if (helmet->strikeTimer <= 0)
-			{
-				helmet->active = false;
-			}
-
-			continue;
-		}
-
 		// DIE
 		if (helmet->isDead) continue;
 
@@ -121,7 +106,15 @@ void StepHelmetEnemy()
 
 		helmet->move.y += HELMET_ENEMY_GRAVITY;
 
-		helmet->move.x = (!helmet->isTurn) ? HELMET_ENEMY_MOVE_SPEED : -HELMET_ENEMY_MOVE_SPEED;
+		//helmet->move.x = (!helmet->isTurn) ? HELMET_ENEMY_MOVE_SPEED : -HELMET_ENEMY_MOVE_SPEED;
+		if (!helmet->isTurn)
+		{
+			helmet->move.x = HELMET_ENEMY_MOVE_SPEED;
+		}
+		else
+		{
+			helmet->move.x = -HELMET_ENEMY_MOVE_SPEED;
+		}
 	}
 }
 
@@ -133,15 +126,49 @@ void UpdateHelmetEnemy()
 	{
 		if (!helmet->active) continue;
 
-		// 死亡中は移動させない
-		if (helmet->isDead || helmet->strike)
+		// STRIKE死亡
+		if (helmet->strike)
 		{
+			helmet->strikeTimer--;
+
+			if (helmet->strikeTimer <= 0)
+			{
+				helmet->active = false;
+				continue;
+			}
+
 			UpdateHelmetEnemyAnimation(i);
 			continue;
 		}
 
 		helmet->pos.x += helmet->move.x;
 		helmet->pos.y += helmet->move.y;
+
+		if (IsAttackActive())
+		{
+			float attackx = 0.0f;
+			float attacky = 0.0f;
+			float attackw = 0.0f;
+			float attackh = 0.0f;
+
+			float enemyx = helmet->pos.x;
+			float enemyy = helmet->pos.y;
+
+			GetAttackRect(attackx, attacky, attackw, attackh);
+
+			if (CheckSquareSquare(
+				attackx, attacky, attackw, attackh,
+				enemyx,
+				enemyy,
+				HELMET_ENEMY_BOX_COLLISION_WIDTH,
+				HELMET_ENEMY_BOX_COLLISION_HEIGHT))
+			{
+				helmet->strike = true;
+				helmet->strikeTimer = 50;
+
+				StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, i);
+			}
+		}
 
 		UpdateHelmetEnemyAnimation(i);
 	}
@@ -189,9 +216,17 @@ HelmetEnemyData* GetHelmetEnemy()
 void PlayerKillHelmetEnemy(int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
+
+	if (helmet->strike) return;
+
 	helmet->isDead = true;
-	helmet->move.x = 0.0f; // ←これで攻撃中は動かない
+
+	helmet->strike = true;
+	helmet->strikeTimer = 50;
+
+	helmet->move.x = 0.0f; //攻撃中は動かない
 	helmet->move.y = 0.0f;
+
 	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
 
 	// スコア
@@ -331,7 +366,7 @@ void UpdateHelmetEnemyAnimation(int index)
 	// STRIKE終了で active を切る
 	if ((helmet->strike || helmet->isDead) && animData->isEnd)
 	{
-		helmet->active = false;  // 衝突判定もここで消える
+		helmet->active = false; 
 	}
 }
 

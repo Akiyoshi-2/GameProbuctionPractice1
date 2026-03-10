@@ -175,20 +175,20 @@ void UpdateNormalEnemy()
 		// UŒ‚”»’è
 		if (IsAttackActive())
 		{
-			float ax = 0.0f;
-			float ay = 0.0f;
-			float aw = 0.0f;
-			float ah = 0.0f;
+			float attackx = 0.0f;
+			float attacky = 0.0f;
+			float attackw = 0.0f;
+			float attackh = 0.0f;
 
-			float ex = normalEnemy->pos.x;
-			float ey = normalEnemy->pos.y;
+			float enemyx = normalEnemy->pos.x;
+			float enemyy = normalEnemy->pos.y;
 
-			GetAttackRect(ax, ay, aw, ah);
+			GetAttackRect(attackx, attacky, attackw, attackh);
 
 			if (CheckSquareSquare(
-				ax, ay, aw, ah,
-				ex,
-				ey,
+				attackx, attacky, attackw, attackh,
+				enemyx,
+				enemyy,
 				NORMAL_ENEMY_BOX_COLLISION_WIDTH,
 				NORMAL_ENEMY_BOX_COLLISION_HEIGHT))
 			{

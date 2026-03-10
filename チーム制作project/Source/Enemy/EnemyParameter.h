@@ -50,6 +50,7 @@ struct NormalEnemyData
 
 	int strikeTimer;// アニメーション時間
 	int crushTimer;
+
 	VECTOR pos;
 	VECTOR move;
 	AnimationData animation[NORMAL_ENEMY_ANIM_MAX];
@@ -109,6 +110,7 @@ enum ShieldEnemyAnimationType
 {
 	SHIELD_ENEMY_RUN,
 	SHIELD_ENEMY_DIE,
+	SHIELD_ENEMY_CRUSH,
 	SHIELD_ENEMY_ANIM_MAX,
 	SHIELD_ENEMY_ANIM_NONE = -1
 
@@ -121,6 +123,10 @@ struct ShieldEnemyData
 	bool isTurn;
 	bool isAir;
 	bool active;
+	bool crush;
+
+	int crushTimer;
+
 	VECTOR pos;
 	VECTOR move;
 	AnimationData animation[SHIELD_ENEMY_ANIM_MAX];

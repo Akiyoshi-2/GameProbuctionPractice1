@@ -139,29 +139,29 @@ void CheckPlayerEnemy()
 
 			if (!enemy->active) continue;
 
+			if (enemy->strike) continue;
+
 			int helmetX = enemy->pos.x;
 			int helmetY = enemy->pos.y;
 			int helmetW = HELMET_ENEMY_WIDTH + 10.0f;
 			int helmetH = HELMET_ENEMY_HEIGHT;
 
-			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+			if (CheckSquareSquare(
+				playerX, playerY, playerW, playerH,
 				helmetX, helmetY, helmetW, helmetH))
 			{
-				// 青プレイヤー → 踏んでも死ぬ
 				if (player->type == TYPE_BLUE)
 				{
 					PlayerHitEnemy();
 					return;
 				}
 
-				// 赤プレイヤー攻撃のみ有効
 				if (player->type == TYPE_RED && player->isAttacking)
 				{
 					PlayerKillHelmetEnemy(i);
 					return;
 				}
 
-				// それ以外は死亡
 				PlayerHitEnemy();
 				return;
 			}
@@ -172,28 +172,18 @@ void CheckPlayerEnemy()
 			ShieldEnemyData* enemy = &shield[i];
 
 			if (!enemy->active) continue;
+			if (enemy->crush) continue;
 
 			int shieldX = enemy->pos.x;
 			int shieldY = enemy->pos.y;
-			int shieldW = SHIELD_ENEMY_WIDTH;
+			int shieldW = SHIELD_ENEMY_WIDTH + 10.0f;
 			int shieldH = SHIELD_ENEMY_HEIGHT;
 
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				shieldX, shieldY, shieldW, shieldH))
 			{
-				// 青プレイヤー踏みつけのみ
-				if (player->type == TYPE_BLUE && player->move.y > 0)
-				{
-					PlayerKillShieldEnemy(i);
-
-					// バウンド
-					player->move.y = -8.0f;
-
-					return;
-				}
-
-				// 赤攻撃は無効
-				if (player->type == TYPE_RED && player->isAttacking)
+				// 上から踏んだ
+				if (UpdateShieldCrush(i))
 				{
 					return;
 				}

@@ -4,6 +4,7 @@
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
 #include "../../Camera/Camera.h"
+#include "../../Player/Player.h"
 
 // アニメーション用パラメータ
 struct ShieldEnemyAnimationParam
@@ -17,7 +18,8 @@ struct ShieldEnemyAnimationParam
 const ShieldEnemyAnimationParam SHIELD_ENEMY_ANIM_PARAM[SHIELD_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
-	8, 10, 50, 50,	// DIE
+	5, 10, 50, 50,	// DIE
+	5, 10, 50, 50,	// CRUSH
 };
 
 //移動速度
@@ -48,16 +50,25 @@ void UpdateShieldEnemyAnimation(int index);
 void InitShieldEnemy()
 {
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
+
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)
 	{
 		shieldEnemy->pos.x = 0;
 		shieldEnemy->pos.y = 0;
+
 		shieldEnemy->move.x = 0;
 		shieldEnemy->move.y = 0;
+
 		shieldEnemy->active = false;
+		shieldEnemy->crush = false;
+
+		shieldEnemy->crushTimer = 0;
+
 		shieldEnemy->playAnim = SHIELD_ENEMY_ANIM_NONE;
+
 		shieldEnemy->boxCollision.width = SHIELD_ENEMY_BOX_COLLISION_WIDTH;
 		shieldEnemy->boxCollision.height = SHIELD_ENEMY_BOX_COLLISION_HEIGHT;
+
 		for (int j = 0; j < SHIELD_ENEMY_ANIM_MAX; j++)
 		{
 			InitAnimation(&shieldEnemy->animation[j]);
@@ -70,12 +81,12 @@ void InitShieldEnemy()
 void LoadShieldEnemy()
 {
 	int runHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_run.png");
-	int dieHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_die.png");
+	int crushHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_crush.png");
 
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++)
 	{
 		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_RUN].handle = runHandle;
-		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_DIE].handle = dieHandle;
+		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_CRUSH].handle = crushHandle;
 	}
 }
 
@@ -83,9 +94,12 @@ void LoadShieldEnemy()
 void StepShieldEnemy()
 {
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
+
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)
 	{
 		if (!shieldEnemy->active)continue;
+
+		if (shieldEnemy->crush) continue;
 
 		g_PravShieldEnemyData[i] = g_ShieldEnemyData[i];
 
@@ -109,9 +123,24 @@ void StepShieldEnemy()
 void UpdateShieldEnemy()
 {
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
+
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)
 	{
 		if (!shieldEnemy->active)continue;
+
+		if (shieldEnemy->crush)
+		{
+			shieldEnemy->crushTimer--;
+
+			if (shieldEnemy->crushTimer <= 0)
+			{
+				shieldEnemy->active = false;
+				continue;
+			}
+
+			UpdateShieldEnemyAnimation(i);
+			continue;
+		}
 
 		shieldEnemy->pos.x += shieldEnemy->move.x;
 		shieldEnemy->pos.y += shieldEnemy->move.y;
@@ -160,13 +189,6 @@ void FinShieldEnemy()
 ShieldEnemyData* GetShieldEnemy()
 {
 	return g_ShieldEnemyData;
-}
-
-void PlayerKillShieldEnemy(int index)
-{
-	ShieldEnemyData* ShieldEnemy = &g_ShieldEnemyData[index];
-
-	ShieldEnemy->active = false;
 }
 
 void CreateShieldEnemy(float posX, float posY, const EnemyParameter* param)
@@ -257,6 +279,25 @@ void ShieldEnemyHitBlockY(MapChipData mapChipData, int index)
 	}
 }
 
+void PlayerKillShieldEnemy(int index)
+{
+	ShieldEnemyData* ShieldEnemy = &g_ShieldEnemyData[index];
+
+	if (ShieldEnemy->crush) return;
+
+	ShieldEnemy->crush = true;
+	ShieldEnemy->crushTimer = 50;
+
+	ShieldEnemy->move.x = 0.0f;
+	ShieldEnemy->move.y = 0.0f;
+
+	StartShieldEnemyAnimation(SHIELD_ENEMY_CRUSH, index);
+
+	// スコア
+	// int score = GetScore() + SHIELD_ENEMY_SCORE;
+	// SetScore(score);
+}
+
 void StartShieldEnemyAnimation(ShieldEnemyAnimationType anim, int index)
 {
 	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
@@ -280,16 +321,48 @@ void UpdateShieldEnemyAnimation(int index)
 {
 	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
 
-	// 歩くアニメーション
-	StartShieldEnemyAnimation(SHIELD_ENEMY_RUN, index);
-
-	// 増えれば追加する
-	// StartShieldEnemyAnimation(???, index);
-
-
+	if (shieldEnemy->crush)
+	{
+		StartShieldEnemyAnimation(SHIELD_ENEMY_CRUSH, index);
+	}
+	else
+	{
+		StartShieldEnemyAnimation(SHIELD_ENEMY_RUN, index);
+	}
 
 	// アニメーション更新
 	ShieldEnemyAnimationType animType = shieldEnemy->playAnim;
 	AnimationData* animData = &shieldEnemy->animation[animType];
 	UpdateAnimation(animData);
+}
+
+//踏みつけ系↓
+extern PlayerData g_PrevPlayerData;
+
+bool UpdateShieldCrush(int enemyIndex)
+{
+	PlayerData* player = GetPlayer();
+	ShieldEnemyData* enemy = GetShieldEnemy();
+
+	if (player->type != TYPE_BLUE) return false;
+
+	if (player->move.y <= 0.0f) return false;
+
+	ShieldEnemyData* e = &enemy[enemyIndex];
+
+	if (!e->active) return false;
+
+	float playerBottomPrev = g_PrevPlayerData.pos.y + PLAYER_HEIGHT;
+	float enemyTop = e->pos.y;
+
+	if (playerBottomPrev <= enemyTop)
+	{
+		PlayerKillShieldEnemy(enemyIndex);
+
+		player->move.y = -8.0f;
+
+		return true;
+	}
+
+	return false;
 }
