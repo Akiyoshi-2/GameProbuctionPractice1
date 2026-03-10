@@ -28,6 +28,7 @@
 //仮(多分必要になると思われるもの)
 #include "../Scene/SceneManager.h"
 #include "../Scene/TitleScene/TitleScene.h"
+#include "../Score/Score.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -463,6 +464,9 @@ void UpdatePlayer()
 	// プレイヤーが落下死ラインを超えたら死亡処理
 	if (!g_PlayerData.isDead && g_PlayerData.pos.y > deadLine)
 	{
+		//スコアを下げる
+		AddScore(-200);
+
 		// プレイヤーを非アクティブにする
 		g_PlayerData.active = false;
 
@@ -803,6 +807,8 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 		// 死亡処理
 		if (!g_PlayerData.isDead)
 		{
+			AddScore(-200);
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -854,6 +860,8 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 		// 死亡処理
 		if (!g_PlayerData.isDead)
 		{
+			AddScore(-200);
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -895,6 +903,8 @@ void PlayerHitEnemy()
 	if (player->isDead) return;
 
 	//プレイヤー死亡
+	AddScore(-200);
+
 	player->isDead = true;
 	player->deadTimer = PLAYER_DIE_TIME;
 	player->active = false;

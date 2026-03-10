@@ -18,10 +18,13 @@
 #include "../../Camera/Camera.h"
 #include "../../Animation/Animation.h"
 
-// --- 敵・衝突・タイマー関連 ---
+// --- 敵・衝突 ---
 #include "../../Collision/Collision.h"
 #include "../../Enemy/EnemyManager.h"
+
+// --- その他 ---
 #include "../../Timer/Timer.h"
+#include "../../Score/Score.h"
 
 int g_TestHandle = -1;
 
@@ -33,6 +36,7 @@ void InitTutorialScene()
 	InitEnemy();       // 敵初期化
 	InitMap();         // マップ初期化
 	InitTimer();       // タイマー初期化
+	InitScore();	   // スコア初期化
 }
 
 void LoadTutorialScene(int stage)
@@ -74,6 +78,7 @@ void UpdateTutorialScene()
 	CheckCollision();      // 衝突判定
 	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
 	UpdateTimer();         // タイマー更新
+	UpdateScore();
 }
 
 void DrawTutorialScene()
@@ -94,6 +99,7 @@ void DrawTutorialScene()
 	DrawPlayer();     // プレイヤー
 	DrawEnemy();      // 敵
 	DrawTimer();      // タイマー
+	DrawScore();
 
 	// デバッグ表示
 	DrawCamera();

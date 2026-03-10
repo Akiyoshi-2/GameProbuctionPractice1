@@ -5,6 +5,7 @@
 #include "../../Map/Block.h"
 #include "../../Camera/Camera.h"
 #include "../../Player/Attack/Attack.h"
+#include "../../Score/Score.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -134,6 +135,7 @@ void UpdateHelmetEnemy()
 			if (helmet->strikeTimer <= 0)
 			{
 				helmet->active = false;
+				AddScore(500);
 				continue;
 			}
 
@@ -230,8 +232,7 @@ void PlayerKillHelmetEnemy(int index)
 	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
 
 	// スコア
-	// int score = GetScore() + HELMET_ENEMY_SCORE;
-	// SetScore(score)
+	AddScore(500);
 }
 
 void CreateHelmetEnemy(float posX, float posY, const EnemyParameter* param)
@@ -366,7 +367,7 @@ void UpdateHelmetEnemyAnimation(int index)
 	// STRIKE終了で active を切る
 	if ((helmet->strike || helmet->isDead) && animData->isEnd)
 	{
-		helmet->active = false; 
+		helmet->active = false;
 	}
 }
 
