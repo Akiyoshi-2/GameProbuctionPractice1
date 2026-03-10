@@ -339,6 +339,37 @@ void NormalEnemyHitBlockY(MapChipData mapChipData, int index)
 	}
 }
 
+void NormalEnemyHitStopBlockX(MapChipData mapChipData, int index)
+{
+	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
+	BlockData* block = mapChipData.data;
+
+	float prevX = g_PravNormalEnemyData[index].pos.x;
+	float prevY = g_PravNormalEnemyData[index].pos.y;
+
+	if (CheckSquareSquare(
+		normalEnemy->pos.x,
+		normalEnemy->pos.y,
+		NORMAL_ENEMY_BOX_COLLISION_WIDTH + 10.0f,
+		NORMAL_ENEMY_BOX_COLLISION_HEIGHT - NORMAL_ENEMY_COLLISION_OFFSET,
+		block->pos.x,
+		block->pos.y,
+		MAP_CHIP_WIDTH,
+		MAP_CHIP_HEIGHT))
+	{
+		// ç∂Ç©ÇÁìñÇΩÇ¡ÇΩ
+		if (prevX + NORMAL_ENEMY_BOX_COLLISION_WIDTH <= block->pos.x)
+		{
+			normalEnemy->isTurn = true;
+		}
+		// âEÇ©ÇÁìñÇΩÇ¡ÇΩ
+		else if (prevX >= block->pos.x + MAP_CHIP_WIDTH)
+		{
+			normalEnemy->isTurn = false;
+		}
+	}
+}
+
 void PlayerKillNormalEnemy(int index)
 {
 	NormalEnemyData* enemy = &g_NormalEnemyData[index];

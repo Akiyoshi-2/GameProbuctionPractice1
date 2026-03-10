@@ -150,4 +150,7 @@ void UpdateGoalAnimation(int index)
 	GoalData* goal = &g_GoalData[index];
 
 	StartGoalAnimation(GOAL_ANIM_IDLE, index);
+
+	AnimationData* animData = &goal->animation[goal->playAnim];
+	UpdateAnimation(animData);
 }

@@ -12,3 +12,5 @@ void CheckMapHelmetEnemyCollision();
 void CheckMapShieldEnemyCollision();
 void CheckMapYellowEnemyCollision();
 void CheckMapFullarmorEnemyCollision();
+
+void CheackEnemyBlockEnd();

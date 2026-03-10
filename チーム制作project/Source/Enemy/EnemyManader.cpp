@@ -140,14 +140,14 @@ void StepEnemySpawnSystem(int stage)
 
 		g_EnemySpawnTimer++;
 	}
-	/*else if (stage == 2)
+	else if (stage == 2)
 	{
 		int spawnDataNum = sizeof(ENEMY_SPAWN_DATA_2) / sizeof(EnemySpawnData);
 
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_2;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-						if (spawn->spawnTimer == g_EnemySpawnTimer)
+			if (spawn->spawnTimer == g_EnemySpawnTimer)
 			{
 				SpawnEnemy(spawn);
 			}
@@ -161,13 +161,13 @@ void StepEnemySpawnSystem(int stage)
 		const EnemySpawnData* spawn = ENEMY_SPAWN_DATA_3;
 		for (int i = 0; i < spawnDataNum; i++, spawn++)
 		{
-						if (spawn->spawnTimer == g_EnemySpawnTimer)
+			if (spawn->spawnTimer == g_EnemySpawnTimer)
 			{
 				SpawnEnemy(spawn);
 			}
 		}
 		g_EnemySpawnTimer++;
-	}*/
+	}
 
 	
 }

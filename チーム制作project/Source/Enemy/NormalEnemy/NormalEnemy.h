@@ -18,5 +18,7 @@ NormalEnemyData* GetNormalEnemy();
 void NormalEnemyHitBlockX(MapChipData mapChipData, int index);
 void NormalEnemyHitBlockY(MapChipData mapChipData, int index);
 
+void NormalEnemyHitStopBlockX(MapChipData mapChipData, int index);
+
 // ‚â‚ç‚ê”»’è
 void PlayerKillNormalEnemy(int index);

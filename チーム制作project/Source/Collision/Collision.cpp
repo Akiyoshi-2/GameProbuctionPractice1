@@ -99,9 +99,9 @@ void CheckPlayerEnemy()
 	if (player->active)
 	{
 		// プレイヤーの位置設定
-		int playerX = player->pos.x;
+		int playerX = player->pos.x + 10.0f;
 		int playerY = player->pos.y;
-		int playerW = PLAYER_WIDTH;
+		int playerW = player->boxCollision.width - 0.1f;
 		int playerH = PLAYER_HEIGHT;
 
 		for (int i = 0; i < NORMAL_ENEMY_MAX; i++)
@@ -264,6 +264,7 @@ void CheckCollision()
 	CheckMapPlayerCpllision();
 
 	// プレイヤーとゴール(エネミー)の当たり判定
+	CheackPlayerGoal();
 
 	// エネミーとマップとの当たり判定
 	CheckMapNormalEnemyCollision();
@@ -271,6 +272,9 @@ void CheckCollision()
 	CheckMapShieldEnemyCollision();
 	CheckMapYellowEnemyCollision();
 	CheckMapFullarmorEnemyCollision();
+
+	CheackEnemyBlockEnd();
+
 	CheckPlayerEnemy();
 
 }

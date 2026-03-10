@@ -129,6 +129,9 @@ void CheckMapNormalEnemyCollision()
 				case NORMAL_BLOCK:
 					NormalEnemyHitBlockX(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					NormalEnemyHitBlockX(mapChipData, i);
+					break;
 				}
 			}
 		}
@@ -145,6 +148,9 @@ void CheckMapNormalEnemyCollision()
 				switch (mapChipData.mapChip)
 				{
 				case NORMAL_BLOCK:
+					NormalEnemyHitBlockY(mapChipData, i);
+					break;
+				case THORN_BLOCK:
 					NormalEnemyHitBlockY(mapChipData, i);
 					break;
 				}
@@ -183,6 +189,9 @@ void CheckMapHelmetEnemyCollision()
 				case NORMAL_BLOCK:
 					HelmetEnemyHitBlockX(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					HelmetEnemyHitBlockX(mapChipData, i);
+					break;
 				}
 			}
 		}
@@ -199,6 +208,9 @@ void CheckMapHelmetEnemyCollision()
 				switch (mapChipData.mapChip)
 				{
 				case NORMAL_BLOCK:
+					HelmetEnemyHitBlockY(mapChipData, i);
+					break;
+				case THORN_BLOCK:
 					HelmetEnemyHitBlockY(mapChipData, i);
 					break;
 				}
@@ -239,6 +251,9 @@ void CheckMapShieldEnemyCollision()
 				case NORMAL_BLOCK:
 					ShieldEnemyHitBlockX(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					ShieldEnemyHitBlockX(mapChipData, i);
+					break;
 				}
 			}
 		}
@@ -255,6 +270,9 @@ void CheckMapShieldEnemyCollision()
 				switch (mapChipData.mapChip)
 				{
 				case NORMAL_BLOCK:
+					ShieldEnemyHitBlockY(mapChipData, i);
+					break;
+				case THORN_BLOCK:
 					ShieldEnemyHitBlockY(mapChipData, i);
 					break;
 				}
@@ -293,6 +311,10 @@ void CheckMapYellowEnemyCollision()
 				case NORMAL_BLOCK:
 					YellowEnemyHitBlockX(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					YellowEnemyHitBlockX(mapChipData, i);
+					break;
+
 				}
 			}
 		}
@@ -309,6 +331,9 @@ void CheckMapYellowEnemyCollision()
 				switch (mapChipData.mapChip)
 				{
 				case NORMAL_BLOCK:
+					YellowEnemyHitBlockY(mapChipData, i);
+					break;
+				case THORN_BLOCK:
 					YellowEnemyHitBlockY(mapChipData, i);
 					break;
 				}
@@ -347,6 +372,9 @@ void CheckMapFullarmorEnemyCollision()
 				case NORMAL_BLOCK:
 					FullArmorEnemyHitBlockX(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					FullArmorEnemyHitBlockX(mapChipData, i);
+					break;
 				}
 			}
 		}
@@ -365,8 +393,115 @@ void CheckMapFullarmorEnemyCollision()
 				case NORMAL_BLOCK:
 					FullArmorEnemyHitBlockY(mapChipData, i);
 					break;
+				case THORN_BLOCK:
+					FullArmorEnemyHitBlockY(mapChipData, i);
+					break;
 				}
 			}
 		}
+	}
+}
+
+void CheackEnemyBlockEnd()
+{
+	NormalEnemyData* normal = GetNormalEnemy();
+	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normal++)
+	{
+		int normalX = (int)(normal->pos.x / MAP_CHIP_WIDTH);
+		int normalY = (int)((normal->pos.y + NORMAL_ENEMY_HEIGHT) / MAP_CHIP_HEIGHT);
+
+		int left = normalX - CHECK_ROUND_NUM;
+		int top = normalY - CHECK_ROUND_NUM;
+		int right = normalX + CHECK_ROUND_NUM;
+		int bottom = normalY + CHECK_ROUND_NUM;
+
+		if (!normal->active)continue;
+
+
+		for (int y = top; y <= bottom; y++)
+		{
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
+
+			for (int x = left; x <= right; x++)
+			{
+				if (x < 0 || x > MAP_CHIP_X_NUM_MAX)continue;
+
+				MapChipData mapChipData = GetMapChipData(x, y);
+				switch (mapChipData.mapChip)
+				{
+				case STOP_BLOCK:
+					NormalEnemyHitStopBlockX(mapChipData, i);
+					break;
+				}
+			}
+		}
+	}
+
+	HelmetEnemyData* helmet = GetHelmetEnemy();
+	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
+	{
+		int helmetX = (int)(helmet->pos.x / MAP_CHIP_WIDTH);
+		int helmetY = (int)((helmet->pos.y + HELMET_ENEMY_HEIGHT) / MAP_CHIP_HEIGHT);
+
+		int left = helmetX - CHECK_ROUND_NUM;
+		int top = helmetY - CHECK_ROUND_NUM;
+		int right = helmetX + CHECK_ROUND_NUM;
+		int bottom = helmetY + CHECK_ROUND_NUM;
+
+		if (!helmet->active)continue;
+
+
+		for (int y = top; y <= bottom; y++)
+		{
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
+
+			for (int x = left; x <= right; x++)
+			{
+				if (x < 0 || x > MAP_CHIP_X_NUM_MAX)continue;
+
+				MapChipData mapChipData = GetMapChipData(x, y);
+				switch (mapChipData.mapChip)
+				{
+				case STOP_BLOCK:
+					HelmetEnemyHitBlockX(mapChipData, i);
+					break;
+				}
+			}
+		}
+
+	}
+
+	ShieldEnemyData* shield = GetShieldEnemy();
+	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shield++)
+	{
+		int shieldX = (int)(shield->pos.x / MAP_CHIP_WIDTH);
+		int shieldY = (int)((shield->pos.y + SHIELD_ENEMY_HEIGHT) / MAP_CHIP_HEIGHT);
+
+		int left = shieldX - CHECK_ROUND_NUM;
+		int top = shieldY - CHECK_ROUND_NUM;
+		int right = shieldX + CHECK_ROUND_NUM;
+		int bottom = shieldY + CHECK_ROUND_NUM;
+
+		if (!shield->active)continue;
+
+
+		for (int y = top; y <= bottom; y++)
+		{
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
+
+			for (int x = left; x <= right; x++)
+			{
+				if (x < 0 || x > MAP_CHIP_X_NUM_MAX)continue;
+
+				MapChipData mapChipData = GetMapChipData(x, y);
+				switch (mapChipData.mapChip)
+				{
+				case STOP_BLOCK:
+					ShieldEnemyHitBlockX(mapChipData, i);
+					break;
+				}
+			}
+		}
+
 	}
 }

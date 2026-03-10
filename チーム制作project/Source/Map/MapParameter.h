@@ -1,7 +1,7 @@
 #pragma once
 #include "DxLib.h"
 
-#define BLOCK_MAX	2000
+#define BLOCK_MAX	4000
 
 #define MAP_CHIP_WIDTH (50.0f)
 #define MAP_CHIP_HEIGHT (50.0f)
@@ -28,6 +28,7 @@ enum MapChipType
 	MAP_CHIP_NONE,
 	NORMAL_BLOCK,
 	THORN_BLOCK,
+	STOP_BLOCK,
 	BLOCK_TYPE_MAX,
 };
 

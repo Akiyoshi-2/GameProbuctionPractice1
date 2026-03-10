@@ -77,12 +77,12 @@ PlayerData g_PrevPlayerData = { 0 };
 #define PLAYER_MAP_COLLISION_OFFSET (0.05f)
 
 // プレイヤー画像からの当たり判定開始位置
-#define PLAYER_BOX_COLLISION_OFFSET_X (16)
-#define PLAYER_BOX_COLLISION_OFFSET_Y (20)
+#define PLAYER_BOX_COLLISION_OFFSET_X (10)
+#define PLAYER_BOX_COLLISION_OFFSET_Y (10)
 
 // プレイヤー当たり判定サイズ
-#define PLAYER_BOX_COLLISION_WIDTH (20)
-#define PLAYER_BOX_COLLISiON_HEIGHT (25)
+#define PLAYER_BOX_COLLISION_WIDTH (30)
+#define PLAYER_BOX_COLLISiON_HEIGHT (35)
 
 // キャラクタータイプ切り替えクールタイム
 #define PLAYER_TYPE_CHANGE_COOLTIME (60)
