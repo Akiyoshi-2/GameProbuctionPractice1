@@ -160,7 +160,7 @@ void InitPlayer()
 	g_PlayerData.isAttacking = false;
 
 	//初期残機
-	g_PlayerData.life = 3;
+	g_PlayerData.life = 0;
 
 	// アニメーション初期化
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
@@ -472,6 +472,12 @@ void UpdatePlayer()
 
 		// 残機減少
 		g_PlayerData.life--;
+
+		if (g_PlayerData.life <= -1)
+		{
+			ChangeScene(SCENE_GAMEOVER);
+			return;
+		}
 
 		// プレイヤーを非アクティブにする
 		g_PlayerData.active = false;
@@ -818,6 +824,12 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
+			if (g_PlayerData.life <= -1)
+			{
+				ChangeScene(SCENE_GAMEOVER);
+				return;
+			}
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -874,6 +886,13 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
+			if (g_PlayerData.life <= -1)
+			{
+				ChangeScene(SCENE_GAMEOVER);
+				return;
+			}
+
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -915,9 +934,9 @@ void PlayerHitEnemy()
 
 	player->life--;   //残機減少
 
-	if (player->life <= 0)
+	if (player->life <= -1)
 	{
-		//ChangeScene(SCENE_GAMEOVER);
+		ChangeScene(SCENE_GAMEOVER);
 		return;
 	}
 

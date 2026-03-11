@@ -1,46 +1,46 @@
 #include "DxLib.h"
 #include "GameOverScene.h"
 #include "../SceneManager.h"
-#include "../PlayScene/PlayScene.h"
 #include "../../Input/Input.h"
-#include "../../Sound/SoundManager.h"
-#include "../../UI/UIText.h"
-#include "../../Player/Player.h"
 #include "../TitleScene/TitleScene.h"
 
-// GamOver文字画像
-int g_GameOverHandle = 0;
+int g_GameOverHandle = -1;
+int g_RKyeHandle = -1;
+
+int g_GameOverSEHandle = -1;
 
 void InitGameOver()
 {
-	g_GameOverHandle = 0;
+    g_GameOverHandle = -1;
+    g_RKyeHandle = -1;
 
-	
+    g_GameOverSEHandle = -1;
 }
 
 void LoadGameOver()
 {
-	g_GameOverHandle = LoadGraph("Data/GameOver/画像/ゲームオーバー.png");
-	
+    g_GameOverHandle = LoadGraph("Data/GameOver/画像/GameOver.png");
+    g_RKyeHandle = LoadGraph("Data/GameOver/画像/ReStart.png");
+
+    g_GameOverSEHandle = LoadSoundMem("Data/Sound/BGM/GameOver.ogg");
 }
 
 void StartGameOver()
 {
-//	CreateUIText(650.0f, 800.0f, "P Keyでタイトルに戻る");
-
-
-//	PlayBGM();
-
+    PlaySoundMem(g_GameOverSEHandle, DX_PLAYTYPE_LOOP);
 }
 
 void StepGameOver()
 {
-	if (IsTriggerKey(KEY_P))
-	{
-		g_ReturnFromGame = true;
-		ChangeScene(SCENE_TITLE);
-	}
+    if (IsTriggerKey(KEY_R))
+    {
+        // タイトルへ戻る
+        g_ReturnFromGame = true;
 
+        StopSoundMem(g_GameOverSEHandle);
+
+        ChangeScene(SCENE_TITLE);
+    }
 }
 
 void UpdateGameOver()
@@ -50,19 +50,16 @@ void UpdateGameOver()
 
 void DrawGameOver()
 {
-	if (g_GameOverHandle != -1)
-	{
-		DrawGraph(250, 550, g_GameOverHandle, TRUE);
-	}
-	
-
-//	DrawUIText();
+    DrawGraph(0, 0, g_GameOverHandle, TRUE);
+    //GameOverの文字をもう少し下にずらす
+    DrawGraph(545, 500, g_RKyeHandle, TRUE);
 }
 
 void FinGameOver()
 {
-	DeleteGraph(g_GameOverHandle);
+    DeleteGraph(g_GameOverHandle);
 
-	StopBGM(BGM_GAME_OVER);
-	
+    DeleteGraph(g_RKyeHandle);
+
+    DeleteSoundMem(g_GameOverSEHandle);
 }

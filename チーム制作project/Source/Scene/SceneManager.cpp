@@ -6,7 +6,7 @@
 #include "TutorialScene/TutorialScene.h"
 #include "TestScene/TestSceneA.h"
 #include "../Scene/ClearScene/ClearScene.h"
-#include "../Scene/GameOverScene/GameOverScene.h"
+#include "GameOverScene/GameOverScene.h"
 
 // 現在のシーン
 // 初期値は最初に開かれるシーン
@@ -99,16 +99,12 @@ void InitScene()
 		InitPlayScene();
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		InitTestSceneA();
+	case SCENE_GAMEOVER:
+		InitGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		InitClearScene();
-		break;
-
-	case SCENE_GAME_OVER:
-		InitGameOver();
 		break;
 
 
@@ -140,16 +136,12 @@ void LoadScene()
 		LoadPlayScene(3);
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		LoadTestSceneA();
+	case SCENE_GAMEOVER:
+		LoadGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		LoadClearScene();
-		break;
-
-	case SCENE_GAME_OVER:
-		LoadGameOver();
 		break;
 
 	}
@@ -180,16 +172,12 @@ void StartScene()
 		StartPlayScene(3);
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		StartTestSceneA();
-		break;
-	
-	case SCENE_CLEAR:
-		StartClearScene();
+	case SCENE_GAMEOVER:
+		StartGameOver();
 		break;
 
-	case SCENE_GAME_OVER:
-		StartGameOver();
+	case SCENE_CLEAR:
+		StartClearScene();
 		break;
 	}
 }
@@ -219,18 +207,14 @@ void StepScene()
 		StepPlayScene(3);
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		StepTestSceneA();
+	case SCENE_GAMEOVER:
+		StepGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		StepClearScene();
 		break;
 
-	case SCENE_GAME_OVER:
-		StepGameOver();
-		break;
-	
 	}
 }
 
@@ -259,16 +243,12 @@ void UpdateScene()
 		UpdatePlayScene();
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		UpdateTestSceneA();
+	case SCENE_GAMEOVER:
+		UpdateGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		UpdateClearScene();
-		break;
-
-	case SCENE_GAME_OVER:
-		UpdateGameOver();
 		break;
 	}
 }
@@ -298,17 +278,13 @@ void DrawScene()
 		DrawPlayScene();
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		DrawTestSceneA();
+	case SCENE_GAMEOVER:
+		DrawGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		DrawClearScene();
 		break;
-
-	case SCENE_GAME_OVER:
-		DrawGameOver();
-		break;	
 
 	}
 }
@@ -338,16 +314,12 @@ void FinScene()
 		FinPlayScene();
 		break;
 
-	case TEST_SCENE_A:	// テスト
-		FinTestSceneA();
+	case SCENE_GAMEOVER:
+		FinGameOver();
 		break;
 
 	case SCENE_CLEAR:
 		FinClearScene();
-		break;
-
-	case SCENE_GAME_OVER:
-		FinGameOver();
 		break;
 	}
 }

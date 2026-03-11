@@ -46,6 +46,7 @@ void StepClearScene()
 	if (IsTriggerKey(KEY_C))
 	{
 		g_ReturnFromGame = true;
+
 		ChangeScene(SCENE_TITLE);
 	}	
 	
