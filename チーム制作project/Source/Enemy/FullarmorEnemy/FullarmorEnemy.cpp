@@ -22,12 +22,14 @@ const FullArmEnemyAnimationParam FULLARMOR_ENEMY_ANIM_PARAM[FULLARMOR_ENEMY_ANIM
 
 #define FULLARMOR_ENEMY_MOVE_SPEED	(0.5f)
 
-#define FULLARMOR_ENEMY_COLLISION_OFFSET	(0.1f)
+#define FULLARMOR_ENEMY_GRAVITY		(0.5f)
+
+#define FULLARMOR_ENEMY_COLLISION_OFFSET	(1.0f)
 
 #define FULLARMOR_ENEMY_DEAD_EFFECT_INTARVAL	(5)
 
-#define FULLARMOR_ENEMY_BOX_COLLISION_WIDHT		(40)
-#define FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT	(43)
+#define FULLARMOR_ENEMY_BOX_COLLISION_WIDHT		(38.0f)
+#define FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT	(47.0f)
 
 // 撃破時のスコア
 #define FULLARMOR_ENEMY_SCORE	(5000)
@@ -64,10 +66,12 @@ void InitFullArmorEnemy()
 void LoadFullArmorEnemy()
 {
 	int runHandle = LoadGraph("Data/animation/Fullarmor_Enemy/fullarmor_enemy_run.png");
+	int dieHandle = LoadGraph("Data/animation/Fullarmor_Enemy/fullarmor_enemy_die.png");
 
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++)
 	{
 		g_FullArmEnemyData[i].animation[FULLARMOR_ENEMY_ANIM_RUN].handle = runHandle;
+		g_FullArmEnemyData[i].animation[FULLARMOR_ENEMY_ANIM_DIE].handle = dieHandle;
 	}
 }
 
@@ -79,6 +83,8 @@ void StepFullArmorEnemy()
 		if (!fullArmor->active)continue;
 
 		g_PravFullArmEnemyData[i] = g_FullArmEnemyData[i];
+
+		fullArmor->move.y += FULLARMOR_ENEMY_GRAVITY;
 
 		fullArmor->move.x = 0.0f;
 
@@ -186,23 +192,25 @@ void FullArmorEnemyHitBlockX(MapChipData mapChipData, int index)
 {
 	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = FULLARMOR_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = FULLARMOR_ENEMY_COLLISION_OFFSET * 2;
 
-	fullArmor->pos.x = g_FullArmEnemyData[index].pos.x;
-	fullArmor->pos.y = g_FullArmEnemyData[index].pos.y;
+	float prevX = g_PravFullArmEnemyData[index].pos.x;
+	float prevY = g_PravFullArmEnemyData[index].pos.y;
 
-	if (CheckSquareSquare(fullArmor->pos.x + POS_OFFSET, fullArmor->pos.y + POS_OFFSET,
-		FULLARMOR_ENEMY_BOX_COLLISION_WIDHT - SIZE_OFFSET, FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	if (CheckSquareSquare(fullArmor->pos.x, fullArmor->pos.y,
+		FULLARMOR_ENEMY_BOX_COLLISION_WIDHT + FULLARMOR_ENEMY_COLLISION_OFFSET,
+		FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT - FULLARMOR_ENEMY_COLLISION_OFFSET,
+		block->pos.x, block->pos.y,
+		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		if (fullArmor->move.x > 0.0f)
-		{
-			fullArmor->isTurn = false;
-		}
-		else if (fullArmor->move.x < 0.0f)
+		// 左から当たった
+		if (prevX + FULLARMOR_ENEMY_BOX_COLLISION_WIDHT <= block->pos.x)
 		{
 			fullArmor->isTurn = true;
+		}
+		// 右から当たった
+		else if (prevX >= block->pos.x + MAP_CHIP_WIDTH)
+		{
+			fullArmor->isTurn = false;
 		}
 	}
 }
@@ -210,28 +218,29 @@ void FullArmorEnemyHitBlockX(MapChipData mapChipData, int index)
 void FullArmorEnemyHitBlockY(MapChipData mapChipData, int index)
 {
 	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
+	FullArmEnemyData* prevFullArmor = &g_PravFullArmEnemyData[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = FULLARMOR_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = FULLARMOR_ENEMY_COLLISION_OFFSET * 2;
 
-	fullArmor->isTurn = g_PravFullArmEnemyData->isTurn;
-
-	if (CheckSquareSquare(fullArmor->pos.x + POS_OFFSET, fullArmor->pos.y + POS_OFFSET,
-		FULLARMOR_ENEMY_BOX_COLLISION_WIDHT - SIZE_OFFSET, FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	if (CheckSquareSquare(fullArmor->pos.x, fullArmor->pos.y,
+		FULLARMOR_ENEMY_BOX_COLLISION_WIDHT,
+		FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT,
+		block->pos.x, block->pos.y,
+		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		if (fullArmor->move.y > 0.0f)
+		// 上から落ちてきた
+		if (prevFullArmor->pos.y + FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT <= block->pos.y)
 		{
-			fullArmor->pos.y -= (fullArmor->pos.y * FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT) - block->pos.y;
+			fullArmor->pos.y = block->pos.y - FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT;
+			fullArmor->move.y = 0.0f;
 			fullArmor->isAir = false;
 		}
-		else if (fullArmor->move.y < 0.0f)
+		// 下から当たった
+		else if (prevFullArmor->pos.y >= block->pos.y + MAP_CHIP_HEIGHT)
 		{
-			fullArmor->pos.y += (block->pos.y + MAP_CHIP_WIDTH) - fullArmor->pos.y;
+			fullArmor->pos.y = block->pos.y + MAP_CHIP_HEIGHT;
+			fullArmor->move.y = 0.0f;
 		}
 	}
-
-	fullArmor->move.y = 0.0f;
 }
 
 void StartFullArmEnemyAnimation(FullArmEnemyAnimationType anim, int index)
