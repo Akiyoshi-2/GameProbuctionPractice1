@@ -31,7 +31,7 @@ void LoadClearScene()
 
 void StartClearScene()
 {
-	CreateUIText(650.0f, 800.0f, "C Keyでタイトルに戻る");
+//	CreateUIText(650.0f, 800.0f, "C Keyでタイトルに戻る");
 
 //	CreateScoreUI();
 
@@ -67,7 +67,7 @@ void DrawClearScene()
 		DrawGraph(0, 0, g_ResultHandle, TRUE);
 	}
 
-	DrawUIText();
+//	DrawUIText();
 
 }
 

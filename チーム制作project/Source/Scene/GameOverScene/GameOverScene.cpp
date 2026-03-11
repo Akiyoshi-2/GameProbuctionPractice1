@@ -26,7 +26,7 @@ void LoadGameOver()
 
 void StartGameOver()
 {
-	CreateUIText(650.0f, 800.0f, "P Keyでタイトルに戻る");
+//	CreateUIText(650.0f, 800.0f, "P Keyでタイトルに戻る");
 
 
 //	PlayBGM();
@@ -56,7 +56,7 @@ void DrawGameOver()
 	}
 	
 
-	DrawUIText();
+//	DrawUIText();
 }
 
 void FinGameOver()
