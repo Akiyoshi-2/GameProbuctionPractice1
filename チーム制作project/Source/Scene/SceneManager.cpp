@@ -6,6 +6,7 @@
 #include "TutorialScene/TutorialScene.h"
 #include "TestScene/TestSceneA.h"
 #include "../Scene/ClearScene/ClearScene.h"
+#include "../Scene/GameOverScene/GameOverScene.h"
 
 // 現在のシーン
 // 初期値は最初に開かれるシーン
@@ -106,6 +107,10 @@ void InitScene()
 		InitClearScene();
 		break;
 
+	case SCENE_GAME_OVER:
+		InitGameOver();
+		break;
+
 
 	}
 }
@@ -143,6 +148,10 @@ void LoadScene()
 		LoadClearScene();
 		break;
 
+	case SCENE_GAME_OVER:
+		LoadGameOver();
+		break;
+
 	}
 }
 
@@ -177,6 +186,10 @@ void StartScene()
 	
 	case SCENE_CLEAR:
 		StartClearScene();
+		break;
+
+	case SCENE_GAME_OVER:
+		StartGameOver();
 		break;
 	}
 }
@@ -214,6 +227,10 @@ void StepScene()
 		StepClearScene();
 		break;
 
+	case SCENE_GAME_OVER:
+		StepGameOver();
+		break;
+	
 	}
 }
 
@@ -248,6 +265,10 @@ void UpdateScene()
 
 	case SCENE_CLEAR:
 		UpdateClearScene();
+		break;
+
+	case SCENE_GAME_OVER:
+		UpdateGameOver();
 		break;
 	}
 }
@@ -285,6 +306,10 @@ void DrawScene()
 		DrawClearScene();
 		break;
 
+	case SCENE_GAME_OVER:
+		DrawGameOver();
+		break;	
+
 	}
 }
 
@@ -319,6 +344,10 @@ void FinScene()
 
 	case SCENE_CLEAR:
 		FinClearScene();
+		break;
+
+	case SCENE_GAME_OVER:
+		FinGameOver();
 		break;
 	}
 }

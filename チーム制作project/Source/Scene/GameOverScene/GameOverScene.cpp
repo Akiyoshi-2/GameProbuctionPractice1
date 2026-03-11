@@ -27,9 +27,6 @@ void StartGameOver()
 {
 //	CreateUITxet("");
 
-//	CreateScoreUI();
-
-//	CreateHighScoreUI();
 
 //	PlayBGM();
 
