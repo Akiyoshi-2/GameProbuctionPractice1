@@ -6,6 +6,7 @@
 #include "../../Sound/SoundManager.h"
 #include "../../UI/UIText.h"
 #include "../../Enemy/Goal/Goal.h"
+#include "../TitleScene/TitleScene.h"
 
 //ƒQ[ƒ€ƒNƒŠƒA‚Ì‰æ‘œ
 int g_ClearHandle = -1;
@@ -43,6 +44,7 @@ void StepClearScene()
 {
 	if (IsTriggerKey(KEY_C))
 	{
+		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
 	}	
 	

@@ -6,6 +6,7 @@
 #include "../../Sound/SoundManager.h"
 #include "../../UI/UIText.h"
 #include "../../Player/Player.h"
+#include "../TitleScene/TitleScene.h"
 
 // GamOver•¶Žš‰æ‘œ
 int g_GameOverHandle = 0;
@@ -36,6 +37,7 @@ void StepGameOver()
 {
 	if (IsTriggerKey(KEY_P))
 	{
+		g_ReturnFromGame = true;
 		ChangeScene(SCENE_TITLE);
 	}
 
