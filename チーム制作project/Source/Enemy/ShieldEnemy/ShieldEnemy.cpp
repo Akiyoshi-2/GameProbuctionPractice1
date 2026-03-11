@@ -19,7 +19,7 @@ struct ShieldEnemyAnimationParam
 const ShieldEnemyAnimationParam SHIELD_ENEMY_ANIM_PARAM[SHIELD_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
-	5, 10, 50, 50,	// DIE
+	10, 6, 50, 50,	// DIE
 	5, 10, 50, 50,	// CRUSH
 };
 
@@ -62,8 +62,10 @@ void InitShieldEnemy()
 
 		shieldEnemy->active = false;
 		shieldEnemy->crush = false;
+		shieldEnemy->die = false;
 
 		shieldEnemy->crushTimer = 0;
+		shieldEnemy->dieTimer = 0;
 
 		shieldEnemy->playAnim = SHIELD_ENEMY_ANIM_NONE;
 
@@ -83,11 +85,13 @@ void LoadShieldEnemy()
 {
 	int runHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_run.png");
 	int crushHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_crush.png");
+	int dieHandle = LoadGraph("Data/animation/Shield_Enemy/shield_enemy_dead.png");
 
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++)
 	{
 		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_RUN].handle = runHandle;
 		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_CRUSH].handle = crushHandle;
+		g_ShieldEnemyData[i].animation[SHIELD_ENEMY_DIE].handle = dieHandle;
 	}
 }
 
@@ -134,6 +138,20 @@ void UpdateShieldEnemy()
 			shieldEnemy->crushTimer--;
 
 			if (shieldEnemy->crushTimer <= 0)
+			{
+				shieldEnemy->active = false;
+				continue;
+			}
+
+			UpdateShieldEnemyAnimation(i);
+			continue;
+		}
+
+		if (shieldEnemy->die)
+		{
+			shieldEnemy->dieTimer--;
+
+			if (shieldEnemy->dieTimer <= 0)
 			{
 				shieldEnemy->active = false;
 				continue;
@@ -298,6 +316,23 @@ void PlayerKillShieldEnemy(int index)
 	AddScore(500);
 }
 
+void PlayerKillShieldEnemyYellow(int index)
+{
+	ShieldEnemyData* enemy = &g_ShieldEnemyData[index];
+
+	if (enemy->crush || enemy->die) return;
+
+	enemy->die = true;
+	enemy->dieTimer = 60;
+
+	enemy->move.x = 0;
+	enemy->move.y = 0;
+
+	StartShieldEnemyAnimation(SHIELD_ENEMY_DIE, index);
+
+	AddScore(500);
+}
+
 void StartShieldEnemyAnimation(ShieldEnemyAnimationType anim, int index)
 {
 	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
@@ -321,7 +356,11 @@ void UpdateShieldEnemyAnimation(int index)
 {
 	ShieldEnemyData* shieldEnemy = &g_ShieldEnemyData[index];
 
-	if (shieldEnemy->crush)
+	if (shieldEnemy->die)
+	{
+		StartShieldEnemyAnimation(SHIELD_ENEMY_DIE, index);
+	}
+	else if (shieldEnemy->crush)
 	{
 		StartShieldEnemyAnimation(SHIELD_ENEMY_CRUSH, index);
 	}

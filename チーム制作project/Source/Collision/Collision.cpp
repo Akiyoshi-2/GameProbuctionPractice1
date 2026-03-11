@@ -122,6 +122,12 @@ void CheckPlayerEnemy()
 				playerX, playerY, playerW, playerH,
 				normalX, normalY, normalW, normalH))
 			{
+				if (player->type == TYPE_YELLOW)
+				{
+					PlayerKillNormalEnemyYellow(i);
+					return;
+				}
+
 				// Ç±ÇÃìGÇæÇØì•Ç›Ç¬ÇØîªíË
 				if (UpdateCrush(i))
 				{
@@ -150,6 +156,12 @@ void CheckPlayerEnemy()
 				playerX, playerY, playerW, playerH,
 				helmetX, helmetY, helmetW, helmetH))
 			{
+				if (player->type == TYPE_YELLOW)
+				{
+					PlayerKillHelmetEnemyYellow(i);
+					return;
+				}
+
 				if (player->type == TYPE_BLUE)
 				{
 					PlayerHitEnemy();
@@ -182,6 +194,12 @@ void CheckPlayerEnemy()
 			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
 				shieldX, shieldY, shieldW, shieldH))
 			{
+				if (player->type == TYPE_YELLOW)
+				{
+					PlayerKillShieldEnemyYellow(i);
+					return;
+				}
+
 				// è„Ç©ÇÁì•ÇÒÇæ
 				if (UpdateShieldCrush(i))
 				{

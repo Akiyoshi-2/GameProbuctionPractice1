@@ -22,6 +22,7 @@ const NormalEnemyAnimationParam NORMAL_ENEMY_ANIM_PARAM[NORMAL_ENEMY_ANIM_MAX] =
 	10, 2, 50, 50,	// RUN
 	5, 10, 50, 50,	// CRUSH
 	5, 10, 50, 50,	// STRIKE
+	10, 6, 50, 50,	//DIE
 };
 
 // 移動速度
@@ -67,10 +68,12 @@ void InitNormalEnemy()
 		normalEnemy->active = false;	//敵がゲーム内で有効かどうか
 		normalEnemy->crush = false;		//踏みつけられて死亡中か
 		normalEnemy->strike = false;	//攻撃されて死亡中か
+		normalEnemy->die = false;
 
 		// タイマー
 		normalEnemy->crushTimer = 0;
 		normalEnemy->strikeTimer = 0;
+		normalEnemy->dieTimer = 0;
 
 		// 再生アニメーション
 		normalEnemy->playAnim = NORMAL_ENEMY_ANIM_NONE;
@@ -92,12 +95,14 @@ void LoadNormalEnemy()
 	int runHandle = LoadGraph("Data/animation/Normal_Enemy/Normal_Enemy_run.png");
 	int crushHandle = LoadGraph("Data/animation/Normal_Enemy/enemy_crush.png");
 	int strikeHandle = LoadGraph("Data/animation/Normal_Enemy/enemy_strile.png");
+	int dieHandle = LoadGraph("Data/animation/Normal_Enemy/enemy_die.png");
 
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++)
 	{
 		g_NormalEnemyData[i].animation[NORMAL_ENEMY_RUN].handle = runHandle;
 		g_NormalEnemyData[i].animation[NORMAL_ENEMY_CRUSH].handle = crushHandle;
 		g_NormalEnemyData[i].animation[NORMAL_ENEMY_STRIKE].handle = strikeHandle;
+		g_NormalEnemyData[i].animation[NORMAL_ENEMY_DIE].handle = dieHandle;
 	}
 }
 
@@ -163,6 +168,20 @@ void UpdateNormalEnemy()
 			{
 				normalEnemy->active = false;
 				AddScore(200);
+				continue;
+			}
+
+			UpdateNormalEnemyAnimation(i);
+			continue;
+		}
+
+		if (normalEnemy->die)
+		{
+			normalEnemy->dieTimer--;
+
+			if (normalEnemy->dieTimer <= 0)
+			{
+				normalEnemy->active = false;
 				continue;
 			}
 
@@ -391,6 +410,23 @@ void PlayerKillNormalEnemy(int index)
 	AddScore(200);
 }
 
+void PlayerKillNormalEnemyYellow(int index)
+{
+	NormalEnemyData* enemy = &g_NormalEnemyData[index];
+
+	if (enemy->crush || enemy->strike || enemy->die) return;
+
+	enemy->die = true;
+	enemy->dieTimer = 60;
+
+	enemy->move.x = 0;
+	enemy->move.y = 0;
+
+	StartNormalEnemyAnimation(NORMAL_ENEMY_DIE, index);
+
+	AddScore(200);
+}
+
 void StartNormalEnemyAnimation(NormalEnemyAnimationType anim, int index)
 {
 	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
@@ -414,7 +450,11 @@ void UpdateNormalEnemyAnimation(int index)
 {
 	NormalEnemyData* normalEnemy = &g_NormalEnemyData[index];
 
-	if (normalEnemy->crush)
+	if (normalEnemy->die)
+	{
+		StartNormalEnemyAnimation(NORMAL_ENEMY_DIE, index);
+	}
+	else if (normalEnemy->crush)
 	{
 		StartNormalEnemyAnimation(NORMAL_ENEMY_CRUSH, index);
 	}

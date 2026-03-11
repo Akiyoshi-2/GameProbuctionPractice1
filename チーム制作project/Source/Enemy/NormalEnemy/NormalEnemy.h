@@ -22,3 +22,4 @@ void NormalEnemyHitStopBlockX(MapChipData mapChipData, int index);
 
 // ‚â‚ç‚ê”»’è
 void PlayerKillNormalEnemy(int index);
+void PlayerKillNormalEnemyYellow(int index);

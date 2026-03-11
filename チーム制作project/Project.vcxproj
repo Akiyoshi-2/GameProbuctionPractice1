@@ -151,6 +151,7 @@
     <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp" />
     <ClCompile Include="Source\Enemy\YellowEnemy\YellowEnemy.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
+    <ClCompile Include="Source\LifeUI\Life.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Map\Block.cpp" />
     <ClCompile Include="Source\Map\MapChip.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\Enemy\YellowEnemy\YellowEnemy.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
+    <ClInclude Include="Source\LifeUI\Life.h" />
     <ClInclude Include="Source\Map\Block.h" />
     <ClInclude Include="Source\Map\MapChip.h" />
     <ClInclude Include="Source\Map\MapManager.h" />

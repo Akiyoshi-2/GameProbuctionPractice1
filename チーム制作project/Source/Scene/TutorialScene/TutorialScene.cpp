@@ -12,6 +12,7 @@
 #include "../../Player/Player.h"
 #include "../../Player/Attack/Attack.h"
 #include "../../Player/Attack/Crush.h"
+#include "../../LifeUI/Life.h"
 
 // --- マップ・カメラ・アニメーション ---
 #include "../../Map/MapManager.h"
@@ -37,15 +38,17 @@ void InitTutorialScene()
 	InitMap();         // マップ初期化
 	InitTimer();       // タイマー初期化
 	InitScore();	   // スコア初期化
+	InitLife();
 }
 
 void LoadTutorialScene(int stage)
 {
-	g_TestHandle = LoadGraph("Data/Title/Select/StageSelect.png");
+	g_TestHandle = LoadGraph("Data/Title/Select/PlaySceneBG.png");
 
 	LoadPlayer();
 	LoadEnemy();
 	LoadMap(stage);
+	LoadLife();
 }
 
 void StartTutorialScene(int stage)
@@ -100,14 +103,15 @@ void DrawTutorialScene()
 	DrawEnemy();      // 敵
 	DrawTimer();      // タイマー
 	DrawScore();
+	DrawLife();
 
 	// デバッグ表示
-	DrawCamera();
+	/*DrawCamera();
 	DrawAttack();
 	DrawString(0, 40, "A:ジャンプ", GetColor(255, 255, 255));
 	DrawString(0, 60, "B:攻撃", GetColor(255, 255, 255));
 	DrawString(0, 80, "X:カラーチェンジ", GetColor(255, 255, 255));
-	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));
+	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));*/
 }
 
 void FinTutorialScene()
@@ -121,4 +125,5 @@ void FinTutorialScene()
 	FinPlayer();   // プレイヤー終了処理
 	FinEnemy();    // 敵終了処理
 	FinMap();      // マップ終了処理
+	FinLife();
 }

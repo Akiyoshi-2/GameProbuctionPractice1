@@ -19,7 +19,7 @@ struct helmetEnemyAnimationParam
 const helmetEnemyAnimationParam HELMET_ENEMYANIM_PARAM[HELMET_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN
-	5, 10, 50, 50,	// DIE
+	10, 6, 50, 50,	// DIE
 	5, 10, 50, 50,  // STRIKE
 };
 
@@ -65,6 +65,7 @@ void InitHelmetEnemy()
 		helmet->strike = false;
 
 		helmet->strikeTimer = 0;
+		helmet->dieTimer = 0;
 
 		helmet->playAnim = HELMET_ENEMY_ANIM_NONE;
 
@@ -81,13 +82,13 @@ void InitHelmetEnemy()
 void LoadHelmetEnemy()
 {
 	int runHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_run.png");
-	//int dieHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_die.png");
+	int dieHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_dead.png");
 	int strikeHandle = LoadGraph("Data/animation/Helmet_Enemy/helmet_enemy_strike.png");
 
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++)
 	{
 		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_RUN].handle = runHandle;
-		//g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_DIE].handle = dieHandle;
+		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_DIE].handle = dieHandle;
 		g_HelmetEnemyData[i].animation[HELMET_ENEMY_ANIM_STRIKE].handle = strikeHandle;
 	}
 }
@@ -136,6 +137,21 @@ void UpdateHelmetEnemy()
 			{
 				helmet->active = false;
 				AddScore(500);
+				continue;
+			}
+
+			UpdateHelmetEnemyAnimation(i);
+			continue;
+		}
+
+		// DIEŽ€–S
+		if (helmet->isDead)
+		{
+			helmet->dieTimer--;
+
+			if (helmet->dieTimer <= 0)
+			{
+				helmet->active = false;
 				continue;
 			}
 
@@ -232,6 +248,23 @@ void PlayerKillHelmetEnemy(int index)
 	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
 
 	// ƒXƒRƒA
+	AddScore(500);
+}
+
+void PlayerKillHelmetEnemyYellow(int index)
+{
+	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
+
+	if (helmet->strike || helmet->isDead) return;
+
+	helmet->isDead = true;
+	helmet->dieTimer = 60;
+
+	helmet->move.x = 0;
+	helmet->move.y = 0;
+
+	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_DIE, index);
+
 	AddScore(500);
 }
 
@@ -351,8 +384,11 @@ void UpdateHelmetEnemyAnimation(int index)
 {
 	HelmetEnemyData* helmet = &g_HelmetEnemyData[index];
 
-	// Ž€–SESTRIKE—Dæ
-	if (helmet->strike || helmet->isDead)
+	if (helmet->isDead)
+	{
+		StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_DIE, index);
+	}
+	else if (helmet->strike)
 	{
 		StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_STRIKE, index);
 	}

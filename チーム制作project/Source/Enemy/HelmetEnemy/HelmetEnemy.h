@@ -19,3 +19,4 @@ void HelmetEnemyHitBlockY(MapChipData mapChipData, int index);
 
 // ‚â‚ç‚ê”»’è
 void PlayerKillHelmetEnemy(int index);
+void PlayerKillHelmetEnemyYellow(int index);

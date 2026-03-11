@@ -86,6 +86,9 @@
     <ClCompile Include="Source\Score\Score.cpp">
       <Filter>Score</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LifeUI\Life.cpp">
+      <Filter>Player\LifeUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -154,9 +157,6 @@
     <ClInclude Include="Source\Scene\PlayScene\PlayScene.h">
       <Filter>Scene\Play</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene\SceneManager.h">
-      <Filter>Scene\Test</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene\TestScene\TestSceneA.h">
       <Filter>Scene\Test</Filter>
     </ClInclude>
@@ -180,6 +180,12 @@
     </ClInclude>
     <ClInclude Include="Source\Score\Score.h">
       <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LifeUI\Life.h">
+      <Filter>Player\LifeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneManager.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +266,9 @@
     </Filter>
     <Filter Include="Score">
       <UniqueIdentifier>{4d4c9ecd-2ff3-47e4-b953-7189e7717488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\LifeUI">
+      <UniqueIdentifier>{de61d79f-c3d2-48b2-b7d3-e4b858e89e2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

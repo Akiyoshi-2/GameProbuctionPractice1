@@ -12,27 +12,30 @@
 #include "../../Player/Attack/Attack.h"
 #include "../../Enemy/EnemyManager.h"
 #include "../../Score/Score.h"
+#include "../../LifeUI/Life.h"
 
 int g_Stage1Handle = -1;
 
 void InitPlayScene()
 {
-	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
+	g_Stage1Handle = LoadGraph("Data/Title/Select/PlaySceneBG.png");
 
 	InitPlayer();
 	InitEnemy();
 	InitMap();
 	InitTimer();
 	InitScore();
+	InitLife();
 }
 
 void LoadPlayScene(int stage)
 {
-	g_Stage1Handle = LoadGraph("Data/Title/Select/StageSelect.png");
+	g_Stage1Handle = LoadGraph("Data/Title/Select/PlaySceneBG.png");
 
 	LoadPlayer();
 	LoadEnemy();
 	LoadMap(stage);
+	LoadLife();
 }
 
 void StartPlayScene(int stage)
@@ -98,6 +101,7 @@ void DrawPlayScene()
 	DrawEnemy();      // 敵
 	DrawTimer();      // タイマー
 	DrawScore();
+	DrawLife();
 
 	// デバッグ表示
 	DrawCamera();
@@ -120,4 +124,5 @@ void FinPlayScene()
 	FinPlayer();   // プレイヤー終了処理
 	FinEnemy();    // 敵終了処理
 	FinMap();      // マップ終了処理
+	FinLife();
 }

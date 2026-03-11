@@ -35,6 +35,7 @@ enum NormalEnemyAnimationType
 	NORMAL_ENEMY_RUN,
 	NORMAL_ENEMY_CRUSH,
 	NORMAL_ENEMY_STRIKE,
+	NORMAL_ENEMY_DIE,
 	NORMAL_ENEMY_ANIM_MAX,
 	NORMAL_ENEMY_ANIM_NONE = -1
 };
@@ -47,9 +48,11 @@ struct NormalEnemyData
 	bool active;
 	bool strike;
 	bool crush;
+	bool die;
 
 	int strikeTimer;// アニメーション時間
 	int crushTimer;
+	int dieTimer;
 
 	VECTOR pos;
 	VECTOR move;
@@ -87,6 +90,7 @@ struct HelmetEnemyData
 	bool strike;
 
 	int strikeTimer;
+	int dieTimer;
 
 	VECTOR pos;
 	VECTOR move;
@@ -124,8 +128,10 @@ struct ShieldEnemyData
 	bool isAir;
 	bool active;
 	bool crush;
+	bool die;
 
 	int crushTimer;
+	int dieTimer;
 
 	VECTOR pos;
 	VECTOR move;
@@ -135,6 +141,7 @@ struct ShieldEnemyData
 	const EnemyParameter* param;
 	ShieldEnemyData* data;
 };
+
 
 // YELLOW_ENEMY関連
 #define YELLOW_ENEMY_MAX	(255)
@@ -345,7 +352,7 @@ const EnemySpawnData ENEMY_SPAWN_DATA_2[] =
 	YELLOW_ENEMY, 1, 200.0f, 2150.0f,& ENEMY_PARAMETER[0],// AY23
 
 	// GOAL
-	GOAL, 1, 3450.0f, 400.0f,& ENEMY_PARAMETER[0],			// BQ9
+	GOAL, 1, 3400.0f, 400.0f,& ENEMY_PARAMETER[0],			// BQ9
 
 };
 

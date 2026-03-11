@@ -17,4 +17,5 @@ void ShieldEnemyHitBlockX(MapChipData mapChipData, int index);
 void ShieldEnemyHitBlockY(MapChipData mapChipData, int index);
 
 void PlayerKillShieldEnemy(int index);
+void PlayerKillShieldEnemyYellow(int index);
 bool UpdateShieldCrush(int enemyIndex);

@@ -12,6 +12,9 @@
 // 死亡後のリスポーン待機時間
 #define PLAYER_DIE_TIME (60)
 
+//最大残機
+#define PLAYER_MAX_LIFE (10)
+
 enum PlayerAnimationType
 {
 	RED_PLAYER_ANIM_ATTACK,
@@ -49,6 +52,7 @@ struct PlayerData
 	int canJump;				//連続ジャンプ防止用
 	int changeTypeCoolTime;		//切替クールタイム
 	int yellowRemainTime;	    //黄色の残り時間（フレーム)
+	int life;					//残機
 
 	bool active;				//生存フラグ
 	bool isTurn;				//向き

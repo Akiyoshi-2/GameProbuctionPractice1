@@ -159,6 +159,9 @@ void InitPlayer()
 	// 攻撃状態
 	g_PlayerData.isAttacking = false;
 
+	//初期残機
+	g_PlayerData.life = 3;
+
 	// アニメーション初期化
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
@@ -215,7 +218,7 @@ void StartPlayer(int stage)
 		break;
 
 	case 2: // Stage2
-		g_PlayerData.pos.x = 50.0f;
+		g_PlayerData.pos.x = 100.0f;
 		g_PlayerData.pos.y = 6455.0f;
 		break;
 
@@ -466,6 +469,9 @@ void UpdatePlayer()
 	{
 		//スコアを下げる
 		AddScore(-200);
+
+		// 残機減少
+		g_PlayerData.life--;
 
 		// プレイヤーを非アクティブにする
 		g_PlayerData.active = false;
@@ -809,6 +815,9 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 		{
 			AddScore(-200);
 
+			// 残機減少
+			g_PlayerData.life--;
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -862,6 +871,9 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 		{
 			AddScore(-200);
 
+			// 残機減少
+			g_PlayerData.life--;
+
 			g_PlayerData.active = false;           // 操作不可
 			g_PlayerData.isDead = true;            // 死亡フラグ
 			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
@@ -896,14 +908,18 @@ void PlayerHitEnemy()
 {
 	PlayerData* player = GetPlayer();
 
-	// 黄色は無敵
 	if (player->type == TYPE_YELLOW) return;
-
-	// 既に死んでいたら無視
 	if (player->isDead) return;
 
-	//プレイヤー死亡
 	AddScore(-200);
+
+	player->life--;   //残機減少
+
+	if (player->life <= 0)
+	{
+		//ChangeScene(SCENE_GAMEOVER);
+		return;
+	}
 
 	player->isDead = true;
 	player->deadTimer = PLAYER_DIE_TIME;
@@ -912,7 +928,6 @@ void PlayerHitEnemy()
 	player->move.x = 0;
 	player->move.y = 0;
 
-	// 死亡アニメーション
 	if (player->type == TYPE_RED)
 		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 	else if (player->type == TYPE_BLUE)
