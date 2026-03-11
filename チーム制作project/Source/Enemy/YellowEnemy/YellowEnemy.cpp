@@ -27,7 +27,7 @@ const YellowEnemyAnimationParam YELLOW_ENEMY_ANIM_PARAM[YELLOW_ENEMY_ANIM_MAX] =
 #define YELLOW_ENEMY_MOVE_SPEED	(1.2f)
 
 // マップ衝撃判定のサイズ補正
-#define YELLOW_ENEMY_COLLISION_OFFSET	(0.1f)
+#define YELLOW_ENEMY_COLLISION_OFFSET	(1.0f)
 
 // 死亡エフェクトインターバル
 #define YELLOW_ENEMY_DEAD_EFFECT_INTERVAL	(8)
@@ -36,8 +36,8 @@ const YellowEnemyAnimationParam YELLOW_ENEMY_ANIM_PARAM[YELLOW_ENEMY_ANIM_MAX] =
 #define YELLOW_ENEMY_GRAVITY (0.35f)
 
 // 矩形判定サイズ
-#define YELLOW_ENEMY_BOX_COLLISION_WIDTH	(38.8f)
-#define YELLOW_ENEMY_BOX_COLLISION_HEIGHT	(38.8f)
+#define YELLOW_ENEMY_BOX_COLLISION_WIDTH	(38.0f)
+#define YELLOW_ENEMY_BOX_COLLISION_HEIGHT	(47.0f)
 
 // 撃破時のスコア
 #define YELLOW_ENEMY_SCORE	(200)
@@ -53,16 +53,22 @@ void InitYellowEnemy()
 	YellowEnemyData* yellow = g_YellowEnemyDate;
 	for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
 	{
+		// 座標
 		yellow->pos.x = 0;
 		yellow->pos.y = 0;
+		// 移動量
 		yellow->move.x = 0;
 		yellow->move.y = 0;
+		// HP
 		yellow->enemyHP = 0;
+		// 状態
 		yellow->active = false;
 		yellow->stun = false;
 		yellow->crush = false;
 		yellow->strike = false;
+		// アニメーション
 		yellow->playAnim = YELLOW_ENEMY_ANIM_NONE;
+		// 当たり判定サイズ
 		yellow->boxCollision.width = YELLOW_ENEMY_BOX_COLLISION_WIDTH;
 		yellow->boxCollision.height = YELLOW_ENEMY_BOX_COLLISION_HEIGHT;
 
@@ -77,11 +83,11 @@ void InitYellowEnemy()
 
 void LoadYellowEnemy()
 {
-	int runHandle1 = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy2_run.png");
-	int runHandle2 = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_run.png");
-	int crushHandle = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_die.png");
-	int strikeHandlde = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_die2.png");
-	int stunHandle = LoadGraph("Data/animation/Normal_Enemy/yellow_enemy_stun.png");
+	int runHandle1 = LoadGraph("Data/animation/Yellow_Enemy/yellow_enemy2_run.png");
+	int runHandle2 = LoadGraph("Data/animation/Yellow_Enemy/yellow_enemy_run.png");
+	int crushHandle = LoadGraph("Data/animation/Yellow_Enemy/yellow_enemy_die.png");
+	int strikeHandlde = LoadGraph("Data/animation/Yellow_Enemy/yellow_enemy_die2.png");
+	int stunHandle = LoadGraph("Data/animation/Yellow_Enemy/yellow_enemy_stun.png");
 
 	for (int i = 0; i < YELLOW_ENEMY_MAX; i++)
 	{
@@ -101,6 +107,8 @@ void StepYellowEnemy()
 		if (!yellow->active)continue;
 
 		g_PravYellowEnemyDate[i] = g_YellowEnemyDate[i];
+
+		yellow->move.y += YELLOW_ENEMY_GRAVITY;
 
 		yellow->move.x = 0.0f;
 
@@ -129,13 +137,13 @@ void UpdateYellowEnemy()
 	{
 		if (!yellow->active)continue;
 
-		yellow->pos.x += yellow->move.x;
-		yellow->pos.y += YELLOW_ENEMY_GRAVITY;
-
 		if (yellow->enemyHP < 3)
 		{
 			yellow->enemyHP = 2;
 		}
+
+		yellow->pos.x += yellow->move.x;
+		yellow->pos.y += yellow->move.y;
 
 		UpdateYellowEnemyAnimation(i);
 	}
@@ -221,26 +229,22 @@ void YellowEnemyHitBlockX(MapChipData mapChipData, int index)
 {
 	YellowEnemyData* yellow = &g_YellowEnemyDate[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = YELLOW_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = YELLOW_ENEMY_COLLISION_OFFSET * 2;
 
-	yellow->pos.x = g_YellowEnemyDate[index].pos.x;
-	yellow->pos.y = g_YellowEnemyDate[index].pos.y;
+	float prevX = g_PravYellowEnemyDate[index].pos.x;
+	float prevY = g_PravYellowEnemyDate[index].pos.y;
 
-	if (CheckSquareSquare(yellow->pos.x + POS_OFFSET, yellow->pos.y + POS_OFFSET,
-		YELLOW_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, YELLOW_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
+	if (CheckSquareSquare(yellow->pos.x, yellow->pos.y,
+		YELLOW_ENEMY_BOX_COLLISION_WIDTH + 10.0f,
+		YELLOW_ENEMY_BOX_COLLISION_HEIGHT - YELLOW_ENEMY_COLLISION_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
-
 	{
-		// 右から当たった
-		if (yellow->move.x > 0.0f)
-		{
-			yellow->isTurn = false;
-		}
-		// 左から当たった
-		else if (yellow->move.x < 0.0f)
+		if (prevX + YELLOW_ENEMY_BOX_COLLISION_WIDTH <= block->pos.x)
 		{
 			yellow->isTurn = true;
+		}
+		else if (prevX >= block->pos.x + MAP_CHIP_WIDTH)
+		{
+			yellow->isTurn = false;
 		}
 	}
 }
@@ -248,30 +252,28 @@ void YellowEnemyHitBlockX(MapChipData mapChipData, int index)
 void YellowEnemyHitBlockY(MapChipData mapChipData, int index)
 {
 	YellowEnemyData* yellow = &g_YellowEnemyDate[index];
+	YellowEnemyData* prevYellow = &g_PravYellowEnemyDate[index];
 	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = YELLOW_ENEMY_COLLISION_OFFSET;
-	const float SIZE_OFFSET = YELLOW_ENEMY_COLLISION_OFFSET * 2;
 
 	yellow->isTurn = g_YellowEnemyDate->isTurn;
 
-	if (CheckSquareSquare(yellow->pos.x + POS_OFFSET, yellow->pos.y + POS_OFFSET,
-		YELLOW_ENEMY_BOX_COLLISION_WIDTH - SIZE_OFFSET, YELLOW_ENEMY_BOX_COLLISION_HEIGHT - SIZE_OFFSET,
+	if (CheckSquareSquare(yellow->pos.x, yellow->pos.y,
+		YELLOW_ENEMY_BOX_COLLISION_WIDTH, YELLOW_ENEMY_BOX_COLLISION_HEIGHT,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
 		// 上から当たった
-		if (yellow->move.y > 0.0f)
+		if (prevYellow->pos.y + YELLOW_ENEMY_BOX_COLLISION_HEIGHT <= block->pos.y)
 		{
-			yellow->pos.y -= (yellow->pos.y * YELLOW_ENEMY_BOX_COLLISION_HEIGHT) - block->pos.y;
+			yellow->pos.y = block->pos.y - YELLOW_ENEMY_BOX_COLLISION_HEIGHT;
+			yellow->move.y = 0.0f;
 			yellow->isAir = false;
 		}
 		// 下から当たったか
-		else if (yellow->move.y < 0.0f)
+		else if (prevYellow->pos.y >= block->pos.y + MAP_CHIP_HEIGHT)
 		{
-			yellow->pos.y += (block->pos.y + MAP_CHIP_WIDTH) - yellow->pos.y;
+			yellow->pos.y = block->pos.y + MAP_CHIP_HEIGHT;
+			yellow->move.y = 0.0f;
 		}
-
-		// Yの移動量を0にする
-		yellow->move.y = 0.0f;
 	}
 }
 
@@ -307,10 +309,10 @@ void UpdateYellowEnemyAnimation(int index)
 	{
 		// ヘルメットなし歩きアニメーション
 		StartYellowEnemyAnimation(YELLOW_ENEMY_RUN_2, index);
-
-		// アニメーション更新
-		YellowEnemyAnimationType animType = yellow->playAnim;
-		AnimationData* animData = &yellow->animation[animType];
-		UpdateAnimation(animData);
 	}
+
+	// アニメーション更新
+	YellowEnemyAnimationType animType = yellow->playAnim;
+	AnimationData* animData = &yellow->animation[animType];
+	UpdateAnimation(animData);
 }
