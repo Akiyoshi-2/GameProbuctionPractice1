@@ -26,7 +26,7 @@ void LoadGameOver()
 
 void StartGameOver()
 {
-//	CreateUITxet("");
+	CreateUIText(650.0f, 800.0f, "P Key‚Åƒ^ƒCƒgƒ‹‚É–ß‚é");
 
 
 //	PlayBGM();
@@ -56,7 +56,7 @@ void DrawGameOver()
 	}
 	
 
-//	DrawUIText();
+	DrawUIText();
 }
 
 void FinGameOver()

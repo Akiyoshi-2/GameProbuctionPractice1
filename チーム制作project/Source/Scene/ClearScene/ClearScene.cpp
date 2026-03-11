@@ -7,6 +7,7 @@
 #include "../../UI/UIText.h"
 #include "../../Enemy/Goal/Goal.h"
 #include "../TitleScene/TitleScene.h"
+#include "../../Score/Score.h"
 
 //ゲームクリアの画像
 int g_ClearHandle = -1;
@@ -30,7 +31,7 @@ void LoadClearScene()
 
 void StartClearScene()
 {
-//	CreateUITxet("");
+	CreateUIText(650.0f, 800.0f, "C Keyでタイトルに戻る");
 
 //	CreateScoreUI();
 
@@ -66,7 +67,7 @@ void DrawClearScene()
 		DrawGraph(0, 0, g_ResultHandle, TRUE);
 	}
 
-//	DrawUIText();
+	DrawUIText();
 
 }
 
