@@ -504,4 +504,70 @@ void CheackEnemyBlockEnd()
 		}
 
 	}
+
+	YellowEnemyData* yellow = GetYellowEnemy();
+	for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
+	{
+		int yellowX = (int)(yellow->pos.x / MAP_CHIP_WIDTH);
+		int yellowY = (int)((yellow->pos.y + SHIELD_ENEMY_HEIGHT) / MAP_CHIP_HEIGHT);
+
+		int left = yellowX - CHECK_ROUND_NUM;
+		int top = yellowY - CHECK_ROUND_NUM;
+		int right = yellowX + CHECK_ROUND_NUM;
+		int bottom = yellowY + CHECK_ROUND_NUM;
+
+		if (!yellow->active)continue;
+
+
+		for (int y = top; y <= bottom; y++)
+		{
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
+
+			for (int x = left; x <= right; x++)
+			{
+				if (x < 0 || x > MAP_CHIP_X_NUM_MAX)continue;
+
+				MapChipData mapChipData = GetMapChipData(x, y);
+				switch (mapChipData.mapChip)
+				{
+				case STOP_BLOCK:
+					YellowEnemyHitBlockX(mapChipData, i);
+					break;
+				}
+			}
+		}
+	}
+
+	FullArmEnemyData* fullArm = GetFullArmorEnemy();
+	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArm++)
+	{
+		int fullArmX = (int)(fullArm->pos.x / MAP_CHIP_WIDTH);
+		int fullArmY = (int)((fullArm->pos.y + SHIELD_ENEMY_HEIGHT) / MAP_CHIP_HEIGHT);
+
+		int left = fullArmX - CHECK_ROUND_NUM;
+		int top = fullArmY - CHECK_ROUND_NUM;
+		int right = fullArmX + CHECK_ROUND_NUM;
+		int bottom = fullArmY + CHECK_ROUND_NUM;
+
+		if (!fullArm->active)continue;
+
+
+		for (int y = top; y <= bottom; y++)
+		{
+			if (y < 0 || y >= MAP_CHIP_Y_NUM_MAX)continue;
+
+			for (int x = left; x <= right; x++)
+			{
+				if (x < 0 || x > MAP_CHIP_X_NUM_MAX)continue;
+
+				MapChipData mapChipData = GetMapChipData(x, y);
+				switch (mapChipData.mapChip)
+				{
+				case STOP_BLOCK:
+					FullArmorEnemyHitBlockX(mapChipData, i);
+					break;
+				}
+			}
+		}
+	}
 }

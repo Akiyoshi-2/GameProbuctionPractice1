@@ -3,6 +3,7 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
+#include "../../Camera/Camera.h"
 
 // アニメーション用パラメータ
 struct FullArmEnemyAnimationParam
@@ -109,6 +110,8 @@ void UpdateFullArmorEnemy()
 void DrawFullArmorEnemy()
 {
 	FullArmEnemyData* fullArmor = g_FullArmEnemyData;
+	CameraData cam = GetCamera();
+
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArmor++)
 	{
 		if (!fullArmor->active)continue;
@@ -116,13 +119,16 @@ void DrawFullArmorEnemy()
 		FullArmEnemyAnimationType animType = fullArmor->playAnim;
 		AnimationData* animData = &fullArmor->animation[animType];
 
+		float drawX = fullArmor->pos.x - cam.posX;
+		float drawY = fullArmor->pos.y - cam.posY;
+
 		if (!fullArmor->isTurn)
 		{
-			DrawAnimation(animData, fullArmor->pos.x, fullArmor->pos.y, TRUE, FALSE);
+			DrawAnimation(animData, drawX, drawY, TRUE, FALSE);
 		}
 		else if (fullArmor->isTurn)
 		{
-			DrawAnimation(animData, fullArmor->pos.x, fullArmor->pos.y, FALSE, FALSE);
+			DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 		}
 	}
 

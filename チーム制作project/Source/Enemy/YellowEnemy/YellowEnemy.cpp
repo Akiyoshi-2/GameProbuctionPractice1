@@ -3,6 +3,7 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
+#include "../../Camera/Camera.h"
 
 // アニメーション用パラメータ
 struct YellowEnemyAnimationParam
@@ -17,9 +18,9 @@ const YellowEnemyAnimationParam YELLOW_ENEMY_ANIM_PARAM[YELLOW_ENEMY_ANIM_MAX] =
 {
 	10, 2, 50, 50,	// RUN1
 	10, 2, 50, 50,	// RUN2
-	8, 6, 50, 50,	// STUN
-	8, 10, 50, 50,	// CRUSH
-	8, 10, 50, 50,	// STRIKE
+	5, 6, 50, 50,	// STUN
+	5, 10, 50, 50,	// CRUSH
+	5, 10, 50, 50,	// STRIKE
 };
 
 // 移動速度
@@ -143,6 +144,8 @@ void UpdateYellowEnemy()
 void DrawYellowEnemy()
 {
 	YellowEnemyData* yellow = g_YellowEnemyDate;
+	CameraData cam = GetCamera();
+
 	for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
 	{
 		if (!yellow->active)continue;
@@ -150,13 +153,16 @@ void DrawYellowEnemy()
 		YellowEnemyAnimationType animType = yellow->playAnim;
 		AnimationData* animdata = &yellow->animation[animType];
 
+		float drawX = yellow->pos.x - cam.posX;
+		float drawY = yellow->pos.y - cam.posY;
+
 		if (!yellow->isTurn)
 		{
-			DrawAnimation(animdata, yellow->pos.x, yellow->pos.y, TRUE, FALSE);
+			DrawAnimation(animdata, drawX, drawY, TRUE, FALSE);
 		}
 		else if (yellow->isTurn)
 		{
-			DrawAnimation(animdata, yellow->pos.x, yellow->pos.y, FALSE, FALSE);
+			DrawAnimation(animdata, drawX, drawY, FALSE, FALSE);
 		}
 	}
 }

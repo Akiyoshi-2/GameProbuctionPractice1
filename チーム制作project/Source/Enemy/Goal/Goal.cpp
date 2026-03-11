@@ -3,6 +3,7 @@
 #include "../EnemyParameter.h"
 #include "../../GameSetting/GameSetting.h"
 #include "../../Scene/SceneManager.h"
+#include "../../Camera/Camera.h"
 
 
 struct GoalAnimationParam
@@ -15,7 +16,7 @@ struct GoalAnimationParam
 
 const GoalAnimationParam GOAL_ANIM_PARAM[GOAL_ANIM_MAX] =
 {
-	5, 4, 50, 50,
+	20, 4, 50, 50,
 };
 
 #define GOAL_BOX_COLLISION_WIDTH	(50)
@@ -60,7 +61,7 @@ void LoadGoal()
 
 void StepGoal()
 {
-	
+
 }
 
 void UpdateGoal()
@@ -68,7 +69,7 @@ void UpdateGoal()
 	GoalData* goal = g_GoalData;
 	for (int i = 0; i < GOAL_MAX; i++, goal++)
 	{
-		
+
 		if (!goal->active)continue;
 
 		UpdateGoalAnimation(i);
@@ -78,6 +79,8 @@ void UpdateGoal()
 void DrawGoal()
 {
 	GoalData* goal = g_GoalData;
+	CameraData camera = GetCamera();
+
 	for (int i = 0; i < GOAL_MAX; i++, goal++)
 	{
 		if (!goal->active)continue;
@@ -85,9 +88,12 @@ void DrawGoal()
 		GoalAnimationType animType = goal->playAnim;
 		AnimationData* animData = &goal->animation[animType];
 
-		DrawAnimation(animData, goal->pos.x, goal->pos.y, FALSE, FALSE);
+		float drawX = goal->pos.x - camera.posX;
+		float drawY = goal->pos.y - camera.posY;
+
+		DrawAnimation(animData, drawX, drawY, FALSE, FALSE);
 	}
-	
+
 }
 
 void FinGoal()
