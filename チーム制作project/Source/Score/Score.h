@@ -14,3 +14,5 @@ void AddScore(int score);
 
 // ƒXƒRƒAæ“¾
 int GetScore();
+
+void SetScore(int score);

@@ -2,6 +2,7 @@
 #include "Score.h"
 #include "../GameSetting/GameSetting.h"
 #include "../Player/Player.h"
+#include "../SaveData/SaveData.h"
 
 #define SCORE_POS_X (SCREEN_WIDTH - 500)
 #define SCORE_POS_Y (30)
@@ -12,10 +13,6 @@ static int g_NextLifeScore = 5000;
 
 void InitScore()
 {
-    g_Score = 0;
-    g_NextLifeScore = 5000;
-
-    // Agency FB フォント
     g_FontHandle = CreateFontToHandle("Agency FB", 40, 3);
 }
 
@@ -57,9 +54,19 @@ void AddScore(int score)
 
         g_NextLifeScore += 5000;
     }
+
+    SaveGameData(GetPlayer()->life, g_Score);
 }
 
 int GetScore()
 {
     return g_Score;
+}
+
+void SetScore(int score)
+{
+    g_Score = score;
+
+    // 次の1UPスコアを計算
+    g_NextLifeScore = ((g_Score / 5000) + 1) * 5000;
 }

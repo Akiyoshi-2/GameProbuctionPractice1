@@ -13,6 +13,7 @@
 #include "../../Enemy/EnemyManager.h"
 #include "../../Score/Score.h"
 #include "../../LifeUI/Life.h"
+#include "../../SaveData/SaveData.h"
 
 int g_Stage1Handle = -1;
 
@@ -40,6 +41,13 @@ void LoadPlayScene(int stage)
 
 void StartPlayScene(int stage)
 {
+	int life;
+	int score;
+
+	LoadGameData(life, score);
+
+	GetPlayer()->life = life;
+	SetScore(score);
 
 	ResetCamera();
 	SetCameraStage(stage);

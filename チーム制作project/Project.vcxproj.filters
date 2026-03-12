@@ -89,6 +89,9 @@
     <ClCompile Include="Source\LifeUI\Life.cpp">
       <Filter>Player\LifeUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SaveData\SaveData.cpp">
+      <Filter>SaveData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -187,6 +190,9 @@
     <ClInclude Include="Source\Scene\SceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SaveData\SaveData.h">
+      <Filter>SaveData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Akiyosi">
@@ -269,6 +275,9 @@
     </Filter>
     <Filter Include="Player\LifeUI">
       <UniqueIdentifier>{de61d79f-c3d2-48b2-b7d3-e4b858e89e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveData">
+      <UniqueIdentifier>{95958afc-21ba-4931-83f9-57c1c195df6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -4,6 +4,9 @@
 #include "../../GameSetting/GameSetting.h"
 #include "../../Scene/SceneManager.h"
 #include "../../Camera/Camera.h"
+#include "../../Player/Player.h"
+#include "../../Score/Score.h"
+#include "../../SaveData/SaveData.h"
 
 
 struct GoalAnimationParam
@@ -106,6 +109,11 @@ void FinGoal()
 
 GoalData* GetGoal()
 {
+	PlayerData* player = GetPlayer();
+
+	// ƒZ[ƒu
+	SaveGameData(player->life, GetScore());
+
 	return g_GoalData;
 }
 

@@ -14,9 +14,9 @@ void SetTimerStage(int stage)
     switch (g_CurrentStage)
     {
     case 0:  g_LimitTime = 999; break; // チュートリアル
-    case 1:  g_LimitTime = 180; break;
-    case 2:  g_LimitTime = 300; break;
-    case 3:  g_LimitTime = 300; break;
+    case 1:  g_LimitTime = 250; break;
+    case 2:  g_LimitTime = 500; break;
+    case 3:  g_LimitTime = 500; break;
     default: g_LimitTime = 180; break;
     }
 }

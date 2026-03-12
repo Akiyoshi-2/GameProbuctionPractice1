@@ -8,6 +8,8 @@
 #include "../../Enemy/Goal/Goal.h"
 #include "../TitleScene/TitleScene.h"
 #include "../../Score/Score.h"
+#include "../../SaveData/SaveData.h"
+#include "../../Player/Player.h"
 
 //ゲームクリアの画像
 int g_ClearHandle = -1;
@@ -39,6 +41,13 @@ void StartClearScene()
 
 //	PlayBGM();
 
+	int life;
+	int score;
+
+	LoadGameData(life, score);
+
+	// Lifeはそのまま、Scoreだけ0にする
+	SaveGameData(life, 0);
 }
 
 void StepClearScene()

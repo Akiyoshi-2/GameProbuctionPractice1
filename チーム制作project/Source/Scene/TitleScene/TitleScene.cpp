@@ -2,6 +2,7 @@
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
 #include "../../Timer/Timer.h"
+#include "../../SaveData/SaveData.h"
 
 //‰æ‘œ
 int g_TitleHandle = -1;
@@ -163,6 +164,11 @@ void StepTitleScene()
     {
         if (Input_IsAnyKeyPush())
         {
+            if (!g_ReturnFromGame)
+            {
+                SaveGameData(3, 0);
+            }
+
             g_IsDecided = true;
 
             //AnyKey“_–Å

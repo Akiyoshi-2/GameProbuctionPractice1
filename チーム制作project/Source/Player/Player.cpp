@@ -29,6 +29,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/TitleScene/TitleScene.h"
 #include "../Score/Score.h"
+#include "../SaveData/SaveData.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -159,9 +160,6 @@ void InitPlayer()
 	// 攻撃状態
 	g_PlayerData.isAttacking = false;
 
-	//初期残機
-	g_PlayerData.life = 0;
-
 	// アニメーション初期化
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
@@ -202,6 +200,7 @@ void LoadPlayer()
 
 void StartPlayer(int stage)
 {
+	
 	g_PlayerData.active = true;
 
 	// ステージ別スポーン位置
@@ -472,6 +471,8 @@ void UpdatePlayer()
 
 		// 残機減少
 		g_PlayerData.life--;
+
+		SaveGameData(g_PlayerData.life, GetScore());
 
 		if (g_PlayerData.life <= -1)
 		{
@@ -824,6 +825,8 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
+			SaveGameData(g_PlayerData.life, GetScore());
+
 			if (g_PlayerData.life <= -1)
 			{
 				ChangeScene(SCENE_GAMEOVER);
@@ -886,6 +889,8 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
+			SaveGameData(g_PlayerData.life, GetScore());
+
 			if (g_PlayerData.life <= -1)
 			{
 				ChangeScene(SCENE_GAMEOVER);
@@ -933,6 +938,8 @@ void PlayerHitEnemy()
 	AddScore(-200);
 
 	player->life--;   //残機減少
+
+	SaveGameData(g_PlayerData.life, GetScore());
 
 	if (player->life <= -1)
 	{

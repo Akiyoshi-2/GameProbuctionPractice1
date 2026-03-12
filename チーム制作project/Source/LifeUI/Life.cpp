@@ -58,13 +58,20 @@ void DrawLife()
     DrawGraph(LIFE_POS_X, LIFE_POS_Y, handle, TRUE);
 
     // ƒ‰ƒCƒt•\¦
+    int life = player->life;
+
+    if (life < 0)
+    {
+        life = 0;
+    }
+
     DrawFormatStringToHandle(
         LIFE_POS_X + 50,
         LIFE_POS_Y + 10,
         GetColor(255, 255, 255),
         g_LifeFontHandle,
         "X%d",
-        player->life
+        life
     );
 }
 
