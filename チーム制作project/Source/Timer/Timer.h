@@ -9,3 +9,8 @@ void ResetTimer();
 
 // š ’Ç‰Á
 void SetTimerStage(int stage);
+
+void GetClearTime();
+
+int GetRemainTime();
+int GetLimitTime();

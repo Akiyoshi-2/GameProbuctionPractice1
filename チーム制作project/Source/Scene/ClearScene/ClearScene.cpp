@@ -10,11 +10,14 @@
 #include "../../Score/Score.h"
 #include "../../SaveData/SaveData.h"
 #include "../../Player/Player.h"
+#include "../../Timer/Timer.h"
 
 //タイトルに戻るの画像
 int g_titleCHandle = -1;
 //リザルトの画像
 int g_ResultHandle = -1;
+//クリアタイムの画像
+int g_ClearTimeFontHandle = -1;
 
 //ゲームクリアBGM　
 int g_GameClearSEHandle = -1;
@@ -24,6 +27,7 @@ void InitClearScene()
 {
 	g_titleCHandle = -1;
 	g_ResultHandle = -1;
+	g_ClearTimeFontHandle = -1;
 
 	g_GameClearSEHandle = -1;
 
@@ -34,6 +38,8 @@ void LoadClearScene()
 	g_titleCHandle = LoadGraph("Data/Clear/画像/titleC.png");
 
 	g_ResultHandle = LoadGraph("Data/Clear/画像/result.png");
+
+	g_ClearTimeFontHandle = LoadGraph("Data/Clear/画像/ClearTime.png");
 
 	g_GameClearSEHandle = LoadSoundMem("Data/Sound/BGM/GameClear.ogg");
 }
@@ -53,6 +59,9 @@ void StartClearScene()
 
 	// Lifeはそのまま、Scoreだけ0にする
 	SaveGameData(life, 0);
+
+	g_ClearTimeFontHandle = CreateFontToHandle("Arial", 80, 3);
+
 }
 
 void StepClearScene()
@@ -76,8 +85,23 @@ void DrawClearScene()
 {
 	DrawGraph(0, 0, g_ResultHandle, TRUE);
 
-	DrawGraph(545, 700, g_titleCHandle, TRUE);
+	DrawGraph(545, 500, g_titleCHandle, TRUE);
 
+	int clearTime = GetLimitTime() - GetRemainTime();
+
+	int min = clearTime / 60;
+	int sec = clearTime % 60;
+
+	DrawFormatStringToHandle(
+		500,
+		350,
+		GetColor(255, 255, 255),
+		g_ClearTimeFontHandle,
+		"CLEAR TIME : %d",
+		clearTime
+	);
+
+	//	DrawFormatString(600, 500, GetColor(255, 255, 255), "SCORE : %d", score);
 }
 
 void FinClearScene()
@@ -85,6 +109,9 @@ void FinClearScene()
 	DeleteGraph(g_titleCHandle);
 
 	DeleteGraph(g_ResultHandle);
+
+	DeleteGraph(g_ClearTimeFontHandle);
+
 
 	DeleteSoundMem(g_GameClearSEHandle);
 
