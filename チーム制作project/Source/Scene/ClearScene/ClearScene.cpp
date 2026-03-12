@@ -11,35 +11,40 @@
 #include "../../SaveData/SaveData.h"
 #include "../../Player/Player.h"
 
-//ゲームクリアの画像
-int g_ClearHandle = -1;
+//タイトルに戻るの画像
+int g_titleCHandle = -1;
 //リザルトの画像
-int g_ResultHandle = 0;
+int g_ResultHandle = -1;
+
+//ゲームクリアBGM　
+int g_GameClearSEHandle = -1;
 
 
 void InitClearScene()
 {
-	g_ClearHandle = -1;
-	g_ResultHandle = 0;
+	g_titleCHandle = -1;
+	g_ResultHandle = -1;
+
+	g_GameClearSEHandle = -1;
 
 }
 
 void LoadClearScene()
 {
-	g_ClearHandle = LoadGraph("Data/Clear/画像/Clear.png");
+	g_titleCHandle = LoadGraph("Data/Clear/画像/titleC.png");
 
 	g_ResultHandle = LoadGraph("Data/Clear/画像/result.png");
+
+	g_GameClearSEHandle = LoadSoundMem("Data/Sound/BGM/GameClear.ogg");
 }
 
 void StartClearScene()
 {
-//	CreateUIText(650.0f, 800.0f, "C Keyでタイトルに戻る");
-
 //	CreateScoreUI();
 
 //	CreateHighScoreUI();
 
-//	PlayBGM();
+	PlaySoundMem(g_GameClearSEHandle, DX_PLAYTYPE_BACK);
 
 	int life;
 	int score;
@@ -56,11 +61,12 @@ void StepClearScene()
 	{
 		g_ReturnFromGame = true;
 
-		ChangeScene(SCENE_TITLE);
-	}	
-	
-}
+		StopSoundMem(g_GameClearSEHandle);
 
+		ChangeScene(SCENE_TITLE);
+	}
+
+}
 void UpdateClearScene()
 {
 
@@ -68,25 +74,20 @@ void UpdateClearScene()
 
 void DrawClearScene()
 {
-	if (g_ClearHandle != -1)
-	{
-		DrawGraph(0, 0, g_ClearHandle, TRUE);
-	}
-	if (g_ResultHandle != -1)
-	{
-		DrawGraph(0, 0, g_ResultHandle, TRUE);
-	}
+	DrawGraph(0, 0, g_ResultHandle, TRUE);
 
-//	DrawUIText();
+	DrawGraph(545, 700, g_titleCHandle, TRUE);
 
 }
 
 void FinClearScene()
 {
-	DeleteGraph(g_ClearHandle);
+	DeleteGraph(g_titleCHandle);
+
 	DeleteGraph(g_ResultHandle);
 
-	StopBGM(BGM_GAME_CLEAR);
+	DeleteSoundMem(g_GameClearSEHandle);
 
 }
+
 
