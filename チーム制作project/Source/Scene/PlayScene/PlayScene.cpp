@@ -14,6 +14,7 @@
 #include "../../Score/Score.h"
 #include "../../LifeUI/Life.h"
 #include "../../SaveData/SaveData.h"
+#include "../../Effect/Effect.h"
 
 int g_Stage1Handle = -1;
 
@@ -27,6 +28,8 @@ void InitPlayScene()
 	InitTimer();
 	InitScore();
 	InitLife();
+
+	InitEffect();
 }
 
 void LoadPlayScene(int stage)
@@ -37,6 +40,8 @@ void LoadPlayScene(int stage)
 	LoadEnemy();
 	LoadMap(stage);
 	LoadLife();
+
+	LoadEffect();
 }
 
 void StartPlayScene(int stage)
@@ -76,6 +81,8 @@ void StepPlayScene(int stage)
 
 	StepEnemy();
 	StepEnemySpawnSystem(stage);
+
+	StepEffect();
 }
 
 void UpdatePlayScene()
@@ -88,6 +95,8 @@ void UpdatePlayScene()
 	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
 	UpdateTimer();         // タイマー更新
 	UpdateScore();
+
+	UpdataEffect();
 }
 
 void DrawPlayScene()
@@ -118,6 +127,8 @@ void DrawPlayScene()
 	DrawString(0, 60, "B:攻撃", GetColor(255, 255, 255));
 	DrawString(0, 80, "X:カラーチェンジ", GetColor(255, 255, 255));
 	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));
+
+	DrawEffect();
 }
 
 
@@ -133,4 +144,6 @@ void FinPlayScene()
 	FinEnemy();    // 敵終了処理
 	FinMap();      // マップ終了処理
 	FinLife();
+
+	FinEffect();
 }

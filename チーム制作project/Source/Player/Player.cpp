@@ -31,6 +31,8 @@
 #include "../Score/Score.h"
 #include "../SaveData/SaveData.h"
 
+#include "../Effect/Effect.h"
+
 // アニメーション用パラメータ
 struct PlayerAnimationParam
 {
@@ -99,6 +101,9 @@ PlayerData g_PrevPlayerData = { 0 };
 #define STAGE1_DEAD_LINE (1450.0f)
 #define STAGE2_DEAD_LINE (7000.0f)
 #define STAGE3_DEAD_LINE (1900.0f)
+
+// 黄色状態エフェクトインターバル
+#define YELLOW_EFFECT_INTERVAL	(8)
 
 //ジャンプ力
 float GetPlayerJumpPower()
@@ -341,6 +346,9 @@ void StepPlayer()
 			// 黄色状態へ
 			g_PlayerData.type = TYPE_YELLOW;
 			g_PlayerData.yellowRemainTime = PLAYER_YELLOW_TIME;
+
+			// 黄色状態変身エフェクト
+			StartEffect(PLAYER_CHANGE_YELLOW, g_PlayerData.pos.x, g_PlayerData.pos.y, YELLOW_EFFECT_INTERVAL);
 
 			StartPlayerAnimation(YELLOW_PLAYER_ANIM_IDLE);
 		}

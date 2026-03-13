@@ -4,6 +4,8 @@
 #include "../../GameSetting/GameSetting.h"
 #include "../../Map/Block.h"
 #include "../../Camera/Camera.h"
+#include "../../Collision/Collision.h"
+#include "../../Score/Score.h"
 
 // アニメーション用パラメータ
 struct FullArmEnemyAnimationParam
@@ -16,18 +18,23 @@ struct FullArmEnemyAnimationParam
 
 const FullArmEnemyAnimationParam FULLARMOR_ENEMY_ANIM_PARAM[FULLARMOR_ENEMY_ANIM_MAX] =
 {
-	10, 2, 50, 50,
-	8, 6, 50, 50,
+	10, 2, 50, 50,	// RUN
+	10, 6, 50, 50,	// DIE
 };
 
+// 移動速度
 #define FULLARMOR_ENEMY_MOVE_SPEED	(0.5f)
 
+// 重力
 #define FULLARMOR_ENEMY_GRAVITY		(0.5f)
 
+// マップ衝突判定のサイズ補正
 #define FULLARMOR_ENEMY_COLLISION_OFFSET	(1.0f)
 
+// 死亡エフェクトインターバル
 #define FULLARMOR_ENEMY_DEAD_EFFECT_INTARVAL	(5)
 
+// 矩形判定サイズ
 #define FULLARMOR_ENEMY_BOX_COLLISION_WIDHT		(38.0f)
 #define FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT	(47.0f)
 
@@ -45,12 +52,20 @@ void InitFullArmorEnemy()
 	FullArmEnemyData* fullArmor = g_FullArmEnemyData;
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArmor++)
 	{
+		// 座標
 		fullArmor->pos.x = 0;
 		fullArmor->pos.y = 0;
+		// 移動量
 		fullArmor->move.x = 0;
 		fullArmor->move.y = 0;
+		// 状態
 		fullArmor->active = false;
+		fullArmor->die = false;
+		// タイマー
+		fullArmor->dieTimer = 0;
+		// 再生中アニメーション
 		fullArmor->playAnim = FULLARMOR_ENEMY_ANIM_NONE;
+		// 当たり判定サイズ
 		fullArmor->boxCollision.width = FULLARMOR_ENEMY_BOX_COLLISION_WIDHT;
 		fullArmor->boxCollision.height = FULLARMOR_ENEMY_BOX_COLLISION_HEIGHT;
 
@@ -58,8 +73,6 @@ void InitFullArmorEnemy()
 		{
 			InitAnimation(&fullArmor->animation[j]);
 		}
-
-		memset(&fullArmor[i].boxCollision, 0, sizeof(fullArmor[i].boxCollision));
 	}
 }
 
@@ -105,6 +118,21 @@ void UpdateFullArmorEnemy()
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArmor++)
 	{
 		if (!fullArmor->active)continue;
+
+		// 死亡処理
+		if (fullArmor->die)
+		{
+			fullArmor->dieTimer--;
+
+			if (fullArmor->dieTimer <= 0)
+			{
+				fullArmor->active = false;
+				continue;
+			}
+
+			UpdateFullArmEnemyAnimation(i);
+			continue;
+		}
 
 		fullArmor->pos.x += fullArmor->move.x;
 		fullArmor->pos.y += fullArmor->move.y;
@@ -157,11 +185,17 @@ void PlayerKillFullArmorEnemy(int index)
 {
 	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
 
-	fullArmor->active = false;
+	if (fullArmor->die) return;
 
-	// スコア
-	// int score = GetScore() + FULLARMOR_ENEMY_SCORE;
-	// SetScore(score);
+	fullArmor->die = true;
+	fullArmor->dieTimer = 60;
+
+	fullArmor->move.x = 0.0f;
+	fullArmor->move.y = 0.0f;
+
+	StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_DIE, index);
+
+	AddScore(5000);
 }
 
 void CreateFullArmorEnemy(float posX, float posY, const EnemyParameter* param)
@@ -262,11 +296,16 @@ void UpdateFullArmEnemyAnimation(int index)
 {
 	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
 
-	StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_RUN, index);
-	//増えれば追加する
+	if (fullArmor->die)
+	{
+		StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_DIE, index);
+	}
+	else
+	{
+		StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_RUN, index);
+	}
 
-	FullArmEnemyAnimationType animType = fullArmor->playAnim;
-	AnimationData* animData = &fullArmor->animation[animType];
+	AnimationData* animData = &fullArmor->animation[fullArmor->playAnim];
 	UpdateAnimation(animData);
 
 }

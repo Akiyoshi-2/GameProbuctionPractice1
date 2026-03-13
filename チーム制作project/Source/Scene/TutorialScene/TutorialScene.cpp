@@ -27,6 +27,8 @@
 #include "../../Timer/Timer.h"
 #include "../../Score/Score.h"
 
+#include "../../Effect/Effect.h"
+
 int g_TestHandle = -1;
 
 void InitTutorialScene()
@@ -39,6 +41,8 @@ void InitTutorialScene()
 	InitTimer();       // タイマー初期化
 	InitScore();	   // スコア初期化
 	InitLife();
+
+	InitEffect();
 }
 
 void LoadTutorialScene(int stage)
@@ -49,6 +53,7 @@ void LoadTutorialScene(int stage)
 	LoadEnemy();
 	LoadMap(stage);
 	LoadLife();
+	LoadEffect();
 }
 
 void StartTutorialScene(int stage)
@@ -70,6 +75,8 @@ void StepTutorialScene(int stage)
 	StepPlayer();               // プレイヤー更新
 	StepEnemy();                // 敵更新
 	StepEnemySpawnSystem(stage); // 敵スポーンシステム更新
+
+	StepEffect();
 }
 
 void UpdateTutorialScene()
@@ -82,6 +89,8 @@ void UpdateTutorialScene()
 	UpdatePlayerAnimation(); // プレイヤーアニメーション更新
 	UpdateTimer();         // タイマー更新
 	UpdateScore();
+
+	UpdataEffect();
 }
 
 void DrawTutorialScene()
@@ -105,6 +114,8 @@ void DrawTutorialScene()
 	DrawScore();
 	DrawLife();
 
+	DrawEffect();
+
 	// デバッグ表示
 	/*DrawCamera();
 	DrawAttack();
@@ -126,4 +137,6 @@ void FinTutorialScene()
 	FinEnemy();    // 敵終了処理
 	FinMap();      // マップ終了処理
 	FinLife();
+
+	FinEffect();
 }

@@ -143,6 +143,7 @@
     <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\Collision\Collision.cpp" />
+    <ClCompile Include="Source\Effect\Effect.cpp" />
     <ClCompile Include="Source\Enemy\EnemyManader.cpp" />
     <ClCompile Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.cpp" />
     <ClCompile Include="Source\Enemy\Goal\Goal.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Source\Animation\Animation.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\Collision\Collision.h" />
+    <ClInclude Include="Source\Effect\Effect.h" />
     <ClInclude Include="Source\Enemy\EnemyManager.h" />
     <ClInclude Include="Source\Enemy\EnemyParameter.h" />
     <ClInclude Include="Source\Enemy\FullarmorEnemy\FullarmorEnemy.h" />

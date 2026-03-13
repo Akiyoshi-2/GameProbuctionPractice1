@@ -229,19 +229,29 @@ void CheckPlayerEnemy()
 			}
 		}
 
-		for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArm++)
+		// FullArmorEnemy
+		for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++)
 		{
-			if (!fullArm->active)continue;
+			FullArmEnemyData* enemy = &fullArm[i];
+
+			if (!enemy->active)continue;
 
 			// FullArmEnemy‚ÌˆÊ’uÝ’è
-			int fullArmX = fullArm->pos.x;
-			int fullArmY = fullArm->pos.y;
+			int fullArmX = enemy->pos.x;
+			int fullArmY = enemy->pos.y;
 			int fullArmW = FULLARMOR_ENEMY_WIDTH;
 			int fullArmH = FULLARMOR_ENEMY_HEIGHT;
 
-			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+			if (CheckSquareSquare(
+				playerX, playerY, playerW, playerH,
 				fullArmX, fullArmY, fullArmW, fullArmH))
 			{
+				if (player->type == TYPE_YELLOW)
+				{
+					PlayerKillFullArmorEnemy(i);
+					return;
+				}
+
 				PlayerHitEnemy();
 				return;
 			}
