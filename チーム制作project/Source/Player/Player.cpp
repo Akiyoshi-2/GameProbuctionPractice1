@@ -530,12 +530,42 @@ void DrawPlayer()
 	AnimationData* animData = &g_PlayerData.animation[animType];
 
 	// アニメーション描画
-	DrawAnimation(
-		animData,
-		g_PlayerData.pos.x - camera.posX,
-		g_PlayerData.pos.y - camera.posY,
-		g_PlayerData.isTurn
-	);
+	if (g_PlayerData.type == TYPE_YELLOW)
+	{
+		if (g_PlayerData.yellowRemainTime < 120)
+		{
+			if (g_PlayerData.yellowRemainTime % 4 == 0)
+			{
+				DrawAnimation(
+					animData,
+					g_PlayerData.pos.x - camera.posX,
+					g_PlayerData.pos.y - camera.posY,
+					g_PlayerData.isTurn
+				);
+
+			}
+		}
+		else
+		{
+			DrawAnimation(
+				animData,
+				g_PlayerData.pos.x - camera.posX,
+				g_PlayerData.pos.y - camera.posY,
+				g_PlayerData.isTurn
+			);
+		}
+
+	}
+	else
+	{
+		DrawAnimation(
+			animData,
+			g_PlayerData.pos.x - camera.posX,
+			g_PlayerData.pos.y - camera.posY,
+			g_PlayerData.isTurn
+		);
+	}
+
 
 }
 
