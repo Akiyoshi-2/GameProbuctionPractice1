@@ -28,6 +28,7 @@
 #include "../../Score/Score.h"
 
 #include "../../Effect/Effect.h"
+#include "../../Sound/SoundManager.h"
 
 int g_TestHandle = -1;
 
@@ -61,6 +62,8 @@ void StartTutorialScene(int stage)
 	SetCameraStage(stage);
 	StartPlayer(stage);
 	StartMap(stage);
+
+	PlayBGM(BGM_TUTORIAL);
 }
 
 void StepTutorialScene(int stage)
@@ -139,4 +142,6 @@ void FinTutorialScene()
 	FinLife();
 
 	FinEffect();
+
+	StopBGM(BGM_TUTORIAL);
 }

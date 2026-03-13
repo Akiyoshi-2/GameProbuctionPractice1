@@ -7,4 +7,4 @@ void StartPlayScene(int stage);
 void StepPlayScene(int stage);
 void UpdatePlayScene();
 void DrawPlayScene();
-void FinPlayScene();
+void FinPlayScene(int stage);

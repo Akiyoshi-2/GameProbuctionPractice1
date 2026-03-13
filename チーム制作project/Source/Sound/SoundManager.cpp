@@ -7,9 +7,10 @@ int g_SEHandle[SE_TYPE_MAX] = { 0 };
 // BGMをロード
 void LoadBGM()
 {
-//	g_BGMHandle[BGM_TUTORIAL] = LoadSoundMem("");
-//	g_BGMHandle[BGM_TITLE] = LoadSoundMem("");
-//	g_BGMHandle[BGM_PLAY] = LoadSoundMem("");
+	g_BGMHandle[BGM_TUTORIAL] = LoadSoundMem("Data/Sound/BGM/Tutorial.mp3");
+	g_BGMHandle[BGM_STAGE_1] = LoadSoundMem("Data/Sound/BGM/Stage1.mp3");
+	g_BGMHandle[BGM_STAGE_2] = LoadSoundMem("Data/Sound/BGM/Stage2.mp3");
+	g_BGMHandle[BGM_STAGE_3] = LoadSoundMem("Data/Sound/BGM/Stage3.mp3");
 	g_BGMHandle[BGM_GAME_CLEAR] = LoadSoundMem("Data/Sound/BGM/GameClear.mp3");
 	g_BGMHandle[BGM_GAME_OVER] = LoadSoundMem("Data/Sound/BGM/GameOver.mp3");
 
@@ -41,7 +42,7 @@ void FinBGM()
 // SEをロード
 void LoadSE()
 {
-//	g_SEHandle[] = LoadSoundMem("");
+	//	g_SEHandle[] = LoadSoundMem("");
 }
 
 // SEを再生

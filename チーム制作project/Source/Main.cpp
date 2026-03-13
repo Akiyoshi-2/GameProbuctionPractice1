@@ -2,6 +2,7 @@
 #include "GameSetting/GameSetting.h"
 #include "Input/Input.h"
 #include "Scene/SceneManager.h"
+#include "Sound/SoundManager.h"
 
 
 // プログラムは WinMain から始まります
@@ -30,6 +31,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// 入力システムの初期化
 	InitInput();
 
+	// サウンドロード
+	LoadBGM();
+	LoadSE();
+
 	// ゲームのメインループ
 	while (ProcessMessage() >= 0)
 	{
@@ -57,6 +62,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// 入力システムの終了
 	FinInput();
+
+	// サウンド終了
+	FinBGM();
+	FinSE();
 
 	DxLib_End();		// DXライブラリ使用の終了処理
 

@@ -303,15 +303,15 @@ void FinScene()
 		break;
 
 	case SCENE_STAGE_1:	// ステージ1
-		FinPlayScene();
+		FinPlayScene(1);
 		break;
 
 	case SCENE_STAGE_2:	// ステージ2
-		FinPlayScene();
+		FinPlayScene(2);
 		break;
 
 	case SCENE_STAGE_3:	// ステージ3
-		FinPlayScene();
+		FinPlayScene(3);
 		break;
 
 	case SCENE_GAMEOVER:

@@ -15,6 +15,7 @@
 #include "../../LifeUI/Life.h"
 #include "../../SaveData/SaveData.h"
 #include "../../Effect/Effect.h"
+#include "../../Sound/SoundManager.h"
 
 int g_Stage1Handle = -1;
 
@@ -59,6 +60,19 @@ void StartPlayScene(int stage)
 
 	StartPlayer(stage);
 	StartMap(stage);
+
+	if (stage == 1)
+	{
+		PlayBGM(BGM_STAGE_1);
+	}
+	else if (stage == 2)
+	{
+		PlayBGM(BGM_STAGE_2);
+	}
+	else if (stage == 3)
+	{
+		PlayBGM(BGM_STAGE_3);
+	}
 }
 
 void StepPlayScene(int stage)
@@ -132,7 +146,7 @@ void DrawPlayScene()
 }
 
 
-void FinPlayScene()
+void FinPlayScene(int stage)
 {
 	if (g_Stage1Handle != -1)
 	{
@@ -146,4 +160,17 @@ void FinPlayScene()
 	FinLife();
 
 	FinEffect();
+
+	if (stage == 1)
+	{
+		StopBGM(BGM_STAGE_1);
+	}
+	else if (stage == 2)
+	{
+		StopBGM(BGM_STAGE_2);
+	}
+	else if (stage == 3)
+	{
+		StopBGM(BGM_STAGE_3);
+	}
 }
