@@ -76,33 +76,35 @@ bool g_ReturnFromGame = false;
 
 bool g_IsTutorialMode = false;
 
+// 解放されているステージ
+int g_UnlockedStage = 1;
+
 void InitTitleScene()
 {
-	Input_Reset();
+    Input_Reset();
 
-	// AnyKey用
-	g_BlinkTimer = 0;
-	g_DrawKeyUI = true;
-	g_IsBlinking = false;
+    // AnyKey用
+    g_BlinkTimer = 0;
+    g_DrawKeyUI = true;
+    g_IsBlinking = false;
 
-	// Tutorial用
-	g_IsTutorialBlink = false;
-	g_DrawTutorialUI = true;
-	g_TutorialBlinkTimer = 0;
-	g_IsTutorialSceneWait = false;
-	g_TutorialSceneTimer = 0;
+    // Tutorial用
+    g_IsTutorialBlink = false;
+    g_DrawTutorialUI = true;
+    g_TutorialBlinkTimer = 0;
+    g_IsTutorialSceneWait = false;
+    g_TutorialSceneTimer = 0;
 
-	g_IsDecided = false;
-	g_IsShowMenu = false;
-	g_IsStageSelectMode = false;
+    g_IsDecided = false;
+    g_IsShowMenu = false;
+    g_IsStageSelectMode = false;
 
-	g_IsSceneChangeWait = false;
-	g_SceneChangeTimer = 0;
+    g_IsSceneChangeWait = false;
+    g_SceneChangeTimer = 0;
 
-	g_TitleUIData->stage = 0;
+    g_TitleUIData->stage = 0;
 
-	g_MenuCursor = MENU_SELECT;
-	g_SelectCursor = SELECT_STAGE1;
+    g_MenuCursor = MENU_SELECT;
 
     // ステージ決定状態のリセット
     g_IsStageBlink = false;
@@ -113,7 +115,7 @@ void InitTitleScene()
     g_StageSceneTimer = 0;
     g_DecidedStage = 0;
 
-	// ゲームから戻ってきた時
+    // ゲームから戻ってきた時
     if (g_ReturnFromGame)
     {
         g_IsDecided = true;
@@ -139,27 +141,42 @@ void InitTitleScene()
 
         g_ReturnFromGame = false;
     }
+
+    g_SelectCursor = SELECT_STAGE1;
+
+    if (g_UnlockedStage == 1)
+    {
+        g_SelectCursor = SELECT_STAGE1;
+    }
+    else if (g_UnlockedStage == 2)
+    {
+        g_SelectCursor = SELECT_STAGE1;
+    }
+    else
+    {
+        g_SelectCursor = SELECT_STAGE1;
+    }
 }
 
 void LoadTitleScene()
 {
-	// 背景
-	g_TitleHandle = LoadGraph("Data/Title/画像/Title.png");
+    // 背景
+    g_TitleHandle = LoadGraph("Data/Title/画像/Title.png");
 
-	// UI
-	g_TitleUIData[TITLE_KEYUI].handle = LoadGraph("Data/Title/画像/AnyKey Push.png");
-	g_TitleUIData[MENU_SELECT].handle = LoadGraph("Data/Title/Menu/StageSelect.png");
-	g_TitleUIData[MENU_TUTORIAL].handle = LoadGraph("Data/Title/Menu/Tutorial.png");
-	g_TitleUIData[MENU_ARROW].handle = LoadGraph("Data/Title/Menu/矢印.png");
-	g_TitleUIData[SELECT_STAGE1].handle = LoadGraph("Data/Title/Select/Stage1.png");
-	g_TitleUIData[SELECT_STAGE2].handle = LoadGraph("Data/Title/Select/Stage2.png");
-	g_TitleUIData[SELECT_STAGE3].handle = LoadGraph("Data/Title/Select/Stage3.png");
-	g_TitleUIData[SELECT_ARROW].handle = LoadGraph("Data/Title/Menu/矢印.png");
-	g_TitleUIData[SELECT_BACK].handle = LoadGraph("Data/Title/Select/Buck.png");
+    // UI
+    g_TitleUIData[TITLE_KEYUI].handle = LoadGraph("Data/Title/画像/AnyKey Push.png");
+    g_TitleUIData[MENU_SELECT].handle = LoadGraph("Data/Title/Menu/StageSelect.png");
+    g_TitleUIData[MENU_TUTORIAL].handle = LoadGraph("Data/Title/Menu/Tutorial.png");
+    g_TitleUIData[MENU_ARROW].handle = LoadGraph("Data/Title/Menu/矢印.png");
+    g_TitleUIData[SELECT_STAGE1].handle = LoadGraph("Data/Title/Select/Stage1.png");
+    g_TitleUIData[SELECT_STAGE2].handle = LoadGraph("Data/Title/Select/Stage2.png");
+    g_TitleUIData[SELECT_STAGE3].handle = LoadGraph("Data/Title/Select/Stage3.png");
+    g_TitleUIData[SELECT_ARROW].handle = LoadGraph("Data/Title/Menu/矢印.png");
+    g_TitleUIData[SELECT_BACK].handle = LoadGraph("Data/Title/Select/Buck.png");
 
-	// SE
-	g_SEHandle = LoadSoundMem("Data/title/Sound/SE/決定(案1).ogg");
-	g_MoveSEHandle = LoadSoundMem("Data/title/Sound/SE/カーソル移動案(1).ogg");
+    // SE
+    g_SEHandle = LoadSoundMem("Data/title/Sound/SE/決定(案1).ogg");
+    g_MoveSEHandle = LoadSoundMem("Data/title/Sound/SE/カーソル移動案(1).ogg");
 
     // BGM
     g_BGMHandle = LoadSoundMem("Data/title/Sound/BGM/TitleBGM案_1_.ogg");
@@ -170,18 +187,51 @@ void StartTitleScene()
     // BGMループ再生
     PlaySoundMem(g_BGMHandle, DX_PLAYTYPE_LOOP);
 
-	g_TitleUIData[TITLE_KEYUI].pos = VGet(0.0f, 0.0f, 0.0f);
-	g_TitleUIData[MENU_SELECT].pos = VGet(600.0f, MENU_SELECT_Y, 0.0f);
-	g_TitleUIData[MENU_TUTORIAL].pos = VGet(600.0f, MENU_TUTORIAL_Y, 0.0f);
-	g_TitleUIData[MENU_ARROW].pos = VGet(420.0f, 458.0f, 0.0f);
-	g_TitleUIData[SELECT_STAGE1].pos = VGet(SELECT_STAGE1_X, SELECT_STAGE_Y, 0.0f);
-	g_TitleUIData[SELECT_STAGE2].pos = VGet(SELECT_STAGE2_X, SELECT_STAGE_Y, 0.0f);
-	g_TitleUIData[SELECT_STAGE3].pos = VGet(SELECT_STAGE3_X, SELECT_STAGE_Y, 0.0f);
-	g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X, SELECT_ARROW_Y, 0.0f);
-	g_TitleUIData[SELECT_BACK].pos = VGet(SELECT_BACK_X, SELECT_BACK_Y, 0.0f);
+    g_TitleUIData[TITLE_KEYUI].pos = VGet(0.0f, 0.0f, 0.0f);
+    g_TitleUIData[MENU_SELECT].pos = VGet(600.0f, MENU_SELECT_Y, 0.0f);
+    g_TitleUIData[MENU_TUTORIAL].pos = VGet(600.0f, MENU_TUTORIAL_Y, 0.0f);
+    g_TitleUIData[MENU_ARROW].pos = VGet(420.0f, 458.0f, 0.0f);
+    g_TitleUIData[SELECT_STAGE1].pos = VGet(SELECT_STAGE1_X, SELECT_STAGE_Y, 0.0f);
+    g_TitleUIData[SELECT_STAGE2].pos = VGet(SELECT_STAGE2_X, SELECT_STAGE_Y, 0.0f);
+    g_TitleUIData[SELECT_STAGE3].pos = VGet(SELECT_STAGE3_X, SELECT_STAGE_Y, 0.0f);
+    g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X, SELECT_ARROW_Y, 0.0f);
+    g_TitleUIData[SELECT_BACK].pos = VGet(SELECT_BACK_X, SELECT_BACK_Y, 0.0f);
 }
 void StepTitleScene()
 {
+    // デバッグ：Nキーで全ステージ解放
+    if (IsTriggerKey(KEY_N))
+    {
+        g_UnlockedStage = 3;
+    }
+
+    // ステージ決定後は入力を受け付けない
+    if (g_IsStageSceneWait)
+    {
+        // 点滅だけ更新
+        if (g_IsStageBlink)
+        {
+            g_StageBlinkTimer++;
+            if (g_StageBlinkTimer >= 5)
+            {
+                g_StageBlinkTimer = 0;
+                g_DrawStageUI = !g_DrawStageUI;
+            }
+        }
+
+        g_StageSceneTimer++;
+        if (g_StageSceneTimer >= SCENE_CHANGE_WAIT_TIME)
+        {
+            StopSoundMem(g_BGMHandle);
+
+            if (g_DecidedStage == 1) ChangeScene(SCENE_STAGE_1);
+            else if (g_DecidedStage == 2) ChangeScene(SCENE_STAGE_2);
+            else if (g_DecidedStage == 3) ChangeScene(SCENE_STAGE_3);
+        }
+
+        return; // ← ここで入力処理を止める
+    }
+
     // AnyKey待ち
     if (!g_IsDecided)
     {
@@ -329,22 +379,34 @@ void StepTitleScene()
             else
                 g_TitleUIData[SELECT_ARROW].pos = VGet(SELECT_ARROW_X + 520, SELECT_ARROW_Y + 210, 0);
 
-            return; 
+            return;
         }
 
         if (IsTriggerKey(KEY_RIGHT))
         {
-            if (g_SelectCursor == SELECT_STAGE1) g_SelectCursor = SELECT_STAGE2;
-            else if (g_SelectCursor == SELECT_STAGE2) g_SelectCursor = SELECT_STAGE3;
-            else if (g_SelectCursor == SELECT_STAGE3) g_SelectCursor = SELECT_STAGE1;
+            if (g_SelectCursor == SELECT_STAGE1 && g_UnlockedStage >= 2)
+                g_SelectCursor = SELECT_STAGE2;
+
+            else if (g_SelectCursor == SELECT_STAGE2 && g_UnlockedStage >= 3)
+                g_SelectCursor = SELECT_STAGE3;
+
+            else if (g_SelectCursor == SELECT_STAGE3)
+                g_SelectCursor = SELECT_STAGE1;
+
             PlaySoundMem(g_MoveSEHandle, DX_PLAYTYPE_BACK);
         }
 
         if (IsTriggerKey(KEY_LEFT))
         {
-            if (g_SelectCursor == SELECT_STAGE1) g_SelectCursor = SELECT_STAGE3;
-            else if (g_SelectCursor == SELECT_STAGE2) g_SelectCursor = SELECT_STAGE1;
-            else if (g_SelectCursor == SELECT_STAGE3) g_SelectCursor = SELECT_STAGE2;
+            if (g_SelectCursor == SELECT_STAGE3 && g_UnlockedStage >= 3)
+                g_SelectCursor = SELECT_STAGE2;
+
+            else if (g_SelectCursor == SELECT_STAGE2)
+                g_SelectCursor = SELECT_STAGE1;
+
+            else if (g_SelectCursor == SELECT_STAGE1 && g_UnlockedStage >= 3)
+                g_SelectCursor = SELECT_STAGE3;
+
             PlaySoundMem(g_MoveSEHandle, DX_PLAYTYPE_BACK);
         }
 
@@ -473,55 +535,34 @@ void DrawTitleScene()
 
     if (g_IsStageSelectMode)
     {
-        //ステージ1
-        if (g_DecidedStage == 1 && g_IsStageBlink)
+        // ステージ1
+        if (g_UnlockedStage >= 1)
         {
-            if (g_DrawStageUI)
-            {
-                DrawGraph((int)g_TitleUIData[SELECT_STAGE1].pos.x,
-                    (int)g_TitleUIData[SELECT_STAGE1].pos.y,
-                    g_TitleUIData[SELECT_STAGE1].handle, TRUE);
-            }
-        }
-        else
-        {
-            DrawGraph((int)g_TitleUIData[SELECT_STAGE1].pos.x,
+            DrawGraph(
+                (int)g_TitleUIData[SELECT_STAGE1].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE1].pos.y,
-                g_TitleUIData[SELECT_STAGE1].handle, TRUE);
+                g_TitleUIData[SELECT_STAGE1].handle,
+                TRUE);
         }
 
-        //ステージ2
-        if (g_DecidedStage == 2 && g_IsStageBlink)
+        // ステージ2
+        if (g_UnlockedStage >= 2)
         {
-            if (g_DrawStageUI)
-            {
-                DrawGraph((int)g_TitleUIData[SELECT_STAGE2].pos.x,
-                    (int)g_TitleUIData[SELECT_STAGE2].pos.y,
-                    g_TitleUIData[SELECT_STAGE2].handle, TRUE);
-            }
-        }
-        else
-        {
-            DrawGraph((int)g_TitleUIData[SELECT_STAGE2].pos.x,
+            DrawGraph(
+                (int)g_TitleUIData[SELECT_STAGE2].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE2].pos.y,
-                g_TitleUIData[SELECT_STAGE2].handle, TRUE);
+                g_TitleUIData[SELECT_STAGE2].handle,
+                TRUE);
         }
 
-        //ステージ3
-        if (g_DecidedStage == 3 && g_IsStageBlink)
+        // ステージ3
+        if (g_UnlockedStage >= 3)
         {
-            if (g_DrawStageUI)
-            {
-                DrawGraph((int)g_TitleUIData[SELECT_STAGE3].pos.x,
-                    (int)g_TitleUIData[SELECT_STAGE3].pos.y,
-                    g_TitleUIData[SELECT_STAGE3].handle, TRUE);
-            }
-        }
-        else
-        {
-            DrawGraph((int)g_TitleUIData[SELECT_STAGE3].pos.x,
+            DrawGraph(
+                (int)g_TitleUIData[SELECT_STAGE3].pos.x,
                 (int)g_TitleUIData[SELECT_STAGE3].pos.y,
-                g_TitleUIData[SELECT_STAGE3].handle, TRUE);
+                g_TitleUIData[SELECT_STAGE3].handle,
+                TRUE);
         }
 
         // 矢印は常に表示
@@ -538,15 +579,15 @@ void DrawTitleScene()
 
 void FinTitleScene()
 {
-	DeleteGraph(g_TitleHandle);
+    DeleteGraph(g_TitleHandle);
 
-	for (int i = 0; i < TITLE_MUX; i++)
-	{
-		DeleteGraph(g_TitleUIData[i].handle);
-	}
+    for (int i = 0; i < TITLE_MUX; i++)
+    {
+        DeleteGraph(g_TitleUIData[i].handle);
+    }
 
-	DeleteSoundMem(g_SEHandle);
-	DeleteSoundMem(g_MoveSEHandle);
+    DeleteSoundMem(g_SEHandle);
+    DeleteSoundMem(g_MoveSEHandle);
 
     DeleteSoundMem(g_BGMHandle);
 }

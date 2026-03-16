@@ -38,7 +38,6 @@ void AddScore(int score)
 {
     g_Score += score;
 
-    // 0–¢–ž‚É‚µ‚È‚¢
     if (g_Score < 0)
     {
         g_Score = 0;
@@ -55,8 +54,6 @@ void AddScore(int score)
 
         g_NextLifeScore += 5000;
     }
-
-    SaveGameData(GetPlayer()->life, g_Score);
 }
 
 int GetScore()

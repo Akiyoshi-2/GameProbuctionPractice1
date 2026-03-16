@@ -496,11 +496,7 @@ void UpdatePlayer()
 	// プレイヤーが落下死ラインを超えたら死亡処理
 	if (!g_PlayerData.isDead && g_PlayerData.pos.y > deadLine)
 	{
-		//スコアを下げる
-		AddScore(-200);
-
-		// 残機減少
-		g_PlayerData.life--;
+		PlayerDie();
 
 		if (g_DecidedStage != 0)
 		{
@@ -883,10 +879,7 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 		// 死亡処理
 		if (!g_PlayerData.isDead)
 		{
-			AddScore(-200);
-
-			// 残機減少
-			g_PlayerData.life--;
+			PlayerDie();
 
 			if (g_DecidedStage != 0)
 			{
@@ -950,10 +943,7 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 		// 死亡処理
 		if (!g_PlayerData.isDead)
 		{
-			AddScore(-200);
-
-			// 残機減少
-			g_PlayerData.life--;
+			PlayerDie();
 
 			if (g_DecidedStage != 0)
 			{
@@ -1004,9 +994,7 @@ void PlayerHitEnemy()
 	if (player->type == TYPE_YELLOW) return;
 	if (player->isDead) return;
 
-	AddScore(-200);
-
-	player->life--;   //残機減少
+	PlayerDie();
 
 	if (g_DecidedStage != 0)
 	{
@@ -1029,5 +1017,37 @@ void PlayerHitEnemy()
 	if (player->type == TYPE_RED)
 		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 	else if (player->type == TYPE_BLUE)
+		StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+}
+
+void PlayerDie()
+{
+	//スコアを下げる
+	AddScore(-200);
+
+	// 残機減少
+	g_PlayerData.life--;
+
+	if (g_DecidedStage != 0)
+	{
+		SaveGameData(g_PlayerData.life, GetScore());
+	}
+
+	if (g_PlayerData.life <= -1)
+	{
+		ChangeScene(SCENE_GAMEOVER);
+		return;
+	}
+
+	g_PlayerData.active = false;
+	g_PlayerData.isDead = true;
+	g_PlayerData.deadTimer = PLAYER_DIE_TIME;
+
+	g_PlayerData.move.x = 0.0f;
+	g_PlayerData.move.y = 0.0f;
+
+	if (g_PlayerData.type == TYPE_RED)
+		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
+	else if (g_PlayerData.type == TYPE_BLUE)
 		StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
 }

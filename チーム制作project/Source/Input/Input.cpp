@@ -64,6 +64,10 @@ void UpdateInput()
 	{
 		g_InputState |= KEY_C;
 	}
+	if (CheckHitKey(KEY_INPUT_N))
+	{
+		g_InputState |= KEY_N;
+	}
 
 	// ===== Xboxコントローラー =====
 	int pad = GetJoypadInputState(DX_INPUT_PAD1);

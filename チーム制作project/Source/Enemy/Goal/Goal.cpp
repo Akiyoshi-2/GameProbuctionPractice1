@@ -7,7 +7,9 @@
 #include "../../Player/Player.h"
 #include "../../Score/Score.h"
 #include "../../SaveData/SaveData.h"
+#include "../../Scene/TitleScene/TitleScene.h"
 
+extern int g_UnlockedStage;
 
 struct GoalAnimationParam
 {
@@ -112,13 +114,37 @@ GoalData* GetGoal()
 	PlayerData* player = GetPlayer();
 
 	// セーブ
-	SaveGameData(player->life, GetScore());
+	//SaveGameData(player->life, GetScore());
 
 	return g_GoalData;
 }
 
 void PlayerHitGoal()
 {
+	PlayerData* player = GetPlayer();
+
+	// ステージ解放処理
+	if (g_DecidedStage == 1)
+	{
+		if (g_UnlockedStage < 2)
+		{
+			g_UnlockedStage = 2;
+		}
+	}
+	else if (g_DecidedStage == 2)
+	{
+		if (g_UnlockedStage < 3)
+		{
+			g_UnlockedStage = 3;
+		}
+	}
+
+	// セーブ
+	if (g_DecidedStage != 0) // チュートリアル以外
+	{
+		SaveGameData(player->life, GetScore());
+	}
+
 	ChangeScene(SCENE_CLEAR);
 }
 

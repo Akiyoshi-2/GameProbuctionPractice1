@@ -98,3 +98,4 @@ void PlayerHitThornBlockX(MapChipData mapChipData);
 void PlayerHitThornBlockY(MapChipData mapChipData);
 
 void PlayerHitEnemy();
+void PlayerDie();

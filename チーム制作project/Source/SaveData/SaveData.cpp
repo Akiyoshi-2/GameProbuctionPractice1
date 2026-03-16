@@ -30,13 +30,9 @@ void LoadGameData(int& life, int& score)
         return;
     }
 
-    if (fscanf_s(fp, "Life:%d", &life) != 1)
+    if (fscanf_s(fp, "Life:%d\nScore:%d", &life, &score) != 2)
     {
         life = 3;
-    }
-
-    if (fscanf_s(fp, "Score:%d", &score) != 1)
-    {
         score = 0;
     }
 

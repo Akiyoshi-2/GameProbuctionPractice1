@@ -8,6 +8,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Player/Player.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -218,6 +219,22 @@ void UpdateNormalEnemy()
 				NORMAL_ENEMY_BOX_COLLISION_WIDTH,
 				NORMAL_ENEMY_BOX_COLLISION_HEIGHT))
 			{
+				// プレイヤー取得
+				PlayerData* player = GetPlayer();
+
+				if (player != nullptr)
+				{
+					// プレイヤーが左
+					if (player->pos.x < normalEnemy->pos.x)
+					{
+						normalEnemy->isTurn = true;
+					}
+					else
+					{
+						normalEnemy->isTurn = false;
+					}
+				}
+
 				normalEnemy->strike = true;
 				normalEnemy->strikeTimer = 50;
 
