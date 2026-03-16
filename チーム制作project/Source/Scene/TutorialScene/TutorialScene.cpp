@@ -29,6 +29,7 @@
 
 #include "../../Effect/Effect.h"
 #include "../../Sound/SoundManager.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 
 int g_TestHandle = -1;
@@ -45,6 +46,8 @@ void InitTutorialScene()
 	InitLife();
 
 	InitEffect();
+
+	InitYellowSelect();
 }
 
 void LoadTutorialScene(int stage)
@@ -60,19 +63,54 @@ void LoadTutorialScene(int stage)
 
 void StartTutorialScene(int stage)
 {
+	g_DecidedStage = 0;
+
 	SetCameraStage(stage);
 	StartPlayer(stage);
 	StartMap(stage);
 
 	PlayBGM(BGM_TUTORIAL);
+
+	PlayerData* player = GetPlayer();
+	if (player == nullptr) return;
+
+	if (g_IsTutorialMode)
+	{
+		// チュートリアル中はライフ999
+		player->life = 999;
+	}
+	else
+	{
+		// 通常ステージならTitleSceneから戻ってきたライフを反映
+		if (g_ReturnFromGame)
+		{
+			// TitleSceneで SetLife(life) しているので、それを反映
+			player->life = player->life; // すでにSetLifeでセット済み
+		}
+		else
+		{
+			// 初回開始時はライフ初期値をセット（例: 3）
+			player->life = 3;
+		}
+	}
 }
 
 void StepTutorialScene(int stage)
 {
+	StepYellowSelect();
+
 	// Pでタイトルに戻る（デバッグ用）
 	if (IsTriggerKey(KEY_P))
 	{
+		PlayerData* player = GetPlayer();
+		if (player != nullptr)
+		{
+			player->life = 3;  // 通常ライフに戻す
+		}
+
 		g_ReturnFromGame = true;
+		g_IsTutorialMode = false;
+
 		ChangeScene(SCENE_TITLE);
 	}
 
@@ -119,6 +157,7 @@ void DrawTutorialScene()
 	DrawLife();
 
 	DrawEffect();
+	DrawYellowSelect();
 
 	// デバッグ表示
 	/*DrawCamera();
