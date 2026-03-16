@@ -98,3 +98,13 @@ void ResetTimer()
     g_StartTime = GetNowCount();
     g_RemainTime = g_LimitTime;
 }
+
+int GetRemainTime()
+{
+    return g_RemainTime;
+}
+
+int GetLimitTime()
+{
+    return g_LimitTime;
+}

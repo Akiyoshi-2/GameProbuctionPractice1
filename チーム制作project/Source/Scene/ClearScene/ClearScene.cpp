@@ -22,6 +22,8 @@ int g_ClearTimeFontHandle = -1;
 //ゲームクリアBGM　
 int g_GameClearSEHandle = -1;
 
+int g_ClearTimeHandle = 0;
+
 
 void InitClearScene()
 {
@@ -30,6 +32,8 @@ void InitClearScene()
 	g_ClearTimeFontHandle = -1;
 
 	g_GameClearSEHandle = -1;
+
+	g_ClearTimeHandle = 0;
 
 }
 
@@ -40,6 +44,8 @@ void LoadClearScene()
 	g_ResultHandle = LoadGraph("Data/Clear/画像/result.png");
 
 	g_ClearTimeFontHandle = LoadGraph("Data/Clear/画像/ClearTime.png");
+
+	g_ClearTimeHandle = LoadGraph("Data/Clear/画像/ClearTime.png");
 
 	g_GameClearSEHandle = LoadSoundMem("Data/Sound/BGM/GameClear.ogg");
 }
@@ -86,23 +92,25 @@ void DrawClearScene()
 {
 	DrawGraph(0, 0, g_ResultHandle, TRUE);
 
+	DrawGraph(450, 250, g_ClearTimeHandle, TRUE);
+
 	DrawGraph(545, 500, g_titleCHandle, TRUE);
 
-	//int clearTime = GetLimitTime() - GetRemainTime();
+	int clearTime = GetLimitTime() - GetRemainTime();
 
-	//int min = clearTime / 60;
-	//int sec = clearTime % 60;
+	int min = clearTime / 60;
+	int sec = clearTime % 60;
 
-	//DrawFormatStringToHandle(
-	//	500,
-	//	350,
-	//	GetColor(255, 255, 255),
-	//	g_ClearTimeFontHandle,
-	//	"CLEAR TIME : %d",
-	//	clearTime
-	//);
+	DrawFormatStringToHandle(
+		500,
+		350,
+		GetColor(255, 255, 255),
+		g_ClearTimeFontHandle,
+		"CLEAR TIME : %d",
+		clearTime
+	);
 
-	//	DrawFormatString(600, 500, GetColor(255, 255, 255), "SCORE : %d", score);
+	//DrawFormatString(600, 500, GetColor(255, 255, 255), "SCORE : %d", score);
 }
 
 void FinClearScene()
@@ -116,6 +124,7 @@ void FinClearScene()
 
 	DeleteSoundMem(g_GameClearSEHandle);
 
+	DeleteSoundMem(g_ClearTimeHandle);
 }
 
 

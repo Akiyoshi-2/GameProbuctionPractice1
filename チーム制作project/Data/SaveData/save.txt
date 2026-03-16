@@ -1,2 +1,2 @@
-Life:999
-Score:0
+Life:2
+Score:1700

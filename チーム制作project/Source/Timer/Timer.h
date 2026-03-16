@@ -10,5 +10,5 @@ void ResetTimer();
 
 void SetTimerStage(int stage);
 
-//int GetLimitTime();
-//int GetRemainTime();
+int GetLimitTime();
+int GetRemainTime();
