@@ -208,10 +208,11 @@ void StepTitleScene()
     // ステージ決定後は入力を受け付けない
     if (g_IsStageSceneWait)
     {
-        // 点滅だけ更新
+        // 点滅処理
         if (g_IsStageBlink)
         {
             g_StageBlinkTimer++;
+
             if (g_StageBlinkTimer >= 5)
             {
                 g_StageBlinkTimer = 0;
@@ -220,6 +221,7 @@ void StepTitleScene()
         }
 
         g_StageSceneTimer++;
+
         if (g_StageSceneTimer >= SCENE_CHANGE_WAIT_TIME)
         {
             StopSoundMem(g_BGMHandle);
@@ -229,7 +231,7 @@ void StepTitleScene()
             else if (g_DecidedStage == 3) ChangeScene(SCENE_STAGE_3);
         }
 
-        return; // ← ここで入力処理を止める
+        return;
     }
 
     // AnyKey待ち
@@ -538,31 +540,40 @@ void DrawTitleScene()
         // ステージ1
         if (g_UnlockedStage >= 1)
         {
-            DrawGraph(
-                (int)g_TitleUIData[SELECT_STAGE1].pos.x,
-                (int)g_TitleUIData[SELECT_STAGE1].pos.y,
-                g_TitleUIData[SELECT_STAGE1].handle,
-                TRUE);
+            if (!(g_IsStageBlink && g_DecidedStage == 1 && !g_DrawStageUI))
+            {
+                DrawGraph(
+                    (int)g_TitleUIData[SELECT_STAGE1].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE1].pos.y,
+                    g_TitleUIData[SELECT_STAGE1].handle,
+                    TRUE);
+            }
         }
 
         // ステージ2
         if (g_UnlockedStage >= 2)
         {
-            DrawGraph(
-                (int)g_TitleUIData[SELECT_STAGE2].pos.x,
-                (int)g_TitleUIData[SELECT_STAGE2].pos.y,
-                g_TitleUIData[SELECT_STAGE2].handle,
-                TRUE);
+            if (!(g_IsStageBlink && g_DecidedStage == 2 && !g_DrawStageUI))
+            {
+                DrawGraph(
+                    (int)g_TitleUIData[SELECT_STAGE2].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE2].pos.y,
+                    g_TitleUIData[SELECT_STAGE2].handle,
+                    TRUE);
+            }
         }
 
         // ステージ3
         if (g_UnlockedStage >= 3)
         {
-            DrawGraph(
-                (int)g_TitleUIData[SELECT_STAGE3].pos.x,
-                (int)g_TitleUIData[SELECT_STAGE3].pos.y,
-                g_TitleUIData[SELECT_STAGE3].handle,
-                TRUE);
+            if (!(g_IsStageBlink && g_DecidedStage == 3 && !g_DrawStageUI))
+            {
+                DrawGraph(
+                    (int)g_TitleUIData[SELECT_STAGE3].pos.x,
+                    (int)g_TitleUIData[SELECT_STAGE3].pos.y,
+                    g_TitleUIData[SELECT_STAGE3].handle,
+                    TRUE);
+            }
         }
 
         // 矢印は常に表示

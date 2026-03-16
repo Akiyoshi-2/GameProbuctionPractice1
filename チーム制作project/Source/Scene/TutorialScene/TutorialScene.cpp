@@ -30,6 +30,7 @@
 #include "../../Effect/Effect.h"
 #include "../../Sound/SoundManager.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../SaveData/SaveData.h"
 
 
 int g_TestHandle = -1;
@@ -76,22 +77,17 @@ void StartTutorialScene(int stage)
 
 	if (g_IsTutorialMode)
 	{
-		// チュートリアル中はライフ999
 		player->life = 999;
 	}
 	else
 	{
-		// 通常ステージならTitleSceneから戻ってきたライフを反映
-		if (g_ReturnFromGame)
-		{
-			// TitleSceneで SetLife(life) しているので、それを反映
-			player->life = player->life; // すでにSetLifeでセット済み
-		}
-		else
-		{
-			// 初回開始時はライフ初期値をセット（例: 3）
-			player->life = 3;
-		}
+		int life;
+		int score;
+
+		LoadGameData(life, score);
+
+		player->life = life;
+		SetScore(score);
 	}
 }
 
