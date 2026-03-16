@@ -33,6 +33,7 @@
 
 #include "../Effect/Effect.h"
 #include "YellowSelect/YellowSelect.h"
+#include "../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -412,6 +413,8 @@ void StepPlayer()
 				g_PlayerData.pos.y,
 				g_PlayerData.isTurn
 			);
+
+			PlaySE(SE_PLAYER_ATTACK);
 		}
 	}
 
@@ -1024,6 +1027,9 @@ void PlayerDie()
 {
 	//スコアを下げる
 	AddScore(-200);
+
+	// SE
+	PlaySE(SE_PLAYER_DEAD);
 
 	// 残機減少
 	g_PlayerData.life--;

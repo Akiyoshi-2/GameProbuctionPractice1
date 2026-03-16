@@ -42,7 +42,8 @@ void FinBGM()
 // SEをロード
 void LoadSE()
 {
-	//	g_SEHandle[] = LoadSoundMem("");
+	g_SEHandle[SE_PLAYER_DEAD] = LoadSoundMem("Data/Sound/SE/チーン1.mp3");
+	g_SEHandle[SE_PLAYER_ATTACK] = LoadSoundMem("Data/Sound/SE/小パンチ.mp3");
 }
 
 // SEを再生
