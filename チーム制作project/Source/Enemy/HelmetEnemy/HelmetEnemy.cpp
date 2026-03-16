@@ -8,6 +8,7 @@
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
 #include "../../Player/Player.h"
+#include "../../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -283,6 +284,9 @@ void PlayerKillHelmetEnemyYellow(int index)
 
 	helmet->move.x = 0;
 	helmet->move.y = 0;
+
+	// SE
+	PlaySE(SE_ENEMY_DEAD);
 
 	StartHelmetEnemyAnimation(HELMET_ENEMY_ANIM_DIE, index);
 

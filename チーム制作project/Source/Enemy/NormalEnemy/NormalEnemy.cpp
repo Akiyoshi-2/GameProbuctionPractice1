@@ -9,6 +9,7 @@
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
 #include "../../Player/Player.h"
+#include "../../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -443,6 +444,9 @@ void PlayerKillNormalEnemyYellow(int index)
 
 	enemy->move.x = 0;
 	enemy->move.y = 0;
+
+	// SE
+	PlaySE(SE_ENEMY_DEAD);
 
 	StartNormalEnemyAnimation(NORMAL_ENEMY_DIE, index);
 

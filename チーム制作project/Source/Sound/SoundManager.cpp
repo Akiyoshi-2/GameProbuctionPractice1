@@ -44,6 +44,8 @@ void LoadSE()
 {
 	g_SEHandle[SE_PLAYER_DEAD] = LoadSoundMem("Data/Sound/SE/チーン1.mp3");
 	g_SEHandle[SE_PLAYER_ATTACK] = LoadSoundMem("Data/Sound/SE/小パンチ.mp3");
+	g_SEHandle[SE_PLAYER_CRUSH] = LoadSoundMem("Data/Sound/SE/打撃8.mp3");
+	g_SEHandle[SE_ENEMY_DEAD] = LoadSoundMem("Data/Sound/SE/男性の悲鳴.mp3");
 }
 
 // SEを再生

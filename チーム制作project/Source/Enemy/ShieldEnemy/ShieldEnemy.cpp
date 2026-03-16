@@ -7,6 +7,7 @@
 #include "../../Player/Player.h"
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct ShieldEnemyAnimationParam
@@ -333,6 +334,9 @@ void PlayerKillShieldEnemyYellow(int index)
 	enemy->move.x = 0;
 	enemy->move.y = 0;
 
+	// SE
+	PlaySE(SE_ENEMY_DEAD);
+
 	StartShieldEnemyAnimation(SHIELD_ENEMY_DIE, index);
 
 	AddScore(500);
@@ -402,6 +406,9 @@ bool UpdateShieldCrush(int enemyIndex)
 	if (playerBottomPrev <= enemyTop)
 	{
 		PlayerKillShieldEnemy(enemyIndex);
+
+		// SE
+		PlaySE(SE_PLAYER_CRUSH);
 
 		player->move.y = -8.0f;
 

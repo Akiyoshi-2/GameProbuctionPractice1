@@ -9,6 +9,7 @@
 #include "../../Player/Player.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
 #include "../../Player/YellowStock/YellowStock.h"
+#include "../../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct YellowEnemyAnimationParam
@@ -466,6 +467,9 @@ void PlayerKillYellowEnemyYellow(int index)
 	enemy->move.x = 0.0f;
 	enemy->move.y = 0.0f;
 
+	// SE
+	PlaySE(SE_ENEMY_DEAD);
+
 	// ヘルメット状態でアニメーション変更
 	if (enemy->helmet)
 	{
@@ -657,6 +661,9 @@ bool UpdateYellowCrush(int enemyIndex)
 	if (playerBottomPrev <= enemyTop)
 	{
 		PlayerKillYellowEnemy(enemyIndex);
+
+		// SE
+		PlaySE(SE_PLAYER_CRUSH);
 
 		// プレイヤー跳ねる
 		player->move.y = -8.0f;

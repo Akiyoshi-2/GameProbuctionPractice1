@@ -7,6 +7,7 @@
 #include "../../Collision/Collision.h"
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Sound/SoundManager.h"
 
 // アニメーション用パラメータ
 struct FullArmEnemyAnimationParam
@@ -197,6 +198,9 @@ void PlayerKillFullArmorEnemy(int index)
 
 	fullArmor->move.x = 0.0f;
 	fullArmor->move.y = 0.0f;
+
+	// SE
+	PlaySE(SE_ENEMY_DEAD);
 
 	StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_DIE, index);
 

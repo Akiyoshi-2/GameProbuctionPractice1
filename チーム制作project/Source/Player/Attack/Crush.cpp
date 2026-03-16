@@ -2,6 +2,7 @@
 #include "Crush.h"
 #include "../Player.h"
 #include "../../Enemy/NormalEnemy/NormalEnemy.h"
+#include "../../Sound/SoundManager.h"
 
 extern PlayerData g_PrevPlayerData;
 
@@ -27,6 +28,9 @@ bool UpdateCrush(int enemyIndex)
     if (playerBottomPrev <= enemyTop)
     {
         PlayerKillNormalEnemy(enemyIndex);
+
+        // SE
+        PlaySE(SE_PLAYER_CRUSH);
 
         // ƒoƒEƒ“ƒh
         player->move.y = -8.0f;
