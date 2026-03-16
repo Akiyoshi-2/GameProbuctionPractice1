@@ -94,7 +94,7 @@ void DrawClearScene()
 
 	DrawGraph(450, 250, g_ClearTimeHandle, TRUE);
 
-	DrawGraph(545, 500, g_titleCHandle, TRUE);
+	DrawGraph(535, 600, g_titleCHandle, TRUE);
 
 	int clearTime = GetLimitTime() - GetRemainTime();
 
@@ -102,11 +102,11 @@ void DrawClearScene()
 	int sec = clearTime % 60;
 
 	DrawFormatStringToHandle(
-		500,
-		350,
+		1000,
+		355,
 		GetColor(255, 255, 255),
 		g_ClearTimeFontHandle,
-		"CLEAR TIME : %d",
+		": %d",
 		clearTime
 	);
 

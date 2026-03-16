@@ -1,2 +1,2 @@
 Life:999
-Score:800
+Score:16400
