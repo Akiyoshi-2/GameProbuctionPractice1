@@ -293,6 +293,20 @@ void UpdateYellowEnemy()
 				}
 				else
 				{
+					PlayerData* player = GetPlayer();
+
+					if (player != nullptr)
+					{
+						if (player->pos.x < yellow->pos.x)
+						{
+							yellow->isTurn = true;
+						}
+						else if (player->pos.x > yellow->pos.x)
+						{
+							yellow->isTurn = false;
+						}
+					}
+
 					yellow->strike = true;
 					yellow->strikeTimer = 50;
 

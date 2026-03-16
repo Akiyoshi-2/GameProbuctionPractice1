@@ -7,6 +7,7 @@
 #include "../../Player/Attack/Attack.h"
 #include "../../Score/Score.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Player/Player.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -186,6 +187,21 @@ void UpdateHelmetEnemy()
 				HELMET_ENEMY_BOX_COLLISION_WIDTH,
 				HELMET_ENEMY_BOX_COLLISION_HEIGHT))
 			{
+				// プレイヤー取得
+				PlayerData* player = GetPlayer();
+
+				if (player != nullptr)
+				{
+					if (player->pos.x < helmet->pos.x)
+					{
+						helmet->isTurn = true;
+					}
+					else if (player->pos.x > helmet->pos.x)
+					{
+						helmet->isTurn = false;
+					}
+				}
+
 				helmet->strike = true;
 				helmet->strikeTimer = 50;
 
