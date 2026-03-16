@@ -12,7 +12,7 @@
 #include "../../Player/Player.h"
 #include "../../Player/Attack/Attack.h"
 #include "../../Player/Attack/Crush.h"
-#include "../../LifeUI/Life.h"
+#include "../../Player/LifeUI/Life.h"
 
 // --- マップ・カメラ・アニメーション ---
 #include "../../Map/MapManager.h"
@@ -29,6 +29,7 @@
 
 #include "../../Effect/Effect.h"
 #include "../../Sound/SoundManager.h"
+
 
 int g_TestHandle = -1;
 

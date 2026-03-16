@@ -213,17 +213,34 @@ void CheckPlayerEnemy()
 
 		for (int i = 0; i < YELLOW_ENEMY_MAX; i++, yellow++)
 		{
-			if (!yellow->active)continue;
+			if (!yellow->active) continue;
 
-			// YellowEnemyの位置設定
+			// 死亡状態は判定しない
+			if (yellow->crush || yellow->strike || yellow->die) continue;
+
 			int yellowX = yellow->pos.x;
 			int yellowY = yellow->pos.y;
-			int yellowW = YELLOW_ENEMY_WIDTH;
+			int yellowW = YELLOW_ENEMY_WIDTH + 10.0f;
 			int yellowH = YELLOW_ENEMY_HEIGHT;
 
-			if (CheckSquareSquare(playerX, playerY, playerW, playerH,
+			if (CheckSquareSquare(
+				playerX, playerY, playerW, playerH,
 				yellowX, yellowY, yellowW, yellowH))
 			{
+				// 黄色攻撃
+				if (player->type == TYPE_YELLOW)
+				{
+					PlayerKillYellowEnemyYellow(i);
+					return;
+				}
+
+				// 踏みつけ
+				if (UpdateYellowCrush(i))
+				{
+					return;
+				}
+
+				// ダメージ
 				PlayerHitEnemy();
 				return;
 			}

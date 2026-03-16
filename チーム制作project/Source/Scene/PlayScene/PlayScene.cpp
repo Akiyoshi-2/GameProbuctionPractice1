@@ -12,10 +12,11 @@
 #include "../../Player/Attack/Attack.h"
 #include "../../Enemy/EnemyManager.h"
 #include "../../Score/Score.h"
-#include "../../LifeUI/Life.h"
 #include "../../SaveData/SaveData.h"
 #include "../../Effect/Effect.h"
 #include "../../Sound/SoundManager.h"
+#include "../../Player/LifeUI/Life.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 int g_Stage1Handle = -1;
 
@@ -31,6 +32,7 @@ void InitPlayScene()
 	InitLife();
 
 	InitEffect();
+	InitYellowSelect();
 }
 
 void LoadPlayScene(int stage)
@@ -50,6 +52,19 @@ void StartPlayScene(int stage)
 	int life;
 	int score;
 
+	if (stage != 0)
+	{
+		LoadGameData(life, score);
+
+		GetPlayer()->life = life;
+		SetScore(score);
+	}
+	else
+	{
+		GetPlayer()->life = 3;
+		SetScore(0);
+	}
+	
 	LoadGameData(life, score);
 
 	GetPlayer()->life = life;
@@ -77,15 +92,10 @@ void StartPlayScene(int stage)
 
 void StepPlayScene(int stage)
 {
-
-	StepPlayer();
-
 	if (IsTriggerKey(KEY_C)) //デバッグ用
 	{
 		ChangeScene(SCENE_STAGE_2);
 	}
-
-
 
 	if (IsTriggerKey(KEY_P))
 	{
@@ -93,8 +103,11 @@ void StepPlayScene(int stage)
 		ChangeScene(SCENE_TITLE);
 	}
 
+	StepPlayer();               // プレイヤー更新
+	StepYellowSelect();         //ここに移動
 	StepEnemy();
 	StepEnemySpawnSystem(stage);
+	StepTimer();
 
 	StepEffect();
 }
@@ -133,6 +146,8 @@ void DrawPlayScene()
 	DrawTimer();      // タイマー
 	DrawScore();
 	DrawLife();
+
+	DrawYellowSelect();
 
 	// デバッグ表示
 	DrawCamera();

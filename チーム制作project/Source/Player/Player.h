@@ -15,6 +15,12 @@
 //最大残機
 #define PLAYER_MAX_LIFE (10)
 
+// 黄色状態の持続時間（60 = 1秒）
+#define PLAYER_YELLOW_TIME (600)
+
+// 黄色状態エフェクトインターバル
+#define YELLOW_EFFECT_INTERVAL	(8)
+
 enum PlayerAnimationType
 {
 	RED_PLAYER_ANIM_ATTACK,
@@ -71,6 +77,7 @@ struct PlayerData
 
 	BoxCollision boxCollision;					// 矩形当たり判定
 
+	bool selectingYellow;	// 選択画面中か
 };
 
 void InitPlayer();

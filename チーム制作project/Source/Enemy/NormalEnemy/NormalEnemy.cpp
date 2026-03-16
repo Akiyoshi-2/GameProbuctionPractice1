@@ -7,6 +7,7 @@
 #include "../../Collision/Collision.h"
 #include "../../Camera/Camera.h"
 #include "../../Score/Score.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 // アニメーション用パラメータ
 struct NormalEnemyAnimationParam
@@ -108,6 +109,8 @@ void LoadNormalEnemy()
 
 void StepNormalEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	NormalEnemyData* normalEnemy = g_NormalEnemyData;
 
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)
@@ -138,6 +141,8 @@ void StepNormalEnemy()
 
 void UpdateNormalEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	NormalEnemyData* normalEnemy = g_NormalEnemyData;
 
 	for (int i = 0; i < NORMAL_ENEMY_MAX; i++, normalEnemy++)

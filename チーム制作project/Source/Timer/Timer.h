@@ -3,14 +3,12 @@
 
 // タイマー
 void InitTimer();
+void StepTimer();
 void UpdateTimer();
 void DrawTimer();
 void ResetTimer();
 
-// ★ 追加
 void SetTimerStage(int stage);
 
-void GetClearTime();
-
-int GetRemainTime();
-int GetLimitTime();
+//int GetLimitTime();
+//int GetRemainTime();

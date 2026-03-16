@@ -4,6 +4,7 @@
 #include "../Player/Player.h"
 #include "../SaveData/SaveData.h"
 
+
 #define SCORE_POS_X (SCREEN_WIDTH - 500)
 #define SCORE_POS_Y (30)
 

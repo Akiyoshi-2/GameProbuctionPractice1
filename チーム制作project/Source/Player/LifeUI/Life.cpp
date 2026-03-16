@@ -1,11 +1,12 @@
 #include "DxLib.h"
 #include "Life.h"
-#include "../Player/Player.h"
+#include "../Player.h"
 
 // 画像ハンドル
 static int RedLifeHandle = -1;
 static int BlueLifeHandle = -1;
 static int YellowLifeHandle = -1;
+static int g_Life = 3;
 
 // フォント
 static int g_LifeFontHandle = -1;
@@ -16,6 +17,9 @@ static int g_LifeFontHandle = -1;
 
 void InitLife()
 {
+    // ライフ初期化
+    g_Life = 3;
+
     // Agency FB フォント作成
     g_LifeFontHandle = CreateFontToHandle("Agency FB", 40, 3);
 }
@@ -73,6 +77,11 @@ void DrawLife()
         "X%d",
         life
     );
+}
+
+void SetLife(int life)
+{
+    g_Life = life;
 }
 
 void FinLife()

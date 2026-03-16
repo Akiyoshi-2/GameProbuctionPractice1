@@ -1,5 +1,11 @@
 #include "Timer.h"
 #include "../GameSetting/GameSetting.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/GameOverScene/GameOverScene.h"
+#include "../Player/Player.h"
+#include "../Score/Score.h"
+#include "../SaveData/SaveData.h"
+#include "../Player/YellowSelect/YellowSelect.h"
 
 int g_FontHandle = -1;
 int g_StartTime = 0;
@@ -29,8 +35,15 @@ void InitTimer()
     g_RemainTime = g_LimitTime;
 }
 
+void StepTimer()
+{
+    if (g_IsYellowSelecting) return;
+}
+
 void UpdateTimer()
 {
+    if (g_IsYellowSelecting) return;
+
     //現在の経過時間
     int now = GetNowCount();
     int elapsed = (now - g_StartTime) / 1000;
@@ -38,9 +51,22 @@ void UpdateTimer()
     //スタート時間から経過時間を引く
     g_RemainTime = g_LimitTime - elapsed;
 
-    if (g_RemainTime < 0)
+    if (g_RemainTime <= 0)
     {
-        g_RemainTime = 0;   // 0で止めるだけ
+        g_RemainTime = 0;
+
+        // プレイヤー取得
+        PlayerData* player = GetPlayer();
+
+        // ライフとスコア初期化
+        player->life = 3;
+        SetScore(0);
+
+        // セーブデータ更新
+        SaveGameData(player->life, GetScore());
+
+        // GameOverへ
+        ChangeScene(SCENE_GAMEOVER);
     }
 }
 
@@ -71,14 +97,4 @@ void ResetTimer()
 {
     g_StartTime = GetNowCount();
     g_RemainTime = g_LimitTime;
-}
-
-int GetRemainTime()
-{
-    return g_RemainTime;
-}
-
-int GetLimitTime()
-{
-    return g_LimitTime;
 }

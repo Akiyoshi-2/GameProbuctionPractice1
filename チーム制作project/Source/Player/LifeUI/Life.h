@@ -12,5 +12,7 @@ void UpdateLife();
 // •`‰æ
 void DrawLife();
 
+void SetLife(int life);
+
 // I—¹ˆ—
 void FinLife();

@@ -32,6 +32,7 @@
 #include "../SaveData/SaveData.h"
 
 #include "../Effect/Effect.h"
+#include "YellowSelect/YellowSelect.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -90,9 +91,6 @@ PlayerData g_PrevPlayerData = { 0 };
 // キャラクタータイプ切り替えクールタイム
 #define PLAYER_TYPE_CHANGE_COOLTIME (60)
 
-// 黄色状態の持続時間（60 = 1秒）
-#define PLAYER_YELLOW_TIME (900)
-
 // 死亡後のリスポーン待機時間
 //#define PLAYER_DIE_TIME (60)->includしたいため.hのほうに移動
 
@@ -101,9 +99,6 @@ PlayerData g_PrevPlayerData = { 0 };
 #define STAGE1_DEAD_LINE (1450.0f)
 #define STAGE2_DEAD_LINE (7000.0f)
 #define STAGE3_DEAD_LINE (1900.0f)
-
-// 黄色状態エフェクトインターバル
-#define YELLOW_EFFECT_INTERVAL	(8)
 
 //ジャンプ力
 float GetPlayerJumpPower()
@@ -205,8 +200,23 @@ void LoadPlayer()
 
 void StartPlayer(int stage)
 {
-	
 	g_PlayerData.active = true;
+
+	int life;
+	int score;
+
+	// チュートリアル以外はセーブデータ読み込み
+	if (stage == 0) // チュートリアル
+	{
+		g_PlayerData.life = 999;
+		SetScore(0);
+	}
+	else
+	{
+		LoadGameData(life, score);
+		g_PlayerData.life = life;
+		SetScore(score);
+	}
 
 	// ステージ別スポーン位置
 	switch (stage)
@@ -214,26 +224,24 @@ void StartPlayer(int stage)
 	case 0: // チュートリアル
 		g_PlayerData.pos.x = 100.0f;
 		g_PlayerData.pos.y = 800.0f;
+
+		g_PlayerData.life = 999;
+		SetScore(0);
 		break;
 
-	case 1: // Stage1
+	case 1:
 		g_PlayerData.pos.x = 100.0f;
 		g_PlayerData.pos.y = 1255.0f;
 		break;
 
-	case 2: // Stage2
+	case 2:
 		g_PlayerData.pos.x = 100.0f;
 		g_PlayerData.pos.y = 6455.0f;
 		break;
 
-	case 3: // Stage3
+	case 3:
 		g_PlayerData.pos.x = 150.0f;
 		g_PlayerData.pos.y = 305.0f;
-		break;
-
-	default:
-		g_PlayerData.pos.x = 0.0f;
-		g_PlayerData.pos.y = 0.0f;
 		break;
 	}
 
@@ -263,6 +271,20 @@ void StartPlayer(int stage)
 
 void StepPlayer()
 {
+
+	StepYellowSelect(); //これ自体は描画処理だけでも OK
+
+	PlayerData* player = GetPlayer();
+
+	if (IsSelectingYellow())
+	{
+		player->move.x = 0.0f;
+		player->move.y = 0.0f;
+		// 攻撃やジャンプも止めたい場合はフラグも切る
+		player->isAttacking = false;
+		return;
+	}
+
 	// 死亡中処理
 	// リスポーン待機
 	if (g_PlayerData.isDead)
@@ -335,24 +357,24 @@ void StepPlayer()
 	}
 
 	// 黄色状態発動（Qキー）
-	if (IsTriggerKey(KEY_Q))
-	{
-		// 黄色状態でなければ発動
-		if (g_PlayerData.type != TYPE_YELLOW)
-		{
-			// 現在タイプ保存
-			g_PlayerData.prevType = g_PlayerData.type;
+	//if (IsTriggerKey(KEY_Q))
+	//{
+	//	// 黄色状態でなければ発動
+	//	if (g_PlayerData.type != TYPE_YELLOW)
+	//	{
+	//		// 現在タイプ保存
+	//		g_PlayerData.prevType = g_PlayerData.type;
 
-			// 黄色状態へ
-			g_PlayerData.type = TYPE_YELLOW;
-			g_PlayerData.yellowRemainTime = PLAYER_YELLOW_TIME;
+	//		// 黄色状態へ
+	//		g_PlayerData.type = TYPE_YELLOW;
+	//		g_PlayerData.yellowRemainTime = PLAYER_YELLOW_TIME;
 
-			// 黄色状態変身エフェクト
-			StartEffect(PLAYER_CHANGE_YELLOW, g_PlayerData.pos.x, g_PlayerData.pos.y, YELLOW_EFFECT_INTERVAL);
+	//		// 黄色状態変身エフェクト
+	//		StartEffect(PLAYER_CHANGE_YELLOW, g_PlayerData.pos.x, g_PlayerData.pos.y, YELLOW_EFFECT_INTERVAL);
 
-			StartPlayerAnimation(YELLOW_PLAYER_ANIM_IDLE);
-		}
-	}
+	//		StartPlayerAnimation(YELLOW_PLAYER_ANIM_IDLE);
+	//	}
+	//}
 
 	// 黄色状態タイマー
 	if (g_PlayerData.type == TYPE_YELLOW)
@@ -480,7 +502,10 @@ void UpdatePlayer()
 		// 残機減少
 		g_PlayerData.life--;
 
-		SaveGameData(g_PlayerData.life, GetScore());
+		if (g_DecidedStage != 0)
+		{
+			SaveGameData(g_PlayerData.life, GetScore());
+		}
 
 		if (g_PlayerData.life <= -1)
 		{
@@ -863,7 +888,10 @@ void PlayerHitThornBlockX(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
-			SaveGameData(g_PlayerData.life, GetScore());
+			if (g_DecidedStage != 0)
+			{
+				SaveGameData(g_PlayerData.life, GetScore());
+			}
 
 			if (g_PlayerData.life <= -1)
 			{
@@ -927,7 +955,10 @@ void PlayerHitThornBlockY(MapChipData mapChipData)
 			// 残機減少
 			g_PlayerData.life--;
 
-			SaveGameData(g_PlayerData.life, GetScore());
+			if (g_DecidedStage != 0)
+			{
+				SaveGameData(g_PlayerData.life, GetScore());
+			}
 
 			if (g_PlayerData.life <= -1)
 			{
@@ -977,7 +1008,10 @@ void PlayerHitEnemy()
 
 	player->life--;   //残機減少
 
-	SaveGameData(g_PlayerData.life, GetScore());
+	if (g_DecidedStage != 0)
+	{
+		SaveGameData(g_PlayerData.life, GetScore());
+	}
 
 	if (player->life <= -1)
 	{

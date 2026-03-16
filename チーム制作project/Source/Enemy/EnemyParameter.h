@@ -155,8 +155,11 @@ enum YellowEnemyAnimationType
 	YELLOW_ENEMY_RUN_1,
 	YELLOW_ENEMY_RUN_2,
 	YELLOW_ENEMY_STUN,
+	YELLOW_ENEMY_STUNSTOP,
 	YELLOW_ENEMY_CRUSH,
 	YELLOW_ENEMY_STRIKE,
+	YELLOW_ENEMY_DIE,
+	YELLOW_ENEMY_DIE2,
 	YELLOW_ENEMY_ANIM_MAX,
 	YELLOW_ENEMY_ANIM_NONE = -1
 };
@@ -167,25 +170,34 @@ struct YellowEnemyData
 	bool isTurn;
 	bool isAir;
 	bool active;
-	bool stun;
+
+	bool helmet;     // ヘルメット状態
+	bool stun;       // スタン
+	bool stopStun;   // スタン後停止
+
 	bool crush;
 	bool strike;
 	bool die;
 
-	int strikeTimer;
+	int stunTimer;       // STUN時間 (60)
+	int stopStunTimer;   // STOP_STUN時間 (30)
+
+	int strikeTimer; // アニメーション時間
 	int crushTimer;
 	int dieTimer;
 
-	int enemyHP;
 	VECTOR pos;
 	VECTOR move;
+
 	AnimationData animation[YELLOW_ENEMY_ANIM_MAX];
 	YellowEnemyAnimationType playAnim;
-	BoxCollision boxCollision;
-	const EnemyParameter* param;
-	YellowEnemyData* date;
-};
 
+	BoxCollision boxCollision;
+
+	const EnemyParameter* param;
+
+	YellowEnemyData* data;
+};
 // FULLARMOR_ENEMY関連
 #define FULLARMOR_ENEMY_MAX	(255)
 #define FULLARMOR_ENEMY_WIDTH	(40.0f)
@@ -211,11 +223,12 @@ struct FullArmEnemyData
 
 	VECTOR pos;
 	VECTOR move;
+
 	AnimationData animation[FULLARMOR_ENEMY_ANIM_MAX];
 	FullArmEnemyAnimationType playAnim;
+
 	BoxCollision boxCollision;
 	const EnemyParameter* param;
-	FullArmEnemyData* data;
 };
 
 // GOAL

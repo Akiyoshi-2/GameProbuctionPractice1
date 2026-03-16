@@ -6,6 +6,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Player/Player.h"
 #include "../../Score/Score.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 // アニメーション用パラメータ
 struct ShieldEnemyAnimationParam
@@ -98,6 +99,8 @@ void LoadShieldEnemy()
 
 void StepShieldEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
 
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)
@@ -127,6 +130,8 @@ void StepShieldEnemy()
 
 void UpdateShieldEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	ShieldEnemyData* shieldEnemy = g_ShieldEnemyData;
 
 	for (int i = 0; i < SHIELD_ENEMY_MAX; i++, shieldEnemy++)

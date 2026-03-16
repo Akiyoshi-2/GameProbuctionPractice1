@@ -85,9 +85,6 @@
     <ClCompile Include="Source\Score\Score.cpp">
       <Filter>Source\Score</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LifeUI\Life.cpp">
-      <Filter>Source\Player\LifeUI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SaveData\SaveData.cpp">
       <Filter>Source\SaveData</Filter>
     </ClCompile>
@@ -96,6 +93,12 @@
     </ClCompile>
     <ClCompile Include="Source\Effect\Effect.cpp">
       <Filter>Source\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\YellowSelect\YellowSelect.cpp">
+      <Filter>Source\Player\YellowSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\LifeUI\Life.cpp">
+      <Filter>Source\Player\LifeUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +192,6 @@
     <ClInclude Include="Source\Score\Score.h">
       <Filter>Source\Score</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LifeUI\Life.h">
-      <Filter>Source\Player\LifeUI</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene\SceneManager.h">
       <Filter>Source\Scene</Filter>
     </ClInclude>
@@ -200,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="Source\Effect\Effect.h">
       <Filter>Source\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\YellowSelect\YellowSelect.h">
+      <Filter>Source\Player\YellowSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\LifeUI\Life.h">
+      <Filter>Source\Player\LifeUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +260,6 @@
     <Filter Include="Source\Player\Attack">
       <UniqueIdentifier>{2a929818-4692-4887-a8d2-c18318061b21}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Player\LifeUI">
-      <UniqueIdentifier>{de61d79f-c3d2-48b2-b7d3-e4b858e89e2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\SaveData">
       <UniqueIdentifier>{95958afc-21ba-4931-83f9-57c1c195df6b}</UniqueIdentifier>
     </Filter>
@@ -292,6 +295,12 @@
     </Filter>
     <Filter Include="Source\Effect">
       <UniqueIdentifier>{ebab056c-8e3f-49b0-a622-baeaa5297f89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player\YellowSelect">
+      <UniqueIdentifier>{0285760d-6b9e-46e3-a21b-7931e4f5446b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player\LifeUI">
+      <UniqueIdentifier>{b188dcd3-d84a-45bc-9611-653860e6ae63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

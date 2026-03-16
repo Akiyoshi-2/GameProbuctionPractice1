@@ -6,6 +6,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Player/Attack/Attack.h"
 #include "../../Score/Score.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 // アニメーション用パラメータ
 struct helmetEnemyAnimationParam
@@ -95,6 +96,8 @@ void LoadHelmetEnemy()
 
 void StepHelmetEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
 
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)
@@ -122,6 +125,8 @@ void StepHelmetEnemy()
 
 void UpdateHelmetEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	HelmetEnemyData* helmet = g_HelmetEnemyData;
 
 	for (int i = 0; i < HELMET_ENEMY_MAX; i++, helmet++)

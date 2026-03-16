@@ -6,6 +6,7 @@
 #include "../../Camera/Camera.h"
 #include "../../Collision/Collision.h"
 #include "../../Score/Score.h"
+#include "../../Player/YellowSelect/YellowSelect.h"
 
 // アニメーション用パラメータ
 struct FullArmEnemyAnimationParam
@@ -90,6 +91,8 @@ void LoadFullArmorEnemy()
 
 void StepFullArmorEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	FullArmEnemyData* fullArmor = g_FullArmEnemyData;
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArmor++)
 	{
@@ -114,6 +117,8 @@ void StepFullArmorEnemy()
 
 void UpdateFullArmorEnemy()
 {
+	if (g_IsYellowSelecting) return;
+
 	FullArmEnemyData* fullArmor = g_FullArmEnemyData;
 	for (int i = 0; i < FULLARMOR_ENEMY_MAX; i++, fullArmor++)
 	{
@@ -279,24 +284,32 @@ void FullArmorEnemyHitBlockY(MapChipData mapChipData, int index)
 
 void StartFullArmEnemyAnimation(FullArmEnemyAnimationType anim, int index)
 {
-	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
+	FullArmEnemyData* enemy = &g_FullArmEnemyData[index];
 
-	if (anim == fullArmor->playAnim)return;
+	if (anim == enemy->playAnim) return;
 
-	fullArmor->playAnim = anim;
+	enemy->playAnim = anim;
 
-	AnimationData* animData = &fullArmor->animation[index];
-	FullArmEnemyAnimationParam animParam = FULLARMOR_ENEMY_ANIM_PARAM[index];
+	AnimationData* animData = &enemy->animation[anim];
+	FullArmEnemyAnimationParam animParam = FULLARMOR_ENEMY_ANIM_PARAM[anim];
 
-	StartAnimation(animData, fullArmor->pos.x, fullArmor->pos.y,
-		animParam.interval, animParam.frameNum, animParam.width, animParam.height, true);
+	StartAnimation(
+		animData,
+		enemy->pos.x,
+		enemy->pos.y,
+		animParam.interval,
+		animParam.frameNum,
+		animParam.width,
+		animParam.height,
+		true
+	);
 }
 
 void UpdateFullArmEnemyAnimation(int index)
 {
-	FullArmEnemyData* fullArmor = &g_FullArmEnemyData[index];
+	FullArmEnemyData* enemy = &g_FullArmEnemyData[index];
 
-	if (fullArmor->die)
+	if (enemy->die)
 	{
 		StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_DIE, index);
 	}
@@ -305,7 +318,6 @@ void UpdateFullArmEnemyAnimation(int index)
 		StartFullArmEnemyAnimation(FULLARMOR_ENEMY_ANIM_RUN, index);
 	}
 
-	AnimationData* animData = &fullArmor->animation[fullArmor->playAnim];
+	AnimationData* animData = &enemy->animation[enemy->playAnim];
 	UpdateAnimation(animData);
-
 }

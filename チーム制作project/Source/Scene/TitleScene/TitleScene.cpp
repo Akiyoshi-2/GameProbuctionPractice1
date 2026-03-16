@@ -3,6 +3,9 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Timer/Timer.h"
 #include "../../SaveData/SaveData.h"
+#include "../../Player/LifeUI/Life.h"
+#include "../../Score/Score.h"
+#include "../../Player/Player.h"
 
 //‰æ‘œ
 int g_TitleHandle = -1;
@@ -71,6 +74,8 @@ int g_DecidedStage = 0;
 //Scene‹A‘î
 bool g_ReturnFromGame = false;
 
+bool g_IsTutorialMode = false;
+
 void InitTitleScene()
 {
 	Input_Reset();
@@ -109,13 +114,31 @@ void InitTitleScene()
     g_DecidedStage = 0;
 
 	// ƒQ[ƒ€‚©‚ç–ß‚Á‚Ä‚«‚½Žž
-	if (g_ReturnFromGame)
-	{
-		g_IsDecided = true;
-		g_IsShowMenu = true;
-		g_DrawKeyUI = false;
-		g_ReturnFromGame = false;
-	}
+    if (g_ReturnFromGame)
+    {
+        g_IsDecided = true;
+        g_IsShowMenu = true;
+        g_DrawKeyUI = false;
+
+        int life;
+        int score;
+
+        if (!g_IsTutorialMode)
+        {
+            LoadGameData(life, score);
+
+            SetLife(life);
+            SetScore(score);
+
+            PlayerData* player = GetPlayer();
+            if (player != nullptr)
+            {
+                player->life = life;
+            }
+        }
+
+        g_ReturnFromGame = false;
+    }
 }
 
 void LoadTitleScene()
@@ -164,7 +187,7 @@ void StepTitleScene()
     {
         if (Input_IsAnyKeyPush())
         {
-            if (!g_ReturnFromGame)
+            if (!g_ReturnFromGame && !g_IsTutorialMode)
             {
                 SaveGameData(3, 0);
             }
@@ -235,6 +258,8 @@ void StepTitleScene()
         {
             if (g_MenuCursor == MENU_TUTORIAL)
             {
+                g_IsTutorialMode = true;
+
                 SetTimerStage(0);
 
                 g_IsTutorialBlink = true;
@@ -367,6 +392,8 @@ void StepTitleScene()
             g_DecidedStage =
                 (g_SelectCursor == SELECT_STAGE1) ? 1 :
                 (g_SelectCursor == SELECT_STAGE2) ? 2 : 3;
+
+            g_IsTutorialMode = false;
 
             SetTimerStage(g_DecidedStage);
 
