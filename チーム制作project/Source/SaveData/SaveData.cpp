@@ -3,7 +3,7 @@
 
 #define SAVE_FILE "Data/SaveData/save.txt"
 
-void SaveGameData(int life, int score)
+void SaveGameData(int life, int score, int yellow)
 {
     FILE* fp;
 
@@ -13,11 +13,12 @@ void SaveGameData(int life, int score)
 
     fprintf_s(fp, "Life:%d\n", life);
     fprintf_s(fp, "Score:%d\n", score);
+    fprintf_s(fp, "Yellow:%d\n", yellow);
 
     fclose(fp);
 }
 
-void LoadGameData(int& life, int& score)
+void LoadGameData(int& life, int& score, int& yellow)
 {
     FILE* fp;
 
@@ -27,13 +28,15 @@ void LoadGameData(int& life, int& score)
     {
         life = 3;
         score = 0;
+        yellow = 0;
         return;
     }
 
-    if (fscanf_s(fp, "Life:%d\nScore:%d", &life, &score) != 2)
+    if (fscanf_s(fp, "Life:%d\nScore:%d\nYellow:%d", &life, &score, &yellow) != 3)
     {
         life = 3;
         score = 0;
+        yellow = 0;
     }
 
     fclose(fp);

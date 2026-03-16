@@ -1,7 +1,7 @@
 #pragma once
 
 void InitYellowSelect();
-void StepYellowSelect();
+bool StepYellowSelect();
 void DrawYellowSelect();
 void StartYellowSelect();
 void EndYellowSelect();

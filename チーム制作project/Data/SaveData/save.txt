@@ -1,2 +1,3 @@
 Life:3
 Score:0
+Yellow:0

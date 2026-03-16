@@ -7,6 +7,7 @@
 #include "../../Player/Player.h"
 #include "../../SaveData/SaveData.h"
 #include "../../Score/Score.h"
+#include "../../Player/YellowStock/YellowStock.h"
 
 int g_GameOverHandle = -1;
 int g_RKyeHandle = -1;
@@ -46,8 +47,8 @@ void StepGameOver()
 {
     if (IsTriggerKey(KEY_R))
     {
-        // Lifeを3でセーブ
-        SaveGameData(3, GetScore());
+        // 黄色ストックを0にしてセーブ
+        SaveGameData(3, GetScore(), 0);
 
         // タイトルへ戻る
         g_ReturnFromGame = true;

@@ -62,9 +62,10 @@ void StartClearScene()
 	{
 		int life;
 		int score;
+		int yellow;
 
-		LoadGameData(life, score);
-		SaveGameData(life, 0);
+		LoadGameData(life, score, yellow);
+		SaveGameData(life, 0, yellow);
 	}
 
 	g_ClearTimeFontHandle = CreateFontToHandle("Arial", 80, 3);

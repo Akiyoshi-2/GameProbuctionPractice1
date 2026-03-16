@@ -8,6 +8,7 @@
 #include "../../Score/Score.h"
 #include "../../Player/Player.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Player/YellowStock/YellowStock.h"
 
 // アニメーション用パラメータ
 struct YellowEnemyAnimationParam
@@ -203,6 +204,8 @@ void UpdateYellowEnemy()
 			{
 				yellow->active = false;
 				AddScore(200);
+
+				AddYellowStock(1);
 			}
 
 			continue;
@@ -446,6 +449,8 @@ void PlayerKillYellowEnemy(int index)
 
 	// スコア
 	AddScore(200);
+
+	AddYellowStock(1);
 }
 
 void PlayerKillYellowEnemyYellow(int index)
@@ -472,6 +477,8 @@ void PlayerKillYellowEnemyYellow(int index)
 	}
 
 	AddScore(200);
+
+	AddYellowStock(1);
 }
 
 void YellowEnemyHitBlockX(MapChipData mapChipData, int index)

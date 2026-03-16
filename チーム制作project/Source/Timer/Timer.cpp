@@ -6,6 +6,7 @@
 #include "../Score/Score.h"
 #include "../SaveData/SaveData.h"
 #include "../Player/YellowSelect/YellowSelect.h"
+#include "../Player/YellowStock/YellowStock.h"
 
 int g_FontHandle = -1;
 int g_StartTime = 0;
@@ -63,7 +64,8 @@ void UpdateTimer()
         SetScore(0);
 
         // セーブデータ更新
-        SaveGameData(player->life, GetScore());
+        int yellow = GetYellowStock();
+        SaveGameData(player->life, GetScore(), yellow);
 
         // GameOverへ
         ChangeScene(SCENE_GAMEOVER);

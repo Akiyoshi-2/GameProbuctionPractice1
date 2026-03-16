@@ -34,6 +34,7 @@
 #include "../Effect/Effect.h"
 #include "YellowSelect/YellowSelect.h"
 #include "../Sound/SoundManager.h"
+#include "YellowStock/YellowStock.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -205,6 +206,7 @@ void StartPlayer(int stage)
 
 	int life;
 	int score;
+	int yellow;
 
 	// チュートリアル以外はセーブデータ読み込み
 	if (stage == 0) // チュートリアル
@@ -214,7 +216,8 @@ void StartPlayer(int stage)
 	}
 	else
 	{
-		LoadGameData(life, score);
+		LoadGameData(life, score, yellow);
+
 		g_PlayerData.life = life;
 		SetScore(score);
 	}
@@ -272,16 +275,15 @@ void StartPlayer(int stage)
 
 void StepPlayer()
 {
-
-	StepYellowSelect(); //これ自体は描画処理だけでも OK
+	if (StepYellowSelect()) return;
 
 	PlayerData* player = GetPlayer();
 
+	// YellowSelect中は操作停止
 	if (IsSelectingYellow())
 	{
 		player->move.x = 0.0f;
 		player->move.y = 0.0f;
-		// 攻撃やジャンプも止めたい場合はフラグも切る
 		player->isAttacking = false;
 		return;
 	}
@@ -500,36 +502,7 @@ void UpdatePlayer()
 	if (!g_PlayerData.isDead && g_PlayerData.pos.y > deadLine)
 	{
 		PlayerDie();
-
-		if (g_DecidedStage != 0)
-		{
-			SaveGameData(g_PlayerData.life, GetScore());
-		}
-
-		if (g_PlayerData.life <= -1)
-		{
-			ChangeScene(SCENE_GAMEOVER);
-			return;
-		}
-
-		// プレイヤーを非アクティブにする
-		g_PlayerData.active = false;
-
-		// 死亡状態フラグ
-		g_PlayerData.isDead = true;
-
-		// 死亡タイマー設定
-		g_PlayerData.deadTimer = PLAYER_DIE_TIME;
-
-		// 移動停止
-		g_PlayerData.move.x = 0.0f;
-		g_PlayerData.move.y = 0.0f;
-
-		// プレイヤータイプごとの死亡アニメーション開始
-		if (g_PlayerData.type == TYPE_RED)
-			StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
-		else if (g_PlayerData.type == TYPE_BLUE)
-			StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+		return;
 	}
 
 	// 攻撃処理更新
@@ -844,134 +817,66 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 
 void PlayerHitThornBlockX(MapChipData mapChipData)
 {
-	// 対象ブロック取得
 	BlockData* block = mapChipData.data;
-	if (!block->active) return; // 非アクティブブロックは処理しない
+	if (!block->active) return;
 
-	// 黄色プレイヤーは通常ブロック判定に移行
 	if (g_PlayerData.type == TYPE_YELLOW)
 	{
 		PlayerHitNormalBlockX(mapChipData);
 		return;
 	}
 
-	// 赤・青プレイヤーはトゲで即死
 	PlayerData player = g_PlayerData;
 
 	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
 	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
 
-	// 向きは前フレームのものを使用
 	player.isTurn = g_PrevPlayerData.isTurn;
 
-	// Y座標は前フレームを使用して横方向の判定
 	player.pos.x = g_PlayerData.pos.x;
 	player.pos.y = g_PrevPlayerData.pos.y;
 
-	// 当たり判定用のボックス計算
 	float x, y, w, h;
 	CalcBoxCollision(player, x, y, w, h);
 
-	// プレイヤーとブロックの矩形判定
 	if (CheckSquareSquare(
 		x + POS_OFFSET, y + POS_OFFSET,
 		w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y,
 		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		// 死亡処理
-		if (!g_PlayerData.isDead)
-		{
-			PlayerDie();
-
-			if (g_DecidedStage != 0)
-			{
-				SaveGameData(g_PlayerData.life, GetScore());
-			}
-
-			if (g_PlayerData.life <= -1)
-			{
-				ChangeScene(SCENE_GAMEOVER);
-				return;
-			}
-
-			g_PlayerData.active = false;           // 操作不可
-			g_PlayerData.isDead = true;            // 死亡フラグ
-			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
-			g_PlayerData.move.x = 0.0f;            // 移動停止
-			g_PlayerData.move.y = 0.0f;
-
-			// 死亡アニメーション開始
-			if (g_PlayerData.type == TYPE_RED)
-				StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
-			else if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
-		}
+		PlayerDie();
 	}
 }
 
 void PlayerHitThornBlockY(MapChipData mapChipData)
 {
-	// 対象ブロック取得
 	BlockData* block = mapChipData.data;
-	if (!block->active) return; // 非アクティブブロックは処理しない
+	if (!block->active) return;
 
-	// 黄色プレイヤーは通常ブロック判定に移行
 	if (g_PlayerData.type == TYPE_YELLOW)
 	{
 		PlayerHitNormalBlockY(mapChipData);
 		return;
 	}
 
-	// 赤・青プレイヤーはトゲで即死
 	PlayerData player = g_PlayerData;
 
 	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
 	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
 
-	// 向きは前フレームのものを使用
 	player.isTurn = g_PrevPlayerData.isTurn;
 
-	// 当たり判定用のボックス計算
 	float x, y, w, h;
 	CalcBoxCollision(player, x, y, w, h);
 
-	// プレイヤーとブロックの矩形判定
 	if (CheckSquareSquare(
 		x + POS_OFFSET, y + POS_OFFSET,
 		w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y,
 		MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
 	{
-		// 死亡処理
-		if (!g_PlayerData.isDead)
-		{
-			PlayerDie();
-
-			if (g_DecidedStage != 0)
-			{
-				SaveGameData(g_PlayerData.life, GetScore());
-			}
-
-			if (g_PlayerData.life <= -1)
-			{
-				ChangeScene(SCENE_GAMEOVER);
-				return;
-			}
-
-
-			g_PlayerData.active = false;           // 操作不可
-			g_PlayerData.isDead = true;            // 死亡フラグ
-			g_PlayerData.deadTimer = PLAYER_DIE_TIME; // 復活タイマー
-			g_PlayerData.move.x = 0.0f;            // 移動停止
-			g_PlayerData.move.y = 0.0f;
-
-			// 死亡アニメーション開始
-			if (g_PlayerData.type == TYPE_RED)
-				StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
-			else if (g_PlayerData.type == TYPE_BLUE)
-				StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
-		}
+		PlayerDie();
 	}
 }
 
@@ -998,34 +903,14 @@ void PlayerHitEnemy()
 	if (player->isDead) return;
 
 	PlayerDie();
-
-	if (g_DecidedStage != 0)
-	{
-		SaveGameData(g_PlayerData.life, GetScore());
-	}
-
-	if (player->life <= -1)
-	{
-		ChangeScene(SCENE_GAMEOVER);
-		return;
-	}
-
-	player->isDead = true;
-	player->deadTimer = PLAYER_DIE_TIME;
-	player->active = false;
-
-	player->move.x = 0;
-	player->move.y = 0;
-
-	if (player->type == TYPE_RED)
-		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
-	else if (player->type == TYPE_BLUE)
-		StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
 }
 
 void PlayerDie()
 {
-	//スコアを下げる
+	// 二重死亡防止
+	if (g_PlayerData.isDead) return;
+
+	// スコア減少
 	AddScore(-200);
 
 	// SE
@@ -1034,24 +919,30 @@ void PlayerDie()
 	// 残機減少
 	g_PlayerData.life--;
 
+	// セーブ
 	if (g_DecidedStage != 0)
 	{
-		SaveGameData(g_PlayerData.life, GetScore());
+		int yellow = GetYellowStock();
+		SaveGameData(g_PlayerData.life, GetScore(), yellow);
 	}
 
+	// ゲームオーバー
 	if (g_PlayerData.life <= -1)
 	{
 		ChangeScene(SCENE_GAMEOVER);
 		return;
 	}
 
+	// 死亡状態
 	g_PlayerData.active = false;
 	g_PlayerData.isDead = true;
 	g_PlayerData.deadTimer = PLAYER_DIE_TIME;
 
+	// 移動停止
 	g_PlayerData.move.x = 0.0f;
 	g_PlayerData.move.y = 0.0f;
 
+	// 死亡アニメーション
 	if (g_PlayerData.type == TYPE_RED)
 		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 	else if (g_PlayerData.type == TYPE_BLUE)

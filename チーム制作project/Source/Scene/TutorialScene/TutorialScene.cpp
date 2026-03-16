@@ -83,8 +83,9 @@ void StartTutorialScene(int stage)
 	{
 		int life;
 		int score;
+		int yellow;
 
-		LoadGameData(life, score);
+		LoadGameData(life, score, yellow);
 
 		player->life = life;
 		SetScore(score);

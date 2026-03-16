@@ -127,7 +127,8 @@ void InitTitleScene()
 
         if (!g_IsTutorialMode)
         {
-            LoadGameData(life, score);
+            int yellow;
+            LoadGameData(life, score, yellow);
 
             SetLife(life);
             SetScore(score);
@@ -241,7 +242,7 @@ void StepTitleScene()
         {
             if (!g_ReturnFromGame && !g_IsTutorialMode)
             {
-                SaveGameData(3, 0);
+                SaveGameData(3, 0, 0);
             }
 
             g_IsDecided = true;

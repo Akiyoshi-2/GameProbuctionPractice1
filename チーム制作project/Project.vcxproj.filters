@@ -100,6 +100,9 @@
     <ClCompile Include="Source\Player\LifeUI\Life.cpp">
       <Filter>Source\Player\LifeUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player\YellowStock\YellowStock.cpp">
+      <Filter>Source\Player\YellowStock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -207,6 +210,9 @@
     <ClInclude Include="Source\Player\LifeUI\Life.h">
       <Filter>Source\Player\LifeUI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Player\YellowStock\YellowStock.h">
+      <Filter>Source\Player\YellowStock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -301,6 +307,9 @@
     </Filter>
     <Filter Include="Source\Player\LifeUI">
       <UniqueIdentifier>{b188dcd3-d84a-45bc-9611-653860e6ae63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player\YellowStock">
+      <UniqueIdentifier>{2d24af85-0a38-4ef8-84c9-62af8bce63c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

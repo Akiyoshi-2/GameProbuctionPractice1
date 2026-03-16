@@ -17,6 +17,7 @@
 #include "../../Sound/SoundManager.h"
 #include "../../Player/LifeUI/Life.h"
 #include "../../Player/YellowSelect/YellowSelect.h"
+#include "../../Player/YellowStock/YellowStock.h"
 
 int g_Stage1Handle = -1;
 
@@ -51,24 +52,22 @@ void StartPlayScene(int stage)
 {
 	int life;
 	int score;
+	int yellow;
+
+	LoadGameData(life, score, yellow);
 
 	if (stage != 0)
 	{
-		LoadGameData(life, score);
-
 		GetPlayer()->life = life;
 		SetScore(score);
+		SetYellowStock(yellow);
 	}
 	else
 	{
 		GetPlayer()->life = 3;
 		SetScore(0);
+		SetYellowStock(0);
 	}
-	
-	LoadGameData(life, score);
-
-	GetPlayer()->life = life;
-	SetScore(score);
 
 	ResetCamera();
 	SetCameraStage(stage);

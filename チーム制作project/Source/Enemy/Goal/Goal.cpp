@@ -8,6 +8,7 @@
 #include "../../Score/Score.h"
 #include "../../SaveData/SaveData.h"
 #include "../../Scene/TitleScene/TitleScene.h"
+#include "../../Player/YellowStock/YellowStock.h"
 
 extern int g_UnlockedStage;
 
@@ -142,7 +143,7 @@ void PlayerHitGoal()
 	// セーブ
 	if (g_DecidedStage != 0) // チュートリアル以外
 	{
-		SaveGameData(player->life, GetScore());
+		SaveGameData(player->life, GetScore(), GetYellowStock());
 	}
 
 	ChangeScene(SCENE_CLEAR);
