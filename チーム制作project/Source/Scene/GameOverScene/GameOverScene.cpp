@@ -3,6 +3,10 @@
 #include "../SceneManager.h"
 #include "../../Input/Input.h"
 #include "../TitleScene/TitleScene.h"
+#include "../../Player/LifeUI/Life.h"
+#include "../../Player/Player.h"
+#include "../../SaveData/SaveData.h"
+#include "../../Score/Score.h"
 
 int g_GameOverHandle = -1;
 int g_RKyeHandle = -1;
@@ -27,6 +31,14 @@ void LoadGameOver()
 
 void StartGameOver()
 {
+    SetLife(3);
+
+    PlayerData* player = GetPlayer();
+    if (player != nullptr)
+    {
+        player->life = 3;
+    }
+
     PlaySoundMem(g_GameOverSEHandle, DX_PLAYTYPE_LOOP);
 }
 
@@ -34,6 +46,9 @@ void StepGameOver()
 {
     if (IsTriggerKey(KEY_R))
     {
+        // Lifeを3でセーブ
+        SaveGameData(3, GetScore());
+
         // タイトルへ戻る
         g_ReturnFromGame = true;
 

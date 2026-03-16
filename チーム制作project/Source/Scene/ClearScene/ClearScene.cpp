@@ -73,7 +73,7 @@ void StartClearScene()
 
 void StepClearScene()
 {
-	if (IsTriggerKey(KEY_C))
+	if (IsTriggerKey(KEY_F))
 	{
 		g_ReturnFromGame = true;
 
