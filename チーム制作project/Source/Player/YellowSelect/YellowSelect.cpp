@@ -234,7 +234,7 @@ void DrawYellowSelect()
             centerX - 30,
             y,
             "No",
-            GetColor(255, 255, 255),
+            GetColor(255, 255, 0),
             g_YellowSelectFont
         );
     }
