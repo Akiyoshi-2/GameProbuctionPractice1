@@ -102,7 +102,7 @@ void CheckPlayerEnemy()
 		int playerX = player->pos.x + 10.0f;
 		int playerY = player->pos.y;
 		int playerW = player->boxCollision.width - 0.1f;
-		int playerH = PLAYER_HEIGHT;
+		int playerH = PLAYER_HEIGHT - 6.0f;
 
 		for (int i = 0; i < NORMAL_ENEMY_MAX; i++)
 		{

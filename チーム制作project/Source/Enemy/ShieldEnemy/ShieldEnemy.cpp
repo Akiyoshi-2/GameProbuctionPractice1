@@ -400,7 +400,7 @@ bool UpdateShieldCrush(int enemyIndex)
 
 	if (!e->active) return false;
 
-	float playerBottomPrev = g_PrevPlayerData.pos.y + PLAYER_HEIGHT;
+	float playerBottomPrev = g_PrevPlayerData.pos.y + PLAYER_HEIGHT - 10.0f;
 	float enemyTop = e->pos.y;
 
 	if (playerBottomPrev <= enemyTop)
