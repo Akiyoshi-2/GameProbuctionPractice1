@@ -135,7 +135,6 @@ float GetPlayerMoveSpeed()
 // アニメーション更新
 void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
-
 void InitPlayer()
 {
 	// 座標
@@ -278,15 +277,6 @@ void StepPlayer()
 	if (StepYellowSelect()) return;
 
 	PlayerData* player = GetPlayer();
-
-	// YellowSelect中は操作停止
-	if (IsSelectingYellow())
-	{
-		player->move.x = 0.0f;
-		player->move.y = 0.0f;
-		player->isAttacking = false;
-		return;
-	}
 
 	// 死亡中処理
 	// リスポーン待機

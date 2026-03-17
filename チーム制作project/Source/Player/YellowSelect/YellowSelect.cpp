@@ -19,6 +19,11 @@ bool g_IsYellowSelecting = false;
 static float savedMoveX = 0.0f;
 static float savedMoveY = 0.0f;
 
+// SEHandle
+int g_SelectSEHandle = -1;
+int g_ColectSEHandle = -1;
+
+
 // 初期化
 void InitYellowSelect()
 {
@@ -32,16 +37,35 @@ void InitYellowSelect()
         g_YellowSelectFont = CreateFontToHandle("Agency FB", 50, 5);
 }
 
+
+void LoadYellowSelect()
+{
+    // SE
+    g_SelectSEHandle = LoadSoundMem("Data/title/Sound/SE/カーソル移動案(1).ogg");
+    g_ColectSEHandle = LoadSoundMem("Data/title/Sound/SE/決定(案1).ogg");
+}
+
+
 // 選択画面中か
 bool IsSelectingYellow()
 {
     return selecting;
 }
 
+
 // 選択画面処理
 bool StepYellowSelect()
 {
     PlayerData* player = GetPlayer();
+
+    // YellowSelect中は操作停止
+    /*if (IsSelectingYellow())
+    {
+        player->move.x = 0.0f;
+        player->move.y = 0.0f;
+        player->isAttacking = false;
+        return true;
+    }*/
 
     // Qでいつでも開く
     if (!selecting && IsTriggerKey(KEY_Q))
@@ -50,11 +74,11 @@ bool StepYellowSelect()
         cursor = 0;
         player->selectingYellow = true;
 
-        //運動量保存
+        // 運動量保存
         savedMoveX = player->move.x;
         savedMoveY = player->move.y;
 
-        //停止
+        // 停止
         player->move.x = 0.0f;
         player->move.y = 0.0f;
 
@@ -68,16 +92,28 @@ bool StepYellowSelect()
 
     int stock = GetYellowStock();
 
-    // カーソル移動（ストックあるときだけ）
+    //  カーソル移動
+    int oldCursor = cursor;
+
     if (stock > 0)
     {
-        if (IsTriggerKey(KEY_LEFT)) cursor = 0;
+        if (IsTriggerKey(KEY_LEFT))  cursor = 0;
         if (IsTriggerKey(KEY_RIGHT)) cursor = 1;
     }
+
+    // カーソルが変わったらSE
+    if (oldCursor != cursor)
+    {
+        PlaySoundMem(g_SelectSEHandle, DX_PLAYTYPE_BACK);
+    }
+
 
     // 決定
     if (IsTriggerKey(KEY_F))
     {
+        // 決定SE
+        PlaySoundMem(g_ColectSEHandle, DX_PLAYTYPE_BACK);
+
         if (stock > 0 && cursor == 0)
         {
             if (!UseYellowStock()) return true;
@@ -103,7 +139,10 @@ bool StepYellowSelect()
         selecting = false;
         player->selectingYellow = false;
 
-        //保存していた運動量を戻す
+        // 入力リセット（これを追加）
+        Input_Reset();
+
+        // 保存していた運動量を戻す
         player->move.x = savedMoveX;
         player->move.y = savedMoveY;
 
@@ -114,6 +153,7 @@ bool StepYellowSelect()
 
     return true;
 }
+
 
 // 描画
 void DrawYellowSelect()

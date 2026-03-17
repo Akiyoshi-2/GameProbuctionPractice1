@@ -47,7 +47,6 @@ void InitTutorialScene()
 	InitLife();
 
 	InitEffect();
-
 	InitYellowSelect();
 }
 
@@ -59,6 +58,7 @@ void LoadTutorialScene(int stage)
 	LoadEnemy();
 	LoadMap(stage);
 	LoadLife();
+
 	LoadEffect();
 }
 
@@ -94,8 +94,6 @@ void StartTutorialScene(int stage)
 
 void StepTutorialScene(int stage)
 {
-	StepYellowSelect();
-
 	// Pでタイトルに戻る（デバッグ用）
 	if (IsTriggerKey(KEY_P))
 	{
@@ -112,8 +110,10 @@ void StepTutorialScene(int stage)
 	}
 
 	StepPlayer();               // プレイヤー更新
+	StepYellowSelect();
 	StepEnemy();                // 敵更新
 	StepEnemySpawnSystem(stage); // 敵スポーンシステム更新
+	StepTimer();
 
 	StepEffect();
 }

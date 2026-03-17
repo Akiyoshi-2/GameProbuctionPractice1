@@ -67,6 +67,7 @@ struct PlayerData
 	int attackTimer;			//攻撃継続時間
 
 	bool isDead;				//死亡中かどうか
+
 	int  deadTimer;				//死亡時間
 
 	PlayerType type;			//タイプ管理
@@ -78,6 +79,8 @@ struct PlayerData
 	BoxCollision boxCollision;					// 矩形当たり判定
 
 	bool selectingYellow;	// 選択画面中か
+
+	bool g_BlockAttackInput = false;
 };
 
 void InitPlayer();

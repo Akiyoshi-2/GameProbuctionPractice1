@@ -23,7 +23,7 @@ int g_Stage1Handle = -1;
 
 void InitPlayScene()
 {
-	g_Stage1Handle = LoadGraph("Data/Title/Select/PlaySceneBG.png");
+	g_Stage1Handle = -1;
 
 	InitPlayer();
 	InitEnemy();
