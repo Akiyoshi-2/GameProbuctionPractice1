@@ -7,6 +7,9 @@ enum KillTutorialType
 	VS_HELMET,
 	VS_SHIELD,
 	VS_YELLOW,
+	PLAYER_CHANGE_R,
+	PLAYER_CHANGE_Q,
+	PLAYER_MOVE,
 	VS_MAX
 };
 

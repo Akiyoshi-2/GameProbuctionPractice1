@@ -59,7 +59,9 @@ void LoadTutorialScene(int stage)
 	g_KillTutorialData[VS_HELMET].handle = LoadGraph("Data/EnemyKillTutorial/HelmetEnemy_Tutorial(ìßâﬂ).png");
 	g_KillTutorialData[VS_SHIELD].handle = LoadGraph("Data/EnemyKillTutorial/ShieldEnemy_Tutorial(ìßâﬂ).png");
 	g_KillTutorialData[VS_YELLOW].handle = LoadGraph("Data/EnemyKillTutorial/YellowEnemy_Tutorial(ìßâﬂ).png");
-
+	g_KillTutorialData[PLAYER_CHANGE_R].handle = LoadGraph("Data/PlayerTutorial/PlayerChange.png");
+	g_KillTutorialData[PLAYER_CHANGE_Q].handle = LoadGraph("Data/PlayerTutorial/PlayerChangeYellow.png");
+	g_KillTutorialData[PLAYER_MOVE].handle = LoadGraph("Data/PlayerTutorial/ëÄçÏê‡ñæ.png");
 
 	LoadPlayer();
 	LoadEnemy();
@@ -75,6 +77,10 @@ void StartTutorialScene(int stage)
 	g_KillTutorialData[VS_HELMET].pos = VGet(2925, 400, 0);
 	g_KillTutorialData[VS_SHIELD].pos = VGet(3425, 400, 0);
 	g_KillTutorialData[VS_YELLOW].pos = VGet(3925, 400, 0);
+
+	g_KillTutorialData[PLAYER_CHANGE_R].pos = VGet(1450, 400, 0);
+	g_KillTutorialData[PLAYER_CHANGE_Q].pos = VGet(4600, 400, 0);
+	g_KillTutorialData[PLAYER_MOVE].pos = VGet(300, 500, 0);
 
 	g_DecidedStage = 0;
 
