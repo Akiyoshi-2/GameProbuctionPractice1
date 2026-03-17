@@ -234,13 +234,16 @@ void CheckPlayerEnemy()
 					return;
 				}
 
-				// 踏みつけ
-				if (UpdateYellowCrush(i))
+				//ヘルメットなしの時だけ踏める
+				if (!yellow->helmet)
 				{
-					return;
+					if (UpdateYellowCrush(i))
+					{
+						return;
+					}
 				}
 
-				// ダメージ
+				// それ以外はダメージ
 				PlayerHitEnemy();
 				return;
 			}

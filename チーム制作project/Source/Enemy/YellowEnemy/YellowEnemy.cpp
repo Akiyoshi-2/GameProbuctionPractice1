@@ -262,7 +262,7 @@ void UpdateYellowEnemy()
 				yellow->stopStun = false;
 			}
 		}
-
+		
 		// ˆÚ“®
 		yellow->pos.x += yellow->move.x;
 		yellow->pos.y += yellow->move.y;
