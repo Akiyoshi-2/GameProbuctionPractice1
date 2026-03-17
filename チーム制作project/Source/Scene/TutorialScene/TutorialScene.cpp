@@ -34,6 +34,7 @@
 
 
 int g_TestHandle = -1;
+KillTutorialTypeData g_KillTutorialData[VS_MAX] = {};
 
 void InitTutorialScene()
 {
@@ -52,7 +53,13 @@ void InitTutorialScene()
 
 void LoadTutorialScene(int stage)
 {
+
 	g_TestHandle = LoadGraph("Data/Title/Select/PlaySceneBG.png");
+	g_KillTutorialData[VS_NORMAL].handle = LoadGraph("Data/EnemyKillTutorial/NormalEnemy_Tutorial(透過).png");
+	g_KillTutorialData[VS_HELMET].handle = LoadGraph("Data/EnemyKillTutorial/HelmetEnemy_Tutorial(透過).png");
+	g_KillTutorialData[VS_SHIELD].handle = LoadGraph("Data/EnemyKillTutorial/ShieldEnemy_Tutorial(透過).png");
+	g_KillTutorialData[VS_YELLOW].handle = LoadGraph("Data/EnemyKillTutorial/YellowEnemy_Tutorial(透過).png");
+
 
 	LoadPlayer();
 	LoadEnemy();
@@ -64,6 +71,11 @@ void LoadTutorialScene(int stage)
 
 void StartTutorialScene(int stage)
 {
+	g_KillTutorialData[VS_NORMAL].pos = VGet(2400, 400, 0);
+	g_KillTutorialData[VS_HELMET].pos = VGet(2925, 400, 0);
+	g_KillTutorialData[VS_SHIELD].pos = VGet(3425, 400, 0);
+	g_KillTutorialData[VS_YELLOW].pos = VGet(3925, 400, 0);
+
 	g_DecidedStage = 0;
 
 	SetCameraStage(stage);
@@ -139,14 +151,25 @@ void DrawTutorialScene()
 	if (g_TestHandle != -1)
 	{
 		DrawGraph(
-			(int)-cam.posX,       // カメラに合わせて描画
-			(int)-cam.posY,
+			0,
+			0,
 			g_TestHandle,
 			TRUE
 		);
 	}
 
 	DrawMap();        // 背景（ブロック）
+
+	for (int i = 0; i < VS_MAX; i++)
+	{
+		DrawGraph(
+			(int)(g_KillTutorialData[i].pos.x - cam.posX),
+			(int)(g_KillTutorialData[i].pos.y - cam.posY),
+			g_KillTutorialData[i].handle,
+			TRUE
+		);
+	}
+
 	DrawPlayer();     // プレイヤー
 	DrawEnemy();      // 敵
 	DrawTimer();      // タイマー
@@ -167,6 +190,16 @@ void DrawTutorialScene()
 
 void FinTutorialScene()
 {
+	for (int i = 0; i < VS_MAX; i++)
+	{
+		if (g_KillTutorialData[i].handle != -1)
+		{
+			DeleteGraph(g_KillTutorialData[i].handle);
+			g_KillTutorialData[i].handle = -1;
+		}
+
+	}
+
 	if (g_TestHandle != -1)
 	{
 		DeleteGraph(g_TestHandle);

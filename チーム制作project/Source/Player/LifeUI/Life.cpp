@@ -82,7 +82,7 @@ void DrawLife()
     DrawFormatStringToHandle(
         LIFE_POS_X + 80,
         LIFE_POS_Y + 20,
-        GetColor(255, 255, 255),
+        GetColor(0, 0, 0),
         g_LifeFontHandle,
         "X%d",
         life

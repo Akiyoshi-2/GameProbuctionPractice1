@@ -27,7 +27,7 @@ void DrawScore()
     DrawFormatStringToHandle(
         SCORE_POS_X,
         SCORE_POS_Y,
-        GetColor(255, 255, 255),
+        GetColor(0, 0, 0),
         g_FontHandle,
         "SCORE : %d",
         g_Score

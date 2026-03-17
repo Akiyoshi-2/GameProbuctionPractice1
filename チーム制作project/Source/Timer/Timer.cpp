@@ -90,7 +90,7 @@ void DrawTimer()
         posX,
         posY,
         timeText,
-        GetColor(255, 255, 255),
+        GetColor(0, 0, 0),
         g_FontHandle
     );
 }

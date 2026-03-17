@@ -503,13 +503,13 @@ void UpdatePlayer()
 void DrawPlayer()
 {
 	// デバッグ：プレイヤー座標表示
-	/*DrawFormatString(
+	DrawFormatString(
 		0, 20,
-		GetColor(255, 255, 255),
+		GetColor(0, 0, 0),
 		"プレイヤーの座標＝[%f, %f]",
 		g_PlayerData.pos.x,
 		g_PlayerData.pos.y
-	);*/
+	);
 
 	CameraData camera = GetCamera();
 

@@ -132,8 +132,8 @@ void DrawPlayScene()
 	if (g_Stage1Handle != -1)
 	{
 		DrawGraph(
-			(int)-cam.posX,       // ƒJƒƒ‰‚É‡‚í‚¹‚Ä•`‰æ
-			(int)-cam.posY,
+			0,
+			0,
 			g_Stage1Handle,
 			TRUE
 		);
