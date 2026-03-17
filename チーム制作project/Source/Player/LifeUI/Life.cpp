@@ -12,8 +12,8 @@ static int g_Life = 3;
 static int g_LifeFontHandle = -1;
 
 // 表示位置
-#define LIFE_POS_X 20
-#define LIFE_POS_Y 20
+#define LIFE_POS_X (0)
+#define LIFE_POS_Y (0)
 
 void InitLife()
 {
@@ -58,8 +58,18 @@ void DrawLife()
         handle = YellowLifeHandle;
     }
 
-    // 画像描画
-    DrawGraph(LIFE_POS_X, LIFE_POS_Y, handle, TRUE);
+    // サイズ指定
+    int size = 1; //倍率
+
+    // 画像描画（拡大）
+    DrawExtendGraph(
+        LIFE_POS_X,
+        LIFE_POS_Y,
+        LIFE_POS_X + 80 * size,
+        LIFE_POS_Y + 80 * size,
+        handle,
+        TRUE
+    );
 
     // ライフ表示
     int life = player->life;
@@ -70,8 +80,8 @@ void DrawLife()
     }
 
     DrawFormatStringToHandle(
-        LIFE_POS_X + 50,
-        LIFE_POS_Y + 10,
+        LIFE_POS_X + 80,
+        LIFE_POS_Y + 20,
         GetColor(255, 255, 255),
         g_LifeFontHandle,
         "X%d",

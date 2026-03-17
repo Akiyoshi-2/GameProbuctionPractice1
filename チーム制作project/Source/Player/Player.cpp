@@ -513,14 +513,15 @@ void UpdatePlayer()
 void DrawPlayer()
 {
 	// デバッグ：プレイヤー座標表示
-	CameraData camera = GetCamera();
-	DrawFormatString(
+	/*DrawFormatString(
 		0, 20,
 		GetColor(255, 255, 255),
 		"プレイヤーの座標＝[%f, %f]",
 		g_PlayerData.pos.x,
 		g_PlayerData.pos.y
-	);
+	);*/
+
+	CameraData camera = GetCamera();
 
 	// 現在のアニメーション取得
 	PlayerAnimationType animType = g_PlayerData.playerAnim;

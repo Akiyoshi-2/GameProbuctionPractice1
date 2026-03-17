@@ -92,13 +92,13 @@ void UpdateCamera()
 
 void DrawCamera()
 {
-	DrawFormatString(
+	/*DrawFormatString(
 		0, 0,
 		GetColor(255, 255, 255),
 		"Camera = [%.2f, %.2f]",
 		g_CameraData.posX,
 		g_CameraData.posY
-	);
+	);*/
 }
 
 void SetCameraStage(int stage)

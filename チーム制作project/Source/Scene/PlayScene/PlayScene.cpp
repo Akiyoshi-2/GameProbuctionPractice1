@@ -149,12 +149,12 @@ void DrawPlayScene()
 	DrawYellowSelect();
 
 	// デバッグ表示
-	DrawCamera();
+	/*DrawCamera();
 	DrawAttack();
 	DrawString(0, 40, "A:ジャンプ", GetColor(255, 255, 255));
 	DrawString(0, 60, "B:攻撃", GetColor(255, 255, 255));
 	DrawString(0, 80, "X:カラーチェンジ", GetColor(255, 255, 255));
-	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));
+	DrawString(0, 100, "RB:メニューに戻る", GetColor(255, 255, 255));*/
 
 	DrawEffect();
 }
