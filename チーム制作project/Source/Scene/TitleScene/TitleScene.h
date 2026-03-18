@@ -38,3 +38,5 @@ extern bool g_ReturnFromGame;
 extern int g_DecidedStage;
 
 extern bool g_IsTutorialMode;
+
+extern int g_UnlockedStage;

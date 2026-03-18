@@ -64,7 +64,7 @@ void StartPlayScene(int stage)
 	}
 	else
 	{
-		GetPlayer()->life = 3;
+		GetPlayer()->life = 5;
 		SetScore(0);
 		SetYellowStock(0);
 	}

@@ -242,7 +242,7 @@ void StepTitleScene()
         {
             if (!g_ReturnFromGame && !g_IsTutorialMode)
             {
-                SaveGameData(3, 0, 0);
+                SaveGameData(5, 0, 0);
             }
 
             g_IsDecided = true;

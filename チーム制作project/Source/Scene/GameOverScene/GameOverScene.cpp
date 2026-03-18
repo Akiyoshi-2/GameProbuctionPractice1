@@ -32,12 +32,12 @@ void LoadGameOver()
 
 void StartGameOver()
 {
-    SetLife(3);
+    SetLife(5);
 
     PlayerData* player = GetPlayer();
     if (player != nullptr)
     {
-        player->life = 3;
+        player->life = 5;
     }
 
     PlaySoundMem(g_GameOverSEHandle, DX_PLAYTYPE_LOOP);
@@ -47,8 +47,10 @@ void StepGameOver()
 {
     if (IsTriggerKey(KEY_R))
     {
+        g_UnlockedStage = 1;
+
         // 黄色ストックを0にしてセーブ
-        SaveGameData(3, GetScore(), 0);
+        SaveGameData(5, GetScore(), 0);
 
         // タイトルへ戻る
         g_ReturnFromGame = true;

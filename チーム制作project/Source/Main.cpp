@@ -3,6 +3,7 @@
 #include "Input/Input.h"
 #include "Scene/SceneManager.h"
 #include "Sound/SoundManager.h"
+#include "FPS/FPS.h"
 
 
 // プログラムは WinMain から始まります
@@ -60,6 +61,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 画像フリップ
 		ScreenFlip();
+
+		WaitFPS();
 	}
 
 	// 入力システムの終了

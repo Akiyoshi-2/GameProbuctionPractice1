@@ -118,7 +118,7 @@ void StepTutorialScene(int stage)
 		PlayerData* player = GetPlayer();
 		if (player != nullptr)
 		{
-			player->life = 3;  // 通常ライフに戻す
+			player->life = 5;  // 通常ライフに戻す
 		}
 
 		g_ReturnFromGame = true;

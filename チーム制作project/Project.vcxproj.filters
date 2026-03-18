@@ -103,6 +103,9 @@
     <ClCompile Include="Source\Player\YellowStock\YellowStock.cpp">
       <Filter>Source\Player\YellowStock</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FPS\FPS.cpp">
+      <Filter>Source\FPS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Akiyosi\Akiyosi.h">
@@ -213,6 +216,9 @@
     <ClInclude Include="Source\Player\YellowStock\YellowStock.h">
       <Filter>Source\Player\YellowStock</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FPS\FPS.h">
+      <Filter>Source\FPS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -310,6 +316,9 @@
     </Filter>
     <Filter Include="Source\Player\YellowStock">
       <UniqueIdentifier>{2d24af85-0a38-4ef8-84c9-62af8bce63c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FPS">
+      <UniqueIdentifier>{24349bce-dd67-45d2-a543-94cd825b4d73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

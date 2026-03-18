@@ -1,3 +1,4 @@
+#include "DxLib.h"
 #include "Timer.h"
 #include "../GameSetting/GameSetting.h"
 #include "../Scene/SceneManager.h"
@@ -8,11 +9,18 @@
 #include "../Player/YellowSelect/YellowSelect.h"
 #include "../Player/YellowStock/YellowStock.h"
 
+// フォント
 int g_FontHandle = -1;
+
+// 制限時間用
 int g_StartTime = 0;
 int g_CurrentStage = 0;
 int g_LimitTime = 180;
 int g_RemainTime = 180;
+
+// クリアタイム用
+int g_PlayStartTime = 0;
+int g_ClearTime = 0;
 
 void SetTimerStage(int stage)
 {
@@ -32,8 +40,12 @@ void InitTimer()
 {
     g_FontHandle = CreateFontToHandle("Agency FB", 64, 3);
 
+    // 制限時間
     g_StartTime = GetNowCount();
     g_RemainTime = g_LimitTime;
+
+    // クリアタイム用
+    g_PlayStartTime = GetNowCount();
 }
 
 void StepTimer()
@@ -45,11 +57,10 @@ void UpdateTimer()
 {
     if (g_IsYellowSelecting) return;
 
-    //現在の経過時間
+    // 制限時間計算
     int now = GetNowCount();
     int elapsed = (now - g_StartTime) / 1000;
 
-    //スタート時間から経過時間を引く
     g_RemainTime = g_LimitTime - elapsed;
 
     if (g_RemainTime <= 0)
@@ -60,7 +71,7 @@ void UpdateTimer()
         PlayerData* player = GetPlayer();
 
         // ライフとスコア初期化
-        player->life = 3;
+        player->life = 5;
         SetScore(0);
 
         // セーブデータ更新
@@ -95,10 +106,26 @@ void DrawTimer()
     );
 }
 
+// 制限時間リセット（死亡時など）
 void ResetTimer()
 {
     g_StartTime = GetNowCount();
     g_RemainTime = g_LimitTime;
+
+}
+
+//ここからクリアタイム関連
+// クリア時に呼ぶ
+void SaveClearTime()
+{
+    int now = GetNowCount();
+    g_ClearTime = (now - g_PlayStartTime) / 1000;
+}
+
+// クリアタイム取得
+int GetClearTime()
+{
+    return g_ClearTime;
 }
 
 int GetRemainTime()

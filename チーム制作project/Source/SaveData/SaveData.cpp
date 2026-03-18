@@ -26,7 +26,7 @@ void LoadGameData(int& life, int& score, int& yellow)
 
     if (fp == NULL)
     {
-        life = 3;
+        life = 5;
         score = 0;
         yellow = 0;
         return;
@@ -34,7 +34,7 @@ void LoadGameData(int& life, int& score, int& yellow)
 
     if (fscanf_s(fp, "Life:%d\nScore:%d\nYellow:%d", &life, &score, &yellow) != 3)
     {
-        life = 3;
+        life = 5;
         score = 0;
         yellow = 0;
     }

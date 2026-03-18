@@ -151,6 +151,7 @@
     <ClCompile Include="Source\Enemy\NormalEnemy\NormalEnemy.cpp" />
     <ClCompile Include="Source\Enemy\ShieldEnemy\ShieldEnemy.cpp" />
     <ClCompile Include="Source\Enemy\YellowEnemy\YellowEnemy.cpp" />
+    <ClCompile Include="Source\FPS\FPS.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Map\Block.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Source\Enemy\NormalEnemy\NormalEnemy.h" />
     <ClInclude Include="Source\Enemy\ShieldEnemy\ShieldEnemy.h" />
     <ClInclude Include="Source\Enemy\YellowEnemy\YellowEnemy.h" />
+    <ClInclude Include="Source\FPS\FPS.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Map\Block.h" />

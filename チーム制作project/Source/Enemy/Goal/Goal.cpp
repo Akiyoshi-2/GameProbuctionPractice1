@@ -9,6 +9,7 @@
 #include "../../SaveData/SaveData.h"
 #include "../../Scene/TitleScene/TitleScene.h"
 #include "../../Player/YellowStock/YellowStock.h"
+#include "../../Timer/Timer.h"
 
 extern int g_UnlockedStage;
 
@@ -123,6 +124,8 @@ GoalData* GetGoal()
 void PlayerHitGoal()
 {
 	PlayerData* player = GetPlayer();
+
+	SaveClearTime();
 
 	// ステージ解放処理
 	if (g_DecidedStage == 1)
