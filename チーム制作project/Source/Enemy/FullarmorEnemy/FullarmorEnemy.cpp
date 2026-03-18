@@ -63,6 +63,7 @@ void InitFullArmorEnemy()
 		// 状態
 		fullArmor->active = false;
 		fullArmor->die = false;
+		fullArmor->isTurn = false;
 		// タイマー
 		fullArmor->dieTimer = 0;
 		// 再生中アニメーション

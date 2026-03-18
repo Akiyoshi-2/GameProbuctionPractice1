@@ -72,6 +72,7 @@ void InitNormalEnemy()
 		normalEnemy->crush = false;		//“¥‚Ý‚Â‚¯‚ç‚ê‚ÄŽ€–S’†‚©
 		normalEnemy->strike = false;	//UŒ‚‚³‚ê‚ÄŽ€–S’†‚©
 		normalEnemy->die = false;
+		normalEnemy->isTurn = false;
 
 		// ƒ^ƒCƒ}[
 		normalEnemy->crushTimer = 0;

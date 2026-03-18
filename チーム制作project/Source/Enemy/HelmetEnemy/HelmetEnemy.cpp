@@ -66,6 +66,7 @@ void InitHelmetEnemy()
 		helmet->active = false;
 		helmet->isDead = false;
 		helmet->strike = false;
+		helmet->isTurn = false;
 
 		helmet->strikeTimer = 0;
 		helmet->dieTimer = 0;

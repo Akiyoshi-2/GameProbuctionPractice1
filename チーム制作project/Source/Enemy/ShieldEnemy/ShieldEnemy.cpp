@@ -65,6 +65,7 @@ void InitShieldEnemy()
 		shieldEnemy->active = false;
 		shieldEnemy->crush = false;
 		shieldEnemy->die = false;
+		shieldEnemy->isTurn = false;
 
 		shieldEnemy->crushTimer = 0;
 		shieldEnemy->dieTimer = 0;

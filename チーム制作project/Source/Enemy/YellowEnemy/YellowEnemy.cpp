@@ -83,6 +83,7 @@ void InitYellowEnemy()
 		yellow->crush = false;
 		yellow->strike = false;
 		yellow->die = false;
+		yellow->isTurn = false;
 
 		// タイマー
 		yellow->stunTimer = 0;
