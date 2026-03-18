@@ -3,6 +3,7 @@
 #include "../SceneManager.h"
 #include "../../Timer/Timer.h"
 #include "../../Player/Player.h"
+#include "../../Sound/SoundManager.h"
 
 // ‰æ‘œ
 int g_BackHandle = -1;
@@ -72,6 +73,8 @@ void StartClearAnimation(GameClearAnimationType anim)
         param.height,
         true
     );
+
+    PlayBGM(BGM_ALL_CLEAR);
 }
 
 void StartGameClear()
@@ -164,4 +167,6 @@ void FinGameClear()
     }
 
     DeleteFontToHandle(g_ClearFontHandle);
+
+    StopBGM(BGM_ALL_CLEAR);
 }

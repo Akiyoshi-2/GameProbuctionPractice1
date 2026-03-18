@@ -13,6 +13,7 @@ void LoadBGM()
 	g_BGMHandle[BGM_STAGE_3] = LoadSoundMem("Data/Sound/BGM/Stage3.mp3");
 	g_BGMHandle[BGM_GAME_CLEAR] = LoadSoundMem("Data/Sound/BGM/GameClear.mp3");
 	g_BGMHandle[BGM_GAME_OVER] = LoadSoundMem("Data/Sound/BGM/GameOver.mp3");
+	g_BGMHandle[BGM_ALL_CLEAR] = LoadSoundMem("Data/Sound/BGM/AllClear.mp3");
 
 }
 

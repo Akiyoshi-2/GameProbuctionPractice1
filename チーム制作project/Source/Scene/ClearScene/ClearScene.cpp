@@ -69,6 +69,8 @@ void StartClearScene()
     }
 
     g_ClearTimeFontHandle = CreateFontToHandle("Agency FB", 80, 3);
+
+    
 }
 
 void StepClearScene()
