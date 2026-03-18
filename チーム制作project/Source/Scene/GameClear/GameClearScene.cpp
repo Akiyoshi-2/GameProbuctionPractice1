@@ -4,11 +4,14 @@
 #include "../../Timer/Timer.h"
 #include "../../Player/Player.h"
 #include "../../Sound/SoundManager.h"
+#include "../TitleScene/TitleScene.h"
+#include "../../Input/Input.h"
 
 // ‰æ‘œ
 int g_BackHandle = -1;
 
 int g_ClearFontHandle = -1;
+int g_BigFontHandle = -1;
 
 GameClearData g_GameClear;
 
@@ -33,6 +36,8 @@ void InitGameClear()
     g_BackHandle = -1;
 
     g_ClearFontHandle = CreateFontToHandle("Agency FB", 40, 3);
+
+    g_BigFontHandle = CreateFontToHandle("Agency FB", 40, 3);
 
     g_GameClear.clearAnim = CLEAR_ANIM_NONE;
 
@@ -95,6 +100,12 @@ void UpdateGameClear()
     {
         UpdateAnimation(&g_GameClear.animation[i]);
     }
+
+    if (IsTriggerKey(KEY_R))
+    {
+        g_ReturnFromGame = true;
+        ChangeScene(SCENE_TITLE);
+    }
 }
 
 void DrawGameClear()
@@ -154,6 +165,13 @@ void DrawGameClear()
     int death = GetPlayerDeathCount();
     DrawFormatStringToHandle(1100, 300, GetColor(255, 100, 100),font,
         "DEATH : %d", death
+    );
+
+    DrawStringToHandle(
+        800, 700,
+        "Press R to Title",
+        GetColor(255, 255, 255),
+        g_BigFontHandle
     );
 }
 
