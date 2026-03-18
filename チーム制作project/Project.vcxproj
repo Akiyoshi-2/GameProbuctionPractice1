@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Player\YellowStock\YellowStock.cpp" />
     <ClCompile Include="Source\SaveData\SaveData.cpp" />
     <ClCompile Include="Source\Scene\ClearScene\ClearScene.cpp" />
+    <ClCompile Include="Source\Scene\GameClear\GameClearScene.cpp" />
     <ClCompile Include="Source\Scene\GameOverScene\GameOverScene.cpp" />
     <ClCompile Include="Source\Scene\PlayScene\PlayScene.cpp" />
     <ClCompile Include="Source\Scene\SceneManager.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Source\Player\YellowStock\YellowStock.h" />
     <ClInclude Include="Source\SaveData\SaveData.h" />
     <ClInclude Include="Source\Scene\ClearScene\ClearScene.h" />
+    <ClInclude Include="Source\Scene\GameClear\GameClearScene.h" />
     <ClInclude Include="Source\Scene\GameOverScene\GameOverScene.h" />
     <ClInclude Include="Source\Scene\PlayScene\PlayScene.h" />
     <ClInclude Include="Source\Scene\SceneManager.h" />

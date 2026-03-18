@@ -69,6 +69,8 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 // ジャンプSEハンドル
 int JumpSEHandle = -1;
 
+int g_PlayerDeathCount = 0;
+
 // 現在のプレイヤー状態
 PlayerData g_PlayerData = { 0 };
 
@@ -137,6 +139,8 @@ void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
 
 void InitPlayer()
 {
+	g_PlayerDeathCount = 0;
+
 	// 座標
 	g_PlayerData.pos.x = 0.0f;
 	g_PlayerData.pos.y = 0.0f;
@@ -242,9 +246,13 @@ void StartPlayer(int stage)
 		g_PlayerData.pos.y = 6455.0f;
 		break;
 
-	case 3:
+	/*case 3:
 		g_PlayerData.pos.x = 150.0f;
 		g_PlayerData.pos.y = 305.0f;
+		break;*/
+	case 3:
+		g_PlayerData.pos.x = 13600.0f;
+		g_PlayerData.pos.y = 1150.0f;
 		break;
 	}
 
@@ -901,6 +909,8 @@ void PlayerDie()
 	// 二重死亡防止
 	if (g_PlayerData.isDead) return;
 
+	g_PlayerDeathCount++;
+
 	// スコア減少
 	AddScore(-200);
 
@@ -938,4 +948,9 @@ void PlayerDie()
 		StartPlayerAnimation(RED_PLAYER_ANIM_DIE);
 	else if (g_PlayerData.type == TYPE_BLUE)
 		StartPlayerAnimation(BLUE_PLAYER_ANIM_DIE);
+}
+
+int GetPlayerDeathCount()
+{
+	return g_PlayerDeathCount;
 }

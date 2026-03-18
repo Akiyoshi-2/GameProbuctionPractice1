@@ -8,10 +8,9 @@ enum Scene
 	SCENE_STAGE_1,	//ステージ1
 	SCENE_STAGE_2,	//ステージ2
 	SCENE_STAGE_3,	//ステージ3
-	SCENE_CLEAR,
-	SCENE_GAMEOVER,
-	TEST_SCENE_A,	//テスト
-
+	SCENE_CLEAR,	//ステージクリア
+	SCENE_GAMEOVER,	//ゲームオーバー
+	SCENE_GAMECLEAR,	//ゲームクリア
 };
 
 // シーンの状態

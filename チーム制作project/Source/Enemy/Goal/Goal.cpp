@@ -125,7 +125,8 @@ void PlayerHitGoal()
 {
 	PlayerData* player = GetPlayer();
 
-	SaveClearTime();
+	//クリア時間保存
+	SaveClearTime(GetCurrentStage());
 
 	// ステージ解放処理
 	if (g_DecidedStage == 1)
@@ -144,12 +145,19 @@ void PlayerHitGoal()
 	}
 
 	// セーブ
-	if (g_DecidedStage != 0) // チュートリアル以外
+	if (g_DecidedStage != 0)
 	{
 		SaveGameData(player->life, GetScore(), GetYellowStock());
 	}
 
-	ChangeScene(SCENE_CLEAR);
+	if (g_DecidedStage == 3)
+	{
+		ChangeScene(SCENE_GAMECLEAR);
+	}
+	else
+	{
+		ChangeScene(SCENE_CLEAR);
+	}
 }
 
 void CreateGoal(float posX, float posY, const EnemyParameter* param)

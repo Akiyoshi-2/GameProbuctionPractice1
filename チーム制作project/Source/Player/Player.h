@@ -102,3 +102,6 @@ void PlayerHitThornBlockY(MapChipData mapChipData);
 
 void PlayerHitEnemy();
 void PlayerDie();
+
+int GetPlayerDeathCount();
+void ResetPlayerDeathCount();

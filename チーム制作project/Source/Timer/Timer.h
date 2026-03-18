@@ -1,7 +1,5 @@
 #pragma once
-#include "DxLib.h"
 
-// タイマー（制限時間）
 void InitTimer();
 void StepTimer();
 void UpdateTimer();
@@ -10,11 +8,12 @@ void ResetTimer();
 
 void SetTimerStage(int stage);
 
-int GetLimitTime();
-int GetRemainTime();
+void SaveClearTime(int stage);
 
-// クリアタイム保存（ゴール時に呼ぶ）
-void SaveClearTime();
-
-// クリアタイム取得（ClearSceneで使う）
 int GetClearTime();
+int GetStageClearTime(int stage);
+
+int GetRemainTime();
+int GetLimitTime();
+
+int GetCurrentStage();

@@ -54,7 +54,8 @@ void StartClearScene()
 {
     PlaySoundMem(g_GameClearSEHandle, DX_PLAYTYPE_BACK);
 
-    // ★ここでクリアタイムを取得（固定する）
+    SaveClearTime(GetCurrentStage());
+
     g_DisplayClearTime = GetClearTime();
 
     if (!g_IsTutorialMode)
