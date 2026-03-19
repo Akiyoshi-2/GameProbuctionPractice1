@@ -246,14 +246,14 @@ void StartPlayer(int stage)
 		g_PlayerData.pos.y = 6455.0f;
 		break;
 
-	case 3:
+	/*case 3:
 		g_PlayerData.pos.x = 150.0f;
 		g_PlayerData.pos.y = 305.0f;
-		break;
-	/*case 3:
+		break;*/
+	case 3:
 		g_PlayerData.pos.x = 13600.0f;
 		g_PlayerData.pos.y = 1150.0f;
-		break;*/
+		break;
 	}
 
 	// 移動状態リセット
