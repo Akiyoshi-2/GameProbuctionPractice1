@@ -1,3 +1,3 @@
-Life:3
-Score:1100
+Life:5
+Score:0
 Yellow:0
