@@ -36,6 +36,8 @@ int g_SEHandle = -1;
 int g_MoveSEHandle = -1;
 int g_BGMHandle = -1;
 
+int g_PressFontHandle = -1;
+
 //点滅関係
 //AnyKey専用
 int  g_BlinkTimer = 0;		//点滅用タイマー
@@ -157,6 +159,8 @@ void InitTitleScene()
     {
         g_SelectCursor = SELECT_STAGE1;
     }
+
+    g_PressFontHandle = CreateFontToHandle("Agency FB", 40, 3);
 }
 
 void LoadTitleScene()
@@ -517,6 +521,10 @@ void DrawTitleScene()
 
     if (g_IsShowMenu)
     {
+        DrawStringToHandle(700, 780, "Press F to Select",
+            GetColor(255, 255, 255), g_PressFontHandle
+        );
+
         DrawGraph(
             (int)g_TitleUIData[MENU_SELECT].pos.x,
             (int)g_TitleUIData[MENU_SELECT].pos.y,
@@ -602,4 +610,6 @@ void FinTitleScene()
     DeleteSoundMem(g_MoveSEHandle);
 
     DeleteSoundMem(g_BGMHandle);
+
+    DeleteFontToHandle(g_PressFontHandle);
 }
